@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from "./component/login/Login";
 import SignUp from "./component/login/SignUp";
 import RegisterHost from "./component/login/RegisterHost";
+import ChangePasswordUser from "./component/changepassword/ChangePasswordUser";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path={'/login'} element={<Login/>}></Route>
       <Route path={'/register/user'} element={<SignUp/>}></Route>
       <Route path={'/register/host'} element={<RegisterHost/>}></Route>
+      <Route path={'/change-password'} element={<ChangePasswordUser/>}></Route>
     </Routes>
   );
 }
