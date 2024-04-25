@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Header.css';
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
-    return(
+    const [navList, setNavList] = useState(false)
+    const isLogin = localStorage.getItem("isLogin");
+    const nameAccount = localStorage.getItem("nameAccount");
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.setItem("isLogin", false);
+        localStorage.clear();
+        // Sau khi đăng xuất, chuyển hướng về trang đăng nhập
+        navigate("/login");
+    }
+
+    return (
         <div>
             <header>
                 <nav className="navbar navbar-expand-lg bg-body">
@@ -33,7 +46,20 @@ function Header() {
                                 </li>
                             </ul>
                         </div>
-
+                        <div className="d-flex align-items-center">
+                            {isLogin ? (
+                                <div>
+                                    <span className="me-2">{nameAccount}</span>
+                                    <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                                </div>
+                            ) : (
+                                <>
+                                    <Link to="/login" className="btn btn-outline-primary me-2">Đăng nhập</Link>
+                                    <Link to="/register/user" className="btn btn-outline-success">Đăng Kí thuê nhà </Link>
+                                    <Link to="/register/host" className="btn btn-outline-success">Đăng kí làm chủ nhà</Link>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </nav>
             </header>
