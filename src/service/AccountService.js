@@ -31,3 +31,18 @@ export async function register1(host) {
         console.log(e);
     }
 }
+export async function checkUserNameAccount(userName) {
+    try {
+        const token = localStorage.getItem("authToken")
+        const result = await axios.get("http://localhost:8080/account/checkUserName", {
+            params: {
+                userName: userName
+            }, headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return result.data;
+    } catch (e) {
+        console.log(e);
+    }
+}
