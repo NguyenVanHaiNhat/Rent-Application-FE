@@ -11,7 +11,7 @@ const validation = Yup.object({
     checkNewPassword: Yup.string().required("Required").oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
 })
 
-export default function ChangePasswordUser() {
+export default function ChangePassword() {
     const [errorMessage, setErrorMessage] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
