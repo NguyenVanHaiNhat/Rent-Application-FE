@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { checkUserNameAccount, register } from "../../service/AccountService";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {checkUserNameAccount, register} from "../../service/AccountService";
+import {useNavigate} from "react-router-dom";
 import Header from "../Home/Header";
 
 const Register = () => {
@@ -15,16 +15,12 @@ const Register = () => {
     }, []);
 
     const registerUser = async (values) => {
-        // Kiểm tra tên người dùng đã tồn tại trong cơ sở dữ liệu hay chưa
+        console.log(values)
         const checkNameAccount = await checkUserNameAccount(values.username);
-
         if (checkNameAccount.length !== 0) {
-            // Nếu tên người dùng đã tồn tại, hiển thị thông báo tương ứng
             setNotification("Tên người dùng đã tồn tại!");
         } else {
-            // Nếu tên người dùng chưa tồn tại, thực hiện đăng ký
             await register(values);
-            // Hiển thị thông báo đăng ký thành công và chuyển hướng về trang đăng nhập sau 3 giây
             setNotification("Đăng ký thành công!");
             setTimeout(() => {
                 navigate("/login");
@@ -53,7 +49,7 @@ const Register = () => {
                                 alert("Mật khẩu và mật khẩu xác nhận không khớp");
                                 return;
                             }
-                            registerUser(values); // Gọi hàm kiểm tra và đăng ký
+                            registerUser(values).then(); // Gọi hàm kiểm tra và đăng ký
                         }}
                     >
                         {({ errors, touched }) => (
