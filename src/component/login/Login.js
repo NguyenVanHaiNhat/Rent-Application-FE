@@ -19,17 +19,17 @@ export default function Login() {
 
     const handleLogin = async (values) => {
         try {
-            if (values.email === "" || values.password === "") {
+            if (values.username === "" || values.password === "") {
                 setError("Tên đăng nhập và mật khẩu không được để trống!");
                 return;
-            }
-
-            const params = {
-                nameAccount: values.email,
-                password: values.password
             };
 
-            const req = await loginAccount(params);
+            // const params = {
+            //     us: values.username,
+            //     password: values.password
+            // };
+
+            const req = await loginAccount(values);
             localStorage.setItem('authToken', req.token);
             localStorage.setItem('idAccount', req.dataRes.id);
             localStorage.setItem("isLogin", true);
@@ -54,7 +54,7 @@ export default function Login() {
                     <h2>Đăng nhập</h2>
                     <Formik
                         initialValues={{
-                            email: "",
+                            username: "",
                             password: ""
                         }}
                         onSubmit={values => {
@@ -65,9 +65,9 @@ export default function Login() {
                             <Form>
                                 <div className="form-group">
                                     <label htmlFor="email">Tên đăng nhập:</label>
-                                    <Field name="email" type="text"
-                                           className={`form-control ${errors.email && touched.email ? 'is-invalid' : ''}`}/>
-                                    <ErrorMessage name="email" component="div" className="invalid-feedback"/>
+                                    <Field name="username" type="text"
+                                           className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`}/>
+                                    <ErrorMessage name="username" component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Mật khẩu:</label>
