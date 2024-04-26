@@ -34,10 +34,8 @@ export async function register1(host) {
 export async function checkUserNameAccount(userName) {
     try {
         const token = localStorage.getItem("authToken")
-        const result = await axios.get("http://localhost:8080/account/checkUserName", {
-            params: {
-                userName: userName
-            }, headers: {
+        const result = await axios.get(`http://localhost:8080/account/checkUserName?userName=${userName}`, {
+             headers: {
                 Authorization: `Bearer ${token}`
             }
         })

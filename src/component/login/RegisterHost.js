@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { checkUserNameAccount, register1 } from "../../service/AccountService";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import {checkUserNameAccount, register1} from "../../service/AccountService";
+import {useNavigate} from "react-router-dom";
 import Header from "../Home/Header";
 
 const RegisterHost = () => {
     const navigate = useNavigate();
-    const [notification, setNotification] = useState(""); // State để hiển thị thông báo nếu tên người dùng đã tồn tại
+    const [notification, setNotification] = useState("");
+    // State để hiển thị thông báo nếu tên người dùng đã tồn tại
 
     useEffect(() => {
         const isLogin = localStorage.getItem("isLogin");
@@ -54,7 +55,7 @@ const RegisterHost = () => {
                                 alert("Mật khẩu và mật khẩu xác nhận không khớp");
                                 return;
                             }
-                            registerHost(values); // Gọi hàm kiểm tra và đăng ký
+                            registerHost(values).then() // Gọi hàm kiểm tra và đăng ký
                         }}
                     >
                         {({ errors, touched }) => (
