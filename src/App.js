@@ -8,8 +8,10 @@ import RegisterHost from "./component/login/RegisterHost";
 import Host from "./component/host/Host";
 import HostDetail from "./component/host/HostDetail";
 import ListHouse from "./component/host/ListHouse";
-import UpdateHouse from "./component/house/UpdateHouse";
 import Update from "./component/house/Update";
+import ChangePassword from "./component/changepassword/ChangePassword";
+import BookingForm from "./component/booking/BookingForm";
+
 
 function App() {
     return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/detail/:id" element={<HostDetail/>}></Route>
             <Route path="/owner/:id" element={<ListHouse/>}></Route>
             <Route path="/house/:id" element={<Update/>}></Route>
+            <Route path="/change-password" element={<ChangePassword/>}></Route>
+            <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
         </Routes>
 
     );

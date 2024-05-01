@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {loginAccount} from "../../service/AccountService";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { loginAccount } from "../../service/AccountService";
+import { useNavigate } from "react-router-dom";
 import Header from "../Home/Header";
 
 export default function Login() {
@@ -31,11 +31,8 @@ export default function Login() {
             });
             localStorage.setItem("isLogin", true);
             localStorage.setItem('authToken', response.token);
-
             setSuccessMessage("Đăng nhập thành công!");
             navigate("/");
-
-
         } catch (err) {
             setError("Tên đăng nhập hoặc mật khẩu không chính xác!");
         }
@@ -44,7 +41,7 @@ export default function Login() {
     return (
         <>
             <div>
-                <Header/>
+                <Header />
             </div>
             <section className="login-section">
                 <div className="login-container">
@@ -58,21 +55,22 @@ export default function Login() {
                             handleLogin(values);
                         }}
                     >
-                        {({errors, touched}) => (
+                        {({ errors, touched }) => (
                             <Form>
                                 <div className="form-group">
-                                    <label htmlFor="username">Tên đăng nhập:</label>
+                                    <label htmlFor="email">Tên đăng nhập:</label>
                                     <Field name="username" type="text"
-                                           className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`}/>
-                                    <ErrorMessage name="email" component="div" className="invalid-feedback"/>
+                                           className={`form-control ${errors.username && touched.username ? 'is-invalid' : ''}`} />
+                                    <ErrorMessage name="username" component="div" className="invalid-feedback" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Mật khẩu:</label>
                                     <Field name="password" type="password"
-                                           className={`form-control ${errors.password && touched.password ? 'is-invalid' : ''}`}/>
-                                    <ErrorMessage name="password" component="div" className="invalid-feedback"/>
+                                           className={`form-control ${errors.password && touched.password ? 'is-invalid' : ''}`} />
+                                    <ErrorMessage name="password" component="div" className="invalid-feedback" />
                                 </div>
                                 {error && <div className="error-message">{error}</div>}
+                                {successMessage && <div className="success-message">{successMessage}</div>} {/* Hiển thị thông báo thành công */}
                                 <button type="submit" className="btn btn-primary">Xác nhận đăng nhập</button>
                             </Form>
                         )}
@@ -82,3 +80,4 @@ export default function Login() {
         </>
     );
 }
+

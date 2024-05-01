@@ -1,14 +1,7 @@
 import axios from "axios";
-
 export async function loginAccount(credentials) {  // Thay đổi tham số thành credentials
-    const token = localStorage.getItem("authToken")
     try {
-        return (await axios.post(`http://localhost:8080/account/login`, credentials,{
-            headers: {
-
-                Authorization: `Bearer ${token}`
-            }
-        })).data;
+        return (await axios.post(`http://localhost:8080/account/login`, credentials)).data;
     } catch (error) {
         throw error.response;
     }
