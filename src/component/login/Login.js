@@ -30,6 +30,7 @@ export default function Login() {
                 password: values.password
             });
             localStorage.setItem("isLogin", true);
+            localStorage.setItem('authToken', response.token);
             setSuccessMessage("Đăng nhập thành công!");
             navigate("/");
         } catch (err) {

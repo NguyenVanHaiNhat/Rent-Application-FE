@@ -7,7 +7,12 @@ axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 export const findAllHost = async () => {
 
     try {
-        const res = await axios.get("http://localhost:8080/api/host/dto");
+        const res = await axios.get("http://localhost:8080/api/host/dto",{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        },
+            );
         return res.data;
     } catch (error) {
         console.error("Error fetching hosts:", error);
