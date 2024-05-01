@@ -1,27 +1,31 @@
-
-import React, { useState, useEffect } from 'react';
-import analytics from "./firebaseConfig";
-import {  ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import React, {useState, useEffect} from 'react';
+import storage from "../../firebase/FirebaseConfig";
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import {useParams} from "react-router-dom";
 import {editHouse, findHouseDetailById} from "../../service/HouseService";
 
 
-const UpdateHouseInfo = ({ houseId }) => {
+
+
+const UpdateHouse = () => {
     const [houseInfo, setHouseInfo] = useState({
         name_house: '',
         address: '',
         num_of_bedrooms: '',
         num_of_bathrooms: '',
+        description: '',
         price_of_day: '',
         image: null
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [errors, setErrors] = useState({});
+     const [errors, setErrors] = useState({});
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchHouseInfo = async () => {
             try {
-                const fetchedHouseInfo = await findHouseDetailById(houseId);
+                const fetchedHouseInfo = await findHouseDetailById(id);
                 setHouseInfo(fetchedHouseInfo);
                 setImagePreview(fetchedHouseInfo.image);
             } catch (error) {
@@ -29,13 +33,13 @@ const UpdateHouseInfo = ({ houseId }) => {
             }
         };
 
-        if (houseId) {
+        if (id) {
             fetchHouseInfo();
         }
-    }, [houseId]);
+    }, [id]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setHouseInfo({
             ...houseInfo,
             [name]: value
@@ -63,7 +67,7 @@ const UpdateHouseInfo = ({ houseId }) => {
                 return;
             }
             setUploading(true);
-            const imageRef = ref(analytics, `house_images/${houseId}`);
+            const imageRef = ref(storage, `house_images/${id}`);
             await uploadBytes(imageRef, houseInfo.image);
             const imageUrl = await getDownloadURL(imageRef);
             setHouseInfo({
@@ -84,6 +88,7 @@ const UpdateHouseInfo = ({ houseId }) => {
             return;
         }
         try {
+
             await editHouse(houseInfo);
             console.log('Thông tin căn nhà đã được cập nhật thành công!');
         } catch (error) {
@@ -99,11 +104,14 @@ const UpdateHouseInfo = ({ houseId }) => {
         if (!houseInfo.address.trim()) {
             errors.address = 'Vui lòng nhập địa chỉ.';
         }
-        if (!houseInfo.num_of_bedrooms) {
-            errors.num_of_bedrooms = 'Vui lòng nhập số lượng phòng ngủ.';
+        if (!houseInfo.num_of_bedrooms || houseInfo.num_of_bedrooms < 1 || houseInfo.num_of_bedrooms > 10) {
+            errors.num_of_bedrooms = 'Vui lòng nhập số lượng phòng ngủ 1-10 phòng .';
         }
-        if (!houseInfo.num_of_bathrooms) {
-            errors.num_of_bathrooms = 'Vui lòng nhập số lượng phòng tắm.';
+        if (!houseInfo.num_of_bathrooms || houseInfo.num_of_bathrooms < 1 || houseInfo.num_of_bathrooms > 3) {
+            errors.num_of_bathrooms = 'Vui lòng nhập số lượng phòng tắm 1-3 phòng.';
+        }
+        if (!houseInfo.description) {
+            errors.description = 'Vui lòng nhập mô tả.';
         }
         if (!houseInfo.price_of_day) {
             errors.price_of_day = 'Vui lòng nhập giá tiền theo ngày.';
@@ -113,46 +121,59 @@ const UpdateHouseInfo = ({ houseId }) => {
     };
 
     return (
+
+<div className="container mt-4">
+    <div className="justify-content-center col-md-6">
         <form onSubmit={handleSubmit}>
-            <label>
-                Tên căn nhà:
-                <input type="text" name="name_house" value={houseInfo.name_house} onChange={handleChange} />
+            <div className="mb-3">
+                <label className="form-label">Tên căn nhà</label>
+                <input type="text" className="form-control" name="name_house" value={houseInfo.name_house} onChange={handleChange}/>
                 {errors.name_house && <div className="error">{errors.name_house}</div>}
-            </label>
-            <label>
-                Địa chỉ:
-                <input type="text" name="address" value={houseInfo.address} onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Địa chỉ</label>
+                <input type="text" className="form-control" name="address" value={houseInfo.address} onChange={handleChange}/>
                 {errors.address && <div className="error">{errors.address}</div>}
-            </label>
-            <label>
-                Số lượng phòng ngủ:
-                <input type="number" name="num_of_bedrooms" value={houseInfo.num_of_bedrooms} onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Số lượng phòng ngủ</label>
+                <input type="number" className="form-control" name="num_of_bedrooms" value={houseInfo.num_of_bedrooms} onChange={handleChange}/>
                 {errors.num_of_bedrooms && <div className="error">{errors.num_of_bedrooms}</div>}
-            </label>
-            <label>
-                Số lượng phòng tắm:
-                <input type="number" name="num_of_bathrooms" value={houseInfo.num_of_bathrooms} onChange={handleChange} />
+            </div>
+            <div>
+                <label className="form-label">Số lượng phòng tắm</label>
+                <input type="number" className="form-control" name="num_of_bathrooms" value={houseInfo.num_of_bathrooms}
+                       onChange={handleChange}/>
                 {errors.num_of_bathrooms && <div className="error">{errors.num_of_bathrooms}</div>}
-            </label>
-            <label>
-                Giá tiền theo ngày (VNĐ):
-                <input type="number" name="price_of_day" value={houseInfo.price_of_day} onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Mô tả</label>
+                <input type="text" className="form-control" name="description" value={houseInfo.description} onChange={handleChange}/>
+                {errors.description && <div className="error">{errors.description}</div>}
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Giá tiền theo ngày (VNĐ)</label>
+                <input type="number" className="form-control" name="price_of_day" value={houseInfo.price_of_day} onChange={handleChange}/>
                 {errors.price_of_day && <div className="error">{errors.price_of_day}</div>}
-            </label>
-            <label>
-                Chọn ảnh:
-                <input type="file" accept="image/jpeg, image/png" onChange={handleImageChange} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Hình ảnh</label>
+                <input type="file" accept="image/jpeg, image/png" onChange={handleImageChange}/>
                 {imagePreview && (
-                    <img src={imagePreview} alt="Preview" style={{ maxWidth: '200px', marginTop: '10px' }} />
+                    <img src={imagePreview} alt="Preview" style={{maxWidth: '200px', marginTop: '10px'}}/>
                 )}
-            </label>
-            <button type="button" onClick={handleUpload} disabled={!houseInfo.image || uploading}>
+            </div>
+            <div className="mb-3"><button type="button" onClick={handleUpload} disabled={!houseInfo.image || uploading}>
                 {uploading ? 'Uploading...' : 'Upload Image'}
-            </button>
+            </button></div>
+
             <button type="submit">Cập nhật thông tin</button>
         </form>
+    </div>
+</div>
+
     );
 };
 
-export default UpdateHouseInfo;
+export default UpdateHouse;
 
