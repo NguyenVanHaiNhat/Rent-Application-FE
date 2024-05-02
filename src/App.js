@@ -17,6 +17,8 @@ import UserProfile from "./component/accountInfor/UserProfile";
 import ListHouseRented from "./component/host/ListHouseRented";
 import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
+import {ToastContainer} from "react-toastify";
+import UserProfile from "./component/accountInfor/UserProfile";
 
 
 
