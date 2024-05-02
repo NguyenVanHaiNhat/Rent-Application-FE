@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "date-fns": "^3.6.0",
     "firebase": "^10.11.0",
     "formik": "^2.4.6",
     "moment": "^2.30.1",
