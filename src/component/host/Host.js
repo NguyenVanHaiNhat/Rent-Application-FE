@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import {findAllHost, updateAccountStatus} from "../../service/HostService";
+import Header from "../Home/Header";
 
 
 const Host = () => {
@@ -34,12 +35,11 @@ const Host = () => {
     const currentHosts = host.slice(indexOfFirstHost, indexOfLastHost);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-
-
-
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <h2>List host</h2>
                 <table className="table table-bordered">
