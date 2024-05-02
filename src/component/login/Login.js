@@ -31,6 +31,7 @@ export default function Login() {
             });
             localStorage.setItem("isLogin", true);
             localStorage.setItem('authToken', response.token);
+            localStorage.setItem('nameAccount', response.username)
             setSuccessMessage("Đăng nhập thành công!");
             navigate("/");
         } catch (err) {

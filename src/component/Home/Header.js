@@ -48,10 +48,18 @@ function Header() {
                         </div>
                         <div className="d-flex align-items-center">
                             {isLogin ? (
-                                <div>
-                                    <span className="me-2">{nameAccount}</span>
-                                    <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                                <div class="dropdown">
+                                    <button class="dropbtn">{nameAccount}</button>
+                                    <div class="dropdown-content">
+                                        <a href="#">Link 1</a>
+                                        <a href="#">Link 2</a>
+                                        <a onClick={logout}>Logout</a>
+                                    </div>
                                 </div>
+                                // <div>
+                                //     <span className="me-2">{nameAccount}</span>
+                                //     <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                                // </div>
                             ) : (
                                 <>
                                     <Link to="/login" className="btn btn-outline-primary me-2">Đăng nhập</Link>
