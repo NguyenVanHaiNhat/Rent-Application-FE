@@ -20,7 +20,7 @@ const UpdateHouse = () => {
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
-     const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const {id} = useParams();
 
     useEffect(() => {
