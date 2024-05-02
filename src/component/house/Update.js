@@ -180,4 +180,3 @@ const UpdateHouse = () => {
 };
 
 export default UpdateHouse;
-
