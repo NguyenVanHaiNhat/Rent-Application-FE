@@ -6,8 +6,6 @@ import {editHouse, findHouseDetailById} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 
 
-
-
 const UpdateHouse = () => {
     const [houseInfo, setHouseInfo] = useState({
         name_house: '',
@@ -173,7 +171,6 @@ const UpdateHouse = () => {
                             {uploading ? 'Uploading...' : 'Upload Image'}
                         </button>
                     </div>
-
                     <button type="submit">Cập nhật thông tin</button>
                 </form>
                 <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book</Button></Link>
