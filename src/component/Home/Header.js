@@ -36,7 +36,7 @@ function Header() {
                                     <a className="nav-link" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Features</a>
+                                    <a className="nav-link" href="/host"><Link to="/host">Host</Link></a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">Pricing</a>
@@ -48,10 +48,18 @@ function Header() {
                         </div>
                         <div className="d-flex align-items-center">
                             {isLogin ? (
-                                <div>
-                                    <span className="me-2">{nameAccount}</span>
-                                    <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                                <div class="dropdown">
+                                    <button class="dropbtn">{nameAccount}</button>
+                                    <div class="dropdown-content">
+                                        <a href="#">Link 1</a>
+                                        <a href="#">Link 2</a>
+                                        <a onClick={logout}>Logout</a>
+                                    </div>
                                 </div>
+                                // <div>
+                                //     <span className="me-2">{nameAccount}</span>
+                                //     <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+                                // </div>
                             ) : (
                                 <>
                                     <Link to="/login" className="btn btn-outline-primary me-2">Đăng nhập</Link>
