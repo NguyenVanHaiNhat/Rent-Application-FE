@@ -167,7 +167,6 @@ const UpdateHouse = () => {
                     <div className="mb-3"><button type="button" onClick={handleUpload} disabled={!houseInfo.image || uploading}>
                         {uploading ? 'Uploading...' : 'Upload Image'}
                     </button></div>
-
                     <button type="submit">Cập nhật thông tin</button>
                 </form>
                 <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button >Book</Button></Link>
