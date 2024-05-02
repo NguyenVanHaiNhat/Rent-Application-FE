@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import storage from "../../firebase/FirebaseConfig";
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {editHouse, findHouseDetailById} from "../../service/HouseService";
+import Button from "react-bootstrap/Button";
 
 
 
@@ -169,6 +170,7 @@ const UpdateHouse = () => {
 
             <button type="submit">Cập nhật thông tin</button>
         </form>
+        <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button >Book</Button></Link>
     </div>
 </div>
 

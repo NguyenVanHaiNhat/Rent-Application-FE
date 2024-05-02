@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import storage from "../../firebase/FirebaseConfig";
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {editAccount, findAccountDetailById} from "../../service/AccountInfor";
 
 
@@ -18,6 +18,7 @@ const UpdateAccount = () => {
     const [uploading, setUploading] = useState(false);
     const [errors, setErrors] = useState({});
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAccountInfo = async () => {
@@ -87,6 +88,8 @@ const UpdateAccount = () => {
         try {
             await editAccount(accountInfo);
             console.log('Thông tin account đã được cập nhật thành công!');
+            alert('Thông tin account đã được cập nhật thành công!');
+            navigate("/");
         } catch (error) {
             console.error('Error updating account information:', error);
         }
