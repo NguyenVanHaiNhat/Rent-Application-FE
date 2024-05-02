@@ -12,11 +12,13 @@ import Update from "./component/house/Update";
 import ChangePassword from "./component/changepassword/ChangePassword";
 import BookingForm from "./component/booking/BookingForm";
 import UpdateAccount from "./component/accountInfor/UpdateInfor";
+import {ToastContainer} from "react-toastify";
+import UserProfile from "./component/accountInfor/UserProfile";
 
 
 function App() {
     return (
-
+        <div>
         <Routes>
             <Route path={'/'} element={<Home/>}></Route>
             <Route path={'/login'} element={<Login/>}></Route>
@@ -29,7 +31,10 @@ function App() {
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
+            <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
         </Routes>
+    <ToastContainer />
+        </div>
 
     );
 }
