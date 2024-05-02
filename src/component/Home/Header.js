@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import './Header.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Header() {
-    const [navList, setNavList] = useState(false)
+    const [navList, setNavList] = useState(false);
     const isLogin = localStorage.getItem("isLogin");
     const nameAccount = localStorage.getItem("nameAccount");
     const idAccount = localStorage.getItem("idAccount");
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const location = useLocation();
+
 
     let menuRef
     const logout = () => {
@@ -36,34 +38,40 @@ function Header() {
                         <div className="collapse navbar-collapse" id="navbarExample01">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item active">
-                                    <a className="nav-link" aria-current="page" href="#">Home</a>
+                                    <a className="nav-link" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="/host"><Link to="/host">Host</Link></a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Pricing</a>
+                                    <a className="nav-link" href={`/owner/${idAccount}`}>Danh sách nhà của mình</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">About</a>
-                                </li>
+                                {location.pathname.startsWith("/owner") && isLogin && (
+                                    <>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={`/ownerRented/${idAccount}`}>Danh sách nhà đã cho thuê</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={`/ownerMaintenance/${idAccount}`}>Danh sách nhà đang bảo trì</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={`/ownerAvailable/${idAccount}`}>Danh sách nhà còn trống</a>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
                         <div className="d-flex align-items-center">
                             {isLogin ? (
-                                <div class="dropdown">
-                                    <button class="dropbtn">{nameAccount}</button>
-                                    <div class="dropdown-content">
-                                        <a href="#">Link 1</a>
+                                <div className="dropdown">
+                                    <button className="dropbtn">{nameAccount}</button>
+                                    <div className="dropdown-content">
                                         <Link to={`/account/profile2/${idAccount}`}>Profile</Link>
                                         <Link to={`/account/profile/${idAccount}`}>Profile</Link>
+                                        <Link to={`/detail/${idAccount}`}>Detail profile </Link>
                                         <a onClick={logout}>Logout</a>
                                     </div>
                                 </div>
-                                // <div>
-                                //     <span className="me-2">{nameAccount}</span>
-                                //     <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
-                                // </div>
                             ) : (
                                 <>
                                     <Link to="/login" className="btn btn-outline-primary me-2">Đăng nhập</Link>
