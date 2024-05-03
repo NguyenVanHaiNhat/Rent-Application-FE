@@ -114,7 +114,7 @@ export default function PostHouse() {
                                 <label className="form-label">Image</label>
                                 <input type="file" accept="image/jpeg, image/png" className="file-input" onChange={(e) => handleImageChange(e, setFieldValue)} />
                                 {imagePreview && (
-                                    <img src={imagePreview} alt="Preview" className="file-preview" />
+                                    <img src={imagePreview} alt="Preview" className="file-preview" style={{ width: '450px', height: '250px' }} />
                                 )}
                             </div>
                             <button type="submit" disabled={isSubmitting} className="btn-submit">Post</button>
