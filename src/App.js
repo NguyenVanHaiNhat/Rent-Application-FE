@@ -22,7 +22,11 @@ function App() {
     return (
 
         <Routes>
-            <Route path={'/'} element={<Home/>}></Route>
+            <Route path={'/'} element={<Home/>}>
+                    <Route path="/change-password" element={<ChangePassword/>}></Route>
+                    <Route path="/posthouse" element={<PostHouse/>}></Route>
+                    <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
+            </Route>
             <Route path={'/login'} element={<Login/>}></Route>
             <Route path={'/register/user'} element={<SignUp/>}></Route>
             <Route path={'/register/host'} element={<RegisterHost/>}></Route>
@@ -33,10 +37,8 @@ function App() {
             <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
             <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
             <Route path="/house/:id" element={<Update/>}></Route>
-            <Route path="/change-password" element={<ChangePassword/>}></Route>
-            <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
-            <Route path="/posthouse" element={<PostHouse/>}></Route>
+
         </Routes>
 
     );

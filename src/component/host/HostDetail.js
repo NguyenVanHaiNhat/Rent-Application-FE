@@ -103,6 +103,8 @@ const HostDetail = () => {
                                 />
                             </div>
                            <button className="btn btn-dark"> <Link to={`/owner/${id}`}>List House</Link></button>
+                           <Link to={`/change-password`}><button className="btn-dark"> Change Password</button></Link>
+
                         </form>
                     </div>
                 </div>
