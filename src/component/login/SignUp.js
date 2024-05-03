@@ -17,7 +17,7 @@ const Register = () => {
     const registerUser = async (values) => {
         console.log(values)
         const checkNameAccount = await checkUserNameAccount(values.username);
-        if (checkNameAccount.length !== 0) {
+        if (!checkNameAccount) {
             setNotification("Tên người dùng đã tồn tại!");
         } else {
             await register(values);

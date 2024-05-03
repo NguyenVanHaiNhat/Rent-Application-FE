@@ -20,7 +20,7 @@ const RegisterHost = () => {
         // Kiểm tra tên người dùng đã tồn tại trong cơ sở dữ liệu của chủ nhà hay chưa
         const checkNameAccount = await checkUserNameAccount(values.username);
 
-        if (checkNameAccount.length !== 0) {
+        if (!checkNameAccount) {
             // Nếu tên người dùng đã tồn tại, hiển thị thông báo tương ứng
             setNotification("Tên người dùng đã tồn tại!");
         } else {

@@ -15,6 +15,7 @@ import UpdateAccount from "./component/accountInfor/UpdateInfor";
 import ListHouseRented from "./component/host/ListHouseRented";
 import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
+import PostHouse from "./component/house/PostHouse";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
+            <Route path="/posthouse" element={<PostHouse/>}></Route>
         </Routes>
 
     );
