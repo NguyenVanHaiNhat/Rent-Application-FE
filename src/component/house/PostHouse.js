@@ -4,7 +4,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { postHouse } from "../../service/HouseService";
 import * as Yup from "yup";
-import "./PostHouse.css";
 import PostHouseModal from "./PostHouseModal";
 
 const validate = Yup.object().shape({
@@ -49,7 +48,7 @@ export default function PostHouse() {
 
     return (
         <div className="container mt-4">
-            <h1>Post House</h1>
+            <h1 align={"center"}>Post House</h1>
             <div className="form-container">
                 <Formik
                     initialValues={{
@@ -82,32 +81,32 @@ export default function PostHouse() {
                     {({ isSubmitting, setFieldValue }) => (
                         <Form>
                             <div className="mb-3">
-                                <label className="form-label">Tên nhà</label>
+                                <label className="form-label">Name House</label>
                                 <Field type="text" className="form-control" name="name_house" />
                                 <ErrorMessage name="name_house" component="div" className="error" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Địa chỉ</label>
+                                <label className="form-label">Address</label>
                                 <Field type="text" className="form-control" name="address" />
                                 <ErrorMessage name="address" component="div" className="error" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Số lượng phòng ngủ</label>
+                                <label className="form-label">Number of Bedroom</label>
                                 <Field type="number" className="form-control" name="num_of_bedrooms" />
                                 <ErrorMessage name="num_of_bedrooms" component="div" className="error" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Số lượng phòng tắm</label>
+                                <label className="form-label">Number of Bathroom</label>
                                 <Field type="number" className="form-control" name="num_of_bathrooms" />
                                 <ErrorMessage name="num_of_bathrooms" component="div" className="error" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Mô tả</label>
+                                <label className="form-label">Description</label>
                                 <Field type="text" className="form-control" name="description" />
                                 <ErrorMessage name="description" component="div" className="error" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Giá tiền theo ngày (VNĐ)</label>
+                                <label className="form-label">Price (VNĐ)</label>
                                 <Field type="number" className="form-control" name="price_of_day" />
                                 <ErrorMessage name="price_of_day" component="div" className="error" />
                             </div>
@@ -118,7 +117,7 @@ export default function PostHouse() {
                                     <img src={imagePreview} alt="Preview" className="file-preview" />
                                 )}
                             </div>
-                            <button type="submit" disabled={isSubmitting} className="btn-submit">Add House</button>
+                            <button type="submit" disabled={isSubmitting} className="btn-submit">Post</button>
                         </Form>
                     )}
                 </Formik>
