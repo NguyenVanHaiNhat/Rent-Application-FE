@@ -24,11 +24,3 @@ export const editHouse = async (house) => {
     });
     return res.data;
 }
-export const createHouse = async (house) => {
-    const res = await axios.post("http://localhost:8080/api/house" , house,{
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return res.data;
-}

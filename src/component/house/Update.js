@@ -75,7 +75,7 @@ const UpdateHouse = () => {
                 image: imageUrl
             });
             setUploading(false);
-            console.log('Image uploaded successfully!');
+            alert('Image uploaded successfully!');
         } catch (error) {
             console.error('Error uploading image:', error);
             setUploading(false);
@@ -90,7 +90,7 @@ const UpdateHouse = () => {
         try {
 
             await editHouse(houseInfo);
-            console.log('Thông tin căn nhà đã được cập nhật thành công!');
+            alert('Thông tin căn nhà đã được cập nhật thành công!');
         } catch (error) {
             console.error('Error updating house information:', error);
         }

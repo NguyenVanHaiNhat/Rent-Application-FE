@@ -26,7 +26,6 @@ function App() {
             <Route path="/detail/:id" element={<HostDetail/>}></Route>
             <Route path="/owner/:id" element={<ListHouse/>}></Route>
             <Route path="/house/:id" element={<Update/>}></Route>
-            <Route path="/house/create" element={<CreateHouse/>}></Route>
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
         </Routes>
