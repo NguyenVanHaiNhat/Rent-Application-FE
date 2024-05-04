@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import storage from "../../firebase/FirebaseConfig";
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {editHouse, findHouseDetailById} from "../../service/HouseService";
-
-
+import Button from "react-bootstrap/Button";
 
 
 const UpdateHouse = () => {
@@ -19,7 +18,7 @@ const UpdateHouse = () => {
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
-     const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const {id} = useParams();
 
     useEffect(() => {
@@ -119,61 +118,65 @@ const UpdateHouse = () => {
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
-
     return (
-
-<div className="container mt-4">
-    <div className="justify-content-center col-md-6">
-        <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-                <label className="form-label">Tên căn nhà</label>
-                <input type="text" className="form-control" name="name_house" value={houseInfo.name_house} onChange={handleChange}/>
-                {errors.name_house && <div className="error">{errors.name_house}</div>}
+        <div className="container mt-4">
+            <div className="justify-content-center col-md-6">
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Tên căn nhà</label>
+                        <input type="text" className="form-control" name="name_house" value={houseInfo.name_house}
+                               onChange={handleChange}/>
+                        {errors.name_house && <div className="error">{errors.name_house}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Địa chỉ</label>
+                        <input type="text" className="form-control" name="address" value={houseInfo.address}
+                               onChange={handleChange}/>
+                        {errors.address && <div className="error">{errors.address}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Số lượng phòng ngủ</label>
+                        <input type="number" className="form-control" name="num_of_bedrooms"
+                               value={houseInfo.num_of_bedrooms} onChange={handleChange}/>
+                        {errors.num_of_bedrooms && <div className="error">{errors.num_of_bedrooms}</div>}
+                    </div>
+                    <div>
+                        <label className="form-label">Số lượng phòng tắm</label>
+                        <input type="number" className="form-control" name="num_of_bathrooms"
+                               value={houseInfo.num_of_bathrooms}
+                               onChange={handleChange}/>
+                        {errors.num_of_bathrooms && <div className="error">{errors.num_of_bathrooms}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Mô tả</label>
+                        <input type="text" className="form-control" name="description" value={houseInfo.description}
+                               onChange={handleChange}/>
+                        {errors.description && <div className="error">{errors.description}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Giá tiền theo ngày (VNĐ)</label>
+                        <input type="number" className="form-control" name="price_of_day" value={houseInfo.price_of_day}
+                               onChange={handleChange}/>
+                        {errors.price_of_day && <div className="error">{errors.price_of_day}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Hình ảnh</label>
+                        <input type="file" accept="image/jpeg, image/png" onChange={handleImageChange}/>
+                        {imagePreview && (
+                            <img src={imagePreview} alt="Preview" style={{maxWidth: '200px', marginTop: '10px'}}/>
+                        )}
+                    </div>
+                    <div className="mb-3">
+                        <button type="button" onClick={handleUpload} disabled={!houseInfo.image || uploading}>
+                            {uploading ? 'Uploading...' : 'Upload Image'}
+                        </button>
+                    </div>
+                    <button type="submit">Cập nhật thông tin</button>
+                </form>
+                <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book</Button></Link>
             </div>
-            <div className="mb-3">
-                <label className="form-label">Địa chỉ</label>
-                <input type="text" className="form-control" name="address" value={houseInfo.address} onChange={handleChange}/>
-                {errors.address && <div className="error">{errors.address}</div>}
-            </div>
-            <div className="mb-3">
-                <label className="form-label">Số lượng phòng ngủ</label>
-                <input type="number" className="form-control" name="num_of_bedrooms" value={houseInfo.num_of_bedrooms} onChange={handleChange}/>
-                {errors.num_of_bedrooms && <div className="error">{errors.num_of_bedrooms}</div>}
-            </div>
-            <div>
-                <label className="form-label">Số lượng phòng tắm</label>
-                <input type="number" className="form-control" name="num_of_bathrooms" value={houseInfo.num_of_bathrooms}
-                       onChange={handleChange}/>
-                {errors.num_of_bathrooms && <div className="error">{errors.num_of_bathrooms}</div>}
-            </div>
-            <div className="mb-3">
-                <label className="form-label">Mô tả</label>
-                <input type="text" className="form-control" name="description" value={houseInfo.description} onChange={handleChange}/>
-                {errors.description && <div className="error">{errors.description}</div>}
-            </div>
-            <div className="mb-3">
-                <label className="form-label">Giá tiền theo ngày (VNĐ)</label>
-                <input type="number" className="form-control" name="price_of_day" value={houseInfo.price_of_day} onChange={handleChange}/>
-                {errors.price_of_day && <div className="error">{errors.price_of_day}</div>}
-            </div>
-            <div className="mb-3">
-                <label className="form-label">Hình ảnh</label>
-                <input type="file" accept="image/jpeg, image/png" onChange={handleImageChange}/>
-                {imagePreview && (
-                    <img src={imagePreview} alt="Preview" style={{maxWidth: '200px', marginTop: '10px'}}/>
-                )}
-            </div>
-            <div className="mb-3"><button type="button" onClick={handleUpload} disabled={!houseInfo.image || uploading}>
-                {uploading ? 'Uploading...' : 'Upload Image'}
-            </button></div>
-
-            <button type="submit">Cập nhật thông tin</button>
-        </form>
-    </div>
-</div>
-
+        </div>
     );
 };
 
 export default UpdateHouse;
-

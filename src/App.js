@@ -11,7 +11,11 @@ import ListHouse from "./component/host/ListHouse";
 import Update from "./component/house/Update";
 import ChangePassword from "./component/changepassword/ChangePassword";
 import BookingForm from "./component/booking/BookingForm";
-import CreateHouse from "./component/house/CreateHouse";
+import UpdateAccount from "./component/accountInfor/UpdateInfor";
+import ListHouseRented from "./component/host/ListHouseRented";
+import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
+import ListHouseAvailable from "./component/host/ListHouseAvailable";
+
 
 
 function App() {
@@ -25,9 +29,13 @@ function App() {
             <Route path={"/host"} element={<Host/>}></Route>
             <Route path="/detail/:id" element={<HostDetail/>}></Route>
             <Route path="/owner/:id" element={<ListHouse/>}></Route>
+            <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
+            <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
+            <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
             <Route path="/house/:id" element={<Update/>}></Route>
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
+            <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
         </Routes>
 
     );
