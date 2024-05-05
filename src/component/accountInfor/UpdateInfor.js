@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import storage from "../../firebase/FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { editAccount, findAccountDetailById } from "../../service/AccountInfor";
 import { toast, ToastContainer } from "react-toastify";
 import ProfileModal from "./ProfileModal";
 
-const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal }) => {
+const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSuccess}) => {
     const [accountInfo, setAccountInfo] = useState({
         full_name: '',
         address: '',
@@ -90,6 +90,7 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal }) => {
             await editAccount(accountInfo);
             toast.success('Thông tin account đã được cập nhật thành công!');
             setShowSuccessModal(true);
+            onUpdateSuccess();
         } catch (error) {
             toast.error('Error updating account information');
             console.error('Error updating account information:', error);
@@ -174,7 +175,7 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal }) => {
                 <ProfileModal
                     id={id}
                     show={showSuccessModal}
-                    onClose={() => handleCloseModal()}
+                    onClose={() =>handleCloseModal()}
                 />
             </div>
         </>

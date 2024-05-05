@@ -26,6 +26,15 @@ export default function UserProfile() {
         }
     }, [id]);
 
+    const onUpdateSuccess = async () => {
+        try {
+            const fetchedAccountInfo = await findAccountDetailById(id);
+            setAccountInfo(fetchedAccountInfo);
+        } catch (error) {
+            console.error('Error fetching updated account information:', error);
+        }
+    };
+
     const handleOpenUpdateModal = () => {
         setShowUpdateModal(true);
     };
@@ -55,7 +64,7 @@ export default function UserProfile() {
                 <p>{accountInfo.phone}</p>
             </div>
             <button className="update-button" onClick={handleOpenUpdateModal}>Cập nhật thông tin</button> {/* Thêm class 'update-button' */}
-            {showUpdateModal && <UpdateAccount id={id} showUpdateModal={showUpdateModal} setShowUpdateModal={setShowUpdateModal} />}
+            {showUpdateModal && <UpdateAccount id={id} showUpdateModal={showUpdateModal} setShowUpdateModal={setShowUpdateModal} onUpdateSuccess={onUpdateSuccess} />}
         </div>
             <Footer/>
         </>
