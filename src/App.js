@@ -15,24 +15,29 @@ import UpdateAccount from "./component/accountInfor/UpdateInfor";
 import ListHouseRented from "./component/host/ListHouseRented";
 import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
-
+import HouseDetail from "./component/house/HouseDetail";
+import UpdateHouse from "./component/house/UpdateHouse";
 
 
 function App() {
     return (
 
         <Routes>
-            <Route path={'/'} element={<Home/>}></Route>
+            <Route path={'/'} element={<Home/>}>
+                    <Route path={"/host"} element={<Host/>}></Route>
+                    <Route path="/detail/:id" element={<HostDetail/>}></Route>
+                    <Route path="/owner/:id" element={<ListHouse/>}></Route>
+                    <Route path="/house/update/:id" element={<UpdateHouse/>}></Route>
+                    <Route path="/house/:id" element={<HouseDetail/>}></Route>
+            </Route>
             <Route path={'/login'} element={<Login/>}></Route>
             <Route path={'/register/user'} element={<SignUp/>}></Route>
             <Route path={'/register/host'} element={<RegisterHost/>}></Route>
-            <Route path={"/host"} element={<Host/>}></Route>
-            <Route path="/detail/:id" element={<HostDetail/>}></Route>
-            <Route path="/owner/:id" element={<ListHouse/>}></Route>
+
             <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
             <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
             <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
-            <Route path="/house/:id" element={<Update/>}></Route>
+
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>

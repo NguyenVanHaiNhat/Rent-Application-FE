@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import {findAllHost, updateAccountStatus} from "../../service/HostService";
-import Header from "../Home/Header";
+import {BsFillLockFill, BsHouse, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
+import {FaDollarSign} from "react-icons/fa";
 
 
 const Host = () => {
@@ -37,33 +38,30 @@ const Host = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     return (
         <>
-            <div>
-                <Header/>
-            </div>
             <div className="container mt-4">
                 <h2>List host</h2>
                 <table className="table table-bordered">
                     <thead className="thead-dark">
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Họ và tên</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Doanh thu</th>
-                        <th scope="col">Số nhà</th>
-                        <th scope="col">Hành động</th>
+                        <th scope="col"> <BsPersonFill className="mr-2" /> Họ và tên</th>
+                        <th scope="col"> <BsPhone className="mr-2" /> Số điện thoại</th>
+                        <th scope="col"><BsInfoCircleFill className="mr-2" /> Trạng thái</th>
+                        <th scope="col"> <FaDollarSign className="mr-2"/> Doanh thu</th>
+                        <th scope="col"> Số nhà</th>
+                        <th scope="col"> <BsFillLockFill /> Hành động</th>
                         <th scope="col">Detail</th>
                     </tr>
                     </thead>
                     <tbody>
                     {currentHosts.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1}</td>
+                            <td className="text-right">{index + 1}</td>
                             <td>{item.fullName}</td>
-                            <td>{item.phone}</td>
+                            <td className="text-right">{item.phone}</td>
                             <td>{item.status}</td>
-                            <td>{item.totalRevenue}</td>
-                            <td>{item.numberOfHouses}</td>
+                            <td className="text-right">{item.totalRevenue}</td>
+                            <td className="text-right">{item.numberOfHouses}</td>
                             <td className="text-center">
                                 <button
                                     className="btn btn-primary"

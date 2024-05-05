@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {findAllListHouse} from "../../service/HostService";
-import Header from "../Home/Header";
 
 const ListHouse = () => {
     const [houses, setHouses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [housesPerPage] = useState(4); // Số lượng host hiển thị trên mỗi trang
     let {id} = useParams();
+
+
 
     useEffect(() => {
         getAllHouses();
@@ -27,9 +28,7 @@ const ListHouse = () => {
 
     return (
         <>
-            <div>
-                <Header/>
-            </div>
+
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
                 <div className="row">
@@ -48,6 +47,14 @@ const ListHouse = () => {
                                     <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
                                     <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
                                     <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <Link to={`/house/${house.id}`} className="btn btn-primary ">Detail</Link>
+                                        </div>
+                                        <div className="col-6 float-left">
+                                            <Link to={`/house/update/${house.id}`} className="btn btn-primary">Cập nhật</Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +70,7 @@ const ListHouse = () => {
     );
 };
 
-const Pagination = ({ housesPerPage, totalHouses, paginate }) => {
+const Pagination = ({housesPerPage, totalHouses, paginate}) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalHouses / housesPerPage); i++) {
