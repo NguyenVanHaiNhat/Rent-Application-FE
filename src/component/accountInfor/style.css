@@ -1,10 +1,10 @@
 .profile-container {
     max-width: 800px;
-    margin: 50px; /* Để căn khung vào giữa */
+    margin: 50px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: left; /* Để căn trái nội dung trong khung */
+    text-align: left;
 }
 
 .profile-container h2 {
@@ -17,22 +17,22 @@
 }
 
 .profile-info label {
-    display: inline-block; /* Hiển thị label và phần nội dung cùng một hàng */
-    width: 150px; /* Độ rộng cố định cho label (tùy chọn) */
+    display: inline-block;
+    width: 150px;
     font-weight: bold;
 }
 
 .profile-info p {
-    display: inline-block; /* Hiển thị label và phần nội dung cùng một hàng */
-    margin: 0; /* Loại bỏ margin mặc định của thẻ p */
+    display: inline-block;
+    margin: 0;
 }
 
 .profile-info img {
     display: block;
     margin-bottom: 10px;
     border-radius: 50%;
-    max-width: 200px; /* Độ rộng tối đa của ảnh */
-    height: auto; /* Để tự động điều chỉnh chiều cao theo tỷ lệ */
+    max-width: 200px;
+    height: auto;
 }
 
 .update-button {
