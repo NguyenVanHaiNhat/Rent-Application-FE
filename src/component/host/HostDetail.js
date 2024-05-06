@@ -29,81 +29,40 @@ const HostDetail = () => {
     return (
         <>
             <div className="container mt-4">
-                <h2>Host Detail</h2>
                 <div className="row justify-content-center">
                     <div className="col-md-6">
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="avatar">Avatar:</label>
-                                <img
-                                    src={hostDetail && hostDetail.avatar}
-                                    alt=""
-                                    style={{width: "45px", height: "45px"}}
-                                    className="rounded-circle"
-                                />
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="form-group">
+                                    <img
+                                        src={hostDetail && hostDetail.avatar}
+                                        alt=""
+                                        style={{width: "100%", height: "250px"}}
+                                    />
+                                </div>
+                                <hr />
+                                <h2>Thông tin chi tiết</h2>
+                                <div className="form-group">
+                                    <p htmlFor="username"> Username: <span className="m-lg-2">{hostDetail && hostDetail.username}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="fullName">Họ và tên: <span className="m-lg-2">{hostDetail && hostDetail.fullName}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="phone">Số điện thoại: <span className="m-lg-2">{hostDetail && hostDetail.phone}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="address">Địa chỉ: <span className="m-lg-2">{hostDetail && hostDetail.address}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="status">Trạng thái: <span className="m-lg-2">{hostDetail && hostDetail.status}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="totalRevenue">Tổng Doanh thu: <span className="m-lg-2">{hostDetail && hostDetail.totalRevenue}</span></p>
+                                </div>
+                                <button className="btn btn-dark"> <Link to={`/owner/${id}`} style={{ color: "white", textDecoration: "none" }}>List House</Link></button>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="username">Username:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="username"
-                                    value={hostDetail && hostDetail.username}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="fullName">Họ và tên:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="fullName"
-                                    value={hostDetail && hostDetail.fullName}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="phone">Số điện thoại:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="phone"
-                                    value={hostDetail && hostDetail.phone}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="address">Địa chỉ:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="address"
-                                    value={hostDetail && hostDetail.address}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="status">Trạng thái:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="status"
-                                    value={hostDetail && hostDetail.status}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="totalRevenue">Tổng Doanh thu:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="totalRevenue"
-                                    value={hostDetail && hostDetail.totalRevenue}
-                                    readOnly
-                                />
-                            </div>
-                           <button className="btn btn-dark"> <Link to={`/owner/${id}`}>List House</Link></button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
