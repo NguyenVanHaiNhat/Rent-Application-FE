@@ -36,10 +36,10 @@ export const findHostDetailById = async (id) => {
     }
 }
 
-export const findAllListHouse = async (id) => {
+export const findAllListHouse = async (id,name,status) => {
 
     try {
-        const res = await axios.get(`http://localhost:8080/api/house/owner/${id}`,{
+        const res = await axios.get(`http://localhost:8080/api/house/owner/${id}?name=${name}&status=${status}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
