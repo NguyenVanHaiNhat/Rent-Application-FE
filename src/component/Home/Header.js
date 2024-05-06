@@ -39,7 +39,10 @@ function Header() {
                                     <a className="nav-link" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/host"><Link to="/host">Host</Link></a>
+                                    <a className="nav-link" href="/host">Host</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/user">User</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href={`/owner/${idAccount}`}>Danh sách nhà của mình</a>

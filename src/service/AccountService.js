@@ -43,3 +43,21 @@ export async function checkUserNameAccount(userName) {
         console.log(e);
     }
 }
+
+export const findAllListUser = async () => {
+
+    try {
+        const token = localStorage.getItem("authToken")
+
+        const res = await axios.get("http://localhost:8080/account-dto/user",{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            },
+        );
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        throw error;
+    }
+}

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findHostDetailById} from "../../service/HostService";
+import "./Host.css"
 
 
 const HostDetail = () => {
@@ -60,14 +61,13 @@ const HostDetail = () => {
                                 <div className="form-group">
                                     <p htmlFor="totalRevenue">Tổng Doanh thu: <span className="m-lg-2">{hostDetail && hostDetail.totalRevenue}</span></p>
                                 </div>
-                                <button className="btn btn-dark"> <Link to={`/owner/${id}`} style={{ color: "white", textDecoration: "none" }}>List House</Link></button>
-                                <button className="btn btn-dark"> <Link to={`/change-password`} style={{ color: "white", textDecoration: "none" }}>Change Password</Link></button>
+                                        <button className="btn btn-dark"> <Link to={`/owner/${id}`} style={{ color: "white", textDecoration: "none" }}>List House</Link></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                
+
 
 
         </>
