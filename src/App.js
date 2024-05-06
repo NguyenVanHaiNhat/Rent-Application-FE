@@ -11,13 +11,13 @@ import ListHouse from "./component/host/ListHouse";
 import ChangePassword from "./component/changepassword/ChangePassword";
 import BookingForm from "./component/booking/BookingForm";
 import UpdateAccount from "./component/accountInfor/UpdateInfor";
+import UserProfile from "./component/accountInfor/UserProfile";
 import ListHouseRented from "./component/host/ListHouseRented";
 import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
 import HouseDetail from "./component/house/HouseDetail";
 import UpdateHouse from "./component/house/UpdateHouse";
 import {ToastContainer} from "react-toastify";
-import UserProfile from "./component/accountInfor/UserProfile";
 
 
 
