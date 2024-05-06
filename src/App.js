@@ -21,6 +21,7 @@ import {ToastContainer} from "react-toastify";
 import UserProfile from "./component/accountInfor/UserProfile";
 
 
+
 function App() {
     return (
         <div>
@@ -35,11 +36,13 @@ function App() {
             <Route path={'/login'} element={<Login/>}></Route>
             <Route path={'/register/user'} element={<SignUp/>}></Route>
             <Route path={'/register/host'} element={<RegisterHost/>}></Route>
-
+            <Route path={"/host"} element={<Host/>}></Route>
+            <Route path="/detail/:id" element={<HostDetail/>}></Route>
+            <Route path="/owner/:id" element={<ListHouse/>}></Route>
             <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
             <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
             <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
-
+            <Route path="/house/:id" element={<Update/>}></Route>
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
