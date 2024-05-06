@@ -55,6 +55,9 @@ function Header() {
                                         <li className="nav-item">
                                             <a className="nav-link" href={`/ownerAvailable/${idAccount}`}>Danh sách nhà còn trống</a>
                                         </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href={`/postHouse`}>Đăng nhà cho thuê</a>
+                                        </li>
                                     </>
                                 )}
                             </ul>

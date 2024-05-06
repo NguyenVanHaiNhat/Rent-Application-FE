@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { findAccountDetailById } from "../../service/AccountInfor";
 import UpdateAccount from "./UpdateInfor";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import './style.css';
 import Header from "../Home/Header";
 import Footer from "../Home/Footer"; // Import CSS file
@@ -65,6 +65,7 @@ export default function UserProfile() {
             </div>
             <button className="update-button" onClick={handleOpenUpdateModal}>Cập nhật thông tin</button> {/* Thêm class 'update-button' */}
             {showUpdateModal && <UpdateAccount id={id} showUpdateModal={showUpdateModal} setShowUpdateModal={setShowUpdateModal} onUpdateSuccess={onUpdateSuccess} />}
+            <Link to={`/change-password`}><button className="update-button">Change Password</button></Link>
         </div>
             <Footer/>
         </>
