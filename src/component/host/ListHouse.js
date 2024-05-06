@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { findAllListHouse } from "../../service/HostService";
-import Header from "../Home/Header";
-
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import {findAllListHouse} from "../../service/HostService";
 
 const ListHouse = () => {
     const [houses, setHouses] = useState([]);
@@ -10,11 +8,10 @@ const ListHouse = () => {
     const [housesPerPage] = useState(2); // Số lượng host hiển thị trên mỗi trang
     const [searchName, setSearchName] = useState("");
     const [searchStatus, setSearchStatus] = useState("");
-    let { id } = useParams();
+    let {id} = useParams();
     useEffect(() => {
         getAllHouses();
     }, []);
-
     const getAllHouses = () => {
         findAllListHouse(id, searchName, searchStatus).then((res) => {
             setHouses(res);
@@ -35,9 +32,6 @@ const ListHouse = () => {
 
     return (
         <>
-            <div>
-                <Header/>
-            </div>
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
                 <div className="row">
@@ -81,6 +75,15 @@ const ListHouse = () => {
                                     <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
                                     <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
                                     <p className="card-text">Trạng thái: {house.status}</p>
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <Link to={`/house/${house.id}`} className="btn btn-primary ">Detail</Link>
+                                        </div>
+                                        <div className="col-6 float-left">
+                                            <Link to={`/house/update/${house.id}`} className="btn btn-primary">Cập
+                                                nhật</Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +99,7 @@ const ListHouse = () => {
     );
 };
 
-const Pagination = ({ housesPerPage, totalHouses, paginate }) => {
+const Pagination = ({housesPerPage, totalHouses, paginate}) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalHouses / housesPerPage); i++) {

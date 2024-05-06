@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 import "./BookingForm.css"
 import { bookHouse, calculateTotalPrice, checkDate } from "../../service/BookHouse";
 import BookingModal from "./BookingModal";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { ToastContainer, toast } from 'react-toastify';
 
 const validate = Yup.object().shape({
     startDate: Yup.date()

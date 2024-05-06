@@ -1,0 +1,89 @@
+.profile-container {
+    max-width: 800px;
+    margin: 50px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.profile-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.profile-info {
+    margin-bottom: 10px;
+}
+
+.profile-info label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.profile-info p {
+    display: inline-block;
+    margin: 0;
+}
+
+.profile-info img {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    max-width: 200px;
+    height: auto;
+}
+
+.update-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}

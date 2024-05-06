@@ -7,7 +7,7 @@ export default function BookingModal(props) {
     const navigate = useNavigate();
     const redirectTo = () => {
         onClose();
-        navigate("/");
+        navigate(`/owner/${localStorage.getItem("idAccount")}`);
     }
 
     return (
