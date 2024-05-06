@@ -3,6 +3,8 @@ import storage from "../../firebase/FirebaseConfig";
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {useNavigate, useParams} from "react-router-dom";
 import {editAccount, findAccountDetailById} from "../../service/AccountInfor";
+import {toast, ToastContainer} from "react-toastify";
+import ProfileModal from "./ProfileModal";
 
 
 
@@ -17,7 +19,9 @@ const UpdateAccount = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [errors, setErrors] = useState({});
+    const [showModal, setShowModal] = useState(false);
     const {id} = useParams();
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,6 +40,17 @@ const UpdateAccount = () => {
         }
     }, [id]);
 
+    const handleModalOpen = () => {
+        setShowModal(true);
+    }
+
+    // const handleModalClose = () => {
+    //     setShowModal(false);
+    //     navigate("/")
+    // }
+    const handleOk = () => {
+        setShowModal(false);
+    };
     const handleChange = (e) => {
         const {name, value} = e.target;
         setAccountInfo({
@@ -74,8 +89,10 @@ const UpdateAccount = () => {
             });
             setUploading(false);
             console.log('Image uploaded successfully!');
+            toast.success("Đã thêm ảnh thành công", {autoClose : 1000})
         } catch (error) {
             console.error('Error uploading image:', error);
+            toast.error('Error uploading image')
             setUploading(false);
         }
     };
@@ -87,10 +104,11 @@ const UpdateAccount = () => {
         }
         try {
             await editAccount(accountInfo);
-            console.log('Thông tin account đã được cập nhật thành công!');
-            alert('Thông tin account đã được cập nhật thành công!');
-            navigate("/");
+            toast.success('Thông tin account đã được cập nhật thành công!');
+            setShowSuccessModal(true);
+            // navigate("/")
         } catch (error) {
+            toast.error('Error updating account information');
             console.error('Error updating account information:', error);
         }
     };
@@ -111,7 +129,8 @@ const UpdateAccount = () => {
     };
 
     return (
-
+        // <Modal width={1000} open={handleModalOpen} onOk={handleOk} onCancel={handleModalClose}
+        //        footer={null}>
         <div className="container mt-4">
             <div className="justify-content-center col-md-6">
                 <form onSubmit={handleSubmit}>
@@ -144,8 +163,14 @@ const UpdateAccount = () => {
                     <button type="submit">Cập nhật thông tin</button>
                 </form>
             </div>
+            <ToastContainer/>
+            <ProfileModal
+                id={id}
+                show={showSuccessModal}
+                onClose={() => setShowSuccessModal(false)}
+            />
         </div>
-
+        // </Modal>
     );
 };
 

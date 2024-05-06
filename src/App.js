@@ -17,11 +17,13 @@ import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
 import HouseDetail from "./component/house/HouseDetail";
 import UpdateHouse from "./component/house/UpdateHouse";
+import {ToastContainer} from "react-toastify";
+import UserProfile from "./component/accountInfor/UserProfile";
 
 
 function App() {
     return (
-
+        <div>
         <Routes>
             <Route path={'/'} element={<Home/>}>
                     <Route path={"/host"} element={<Host/>}></Route>
@@ -41,7 +43,10 @@ function App() {
             <Route path="/change-password" element={<ChangePassword/>}></Route>
             <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
+            <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
         </Routes>
+    <ToastContainer />
+        </div>
 
     );
 }
