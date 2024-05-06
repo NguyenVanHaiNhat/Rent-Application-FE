@@ -19,6 +19,8 @@ import HouseDetail from "./component/house/HouseDetail";
 import UpdateHouse from "./component/house/UpdateHouse";
 import {ToastContainer} from "react-toastify";
 import PostHouse from "./component/house/PostHouse";
+import UserList from "./component/accountInfor/UserList";
+
 
 
 
@@ -35,6 +37,7 @@ function App() {
                     <Route path="/change-password" element={<ChangePassword/>}></Route>
                     <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
                     <Route path="/postHouse" element={<PostHouse/>}></Route>
+                    <Route path="/user" element={<UserList/>}></Route>
             </Route>
             <Route path={'/login'} element={<Login/>}></Route>
             <Route path={'/register/user'} element={<SignUp/>}></Route>
