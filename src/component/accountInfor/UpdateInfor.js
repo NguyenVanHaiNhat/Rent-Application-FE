@@ -62,7 +62,7 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSucces
     const handleUpload = async () => {
         try {
             if (!accountInfo.avatar) {
-                console.error('Please select an image.');
+                toast.error('Please select an image.')
                 return;
             }
             setUploading(true);
@@ -74,10 +74,8 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSucces
                 avatar: imageUrl
             });
             setUploading(false);
-            console.log('Image uploaded successfully!');
             toast.success("Đã thêm ảnh thành công", { autoClose: 1000 })
         } catch (error) {
-            console.error('Error uploading image:', error);
             toast.error('Error uploading image')
             setUploading(false);
         }
