@@ -42,7 +42,8 @@ const Register = () => {
                             username: "",
                             password: "",
                             confirmPassword: "",
-                            phone: ""
+                            phone: "",
+                            status : "Đang hoạt động"
                         }}
                         onSubmit={(values) => {
                             if (values.password !== values.confirmPassword) {

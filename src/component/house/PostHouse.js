@@ -60,6 +60,7 @@ export default function PostHouse() {
                         num_of_bathrooms: '',
                         description: '',
                         price_of_day: '',
+                        status: 'đang trống',
                         image: null
                     }}
                     validationSchema={validate}
