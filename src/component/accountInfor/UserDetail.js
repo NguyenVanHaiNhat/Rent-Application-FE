@@ -59,7 +59,7 @@ const UserDetail = () => {
                                     <p htmlFor="amountSpent">Tổng chi tiêu: <span className="m-lg-2">{userDetail && userDetail.amountSpent}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="amountSpent"><Link className="btn btn-warning" to={`/history/${userDetail.id}`}>Detail</Link></p>
+                                    <p htmlFor="amountSpent"><Link className="btn btn-warning" to={`/history/${id}`}>History</Link></p>
                                 </div>
                             </div>
                         </div>
