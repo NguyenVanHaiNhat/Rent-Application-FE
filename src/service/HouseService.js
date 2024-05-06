@@ -37,12 +37,16 @@ export const findHouseImageById = async (id) => {
         throw error;
     }
 }
-export const postHouse = async (house) => {
+export const postHouse = async (house) =>
+{
     const res = await axios.post(`http://localhost:8080/api/house/post-house`, house, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
+}
+export const postMultipleImage = async (house) => {
+    const res = await axios.post("http://localhost:8080/api/image/" + house.id);
     return res.data;
 }
 export const postImageHouse = async (id ,image) => {
