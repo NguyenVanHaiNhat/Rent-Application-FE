@@ -18,6 +18,7 @@ import ListHouseAvailable from "./component/host/ListHouseAvailable";
 import HouseDetail from "./component/house/HouseDetail";
 import UpdateHouse from "./component/house/UpdateHouse";
 import {ToastContainer} from "react-toastify";
+import PostHouse from "./component/house/PostHouse";
 
 
 
@@ -31,6 +32,9 @@ function App() {
                     <Route path="/owner/:id" element={<ListHouse/>}></Route>
                     <Route path="/house/update/:id" element={<UpdateHouse/>}></Route>
                     <Route path="/house/:id" element={<HouseDetail/>}></Route>
+                    <Route path="/change-password" element={<ChangePassword/>}></Route>
+                    <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
+                    <Route path="/postHouse" element={<PostHouse/>}></Route>
             </Route>
             <Route path={'/login'} element={<Login/>}></Route>
             <Route path={'/register/user'} element={<SignUp/>}></Route>
@@ -41,8 +45,6 @@ function App() {
             <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
             <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
             <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
-            <Route path="/change-password" element={<ChangePassword/>}></Route>
-            <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
             <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
             <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
         </Routes>

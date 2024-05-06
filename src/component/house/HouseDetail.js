@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./houseDetail.css"
 import {Carousel} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {findHouseImageById} from "../../service/HouseService";
+import Button from "react-bootstrap/Button";
 
 
 const HouseDetail = () => {
@@ -106,6 +107,9 @@ const HouseDetail = () => {
                                 </div>
                                 <div className="mb-3">
                                     <p className="form-label">Giá tiền theo ngày : {houseInfo.price_of_day} (VNĐ)</p>
+                                </div>
+                                <div className="mb-3">
+                                    <p className="form-label"> <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book Now</Button></Link></p>
                                 </div>
                             </div>
                         </div>

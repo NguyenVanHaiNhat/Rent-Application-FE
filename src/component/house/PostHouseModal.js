@@ -1,13 +1,13 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import {useNavigate} from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-export default function ChangePasswordModal(props) {
+export default function PostHouseModal(props) {
     const { show, onClose} = props;
     const navigate = useNavigate();
     const redirectTo = () => {
         onClose();
-        navigate(`/detail/${localStorage.getItem("idAccount")}`);
+        navigate(`/owner/${localStorage.getItem("idAccount")}`);
     }
 
     return (
@@ -15,7 +15,7 @@ export default function ChangePasswordModal(props) {
             <Modal.Header closeButton>
                 <Modal.Title>Success</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Your password has been changed successfully!</Modal.Body>
+            <Modal.Body>Post successfully!</Modal.Body>
             <Modal.Footer>
                 <Button variant="success" onClick={redirectTo}>
                     Success
