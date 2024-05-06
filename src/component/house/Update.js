@@ -173,7 +173,6 @@ const UpdateHouse = () => {
                     </div>
                     <button type="submit">Cập nhật thông tin</button>
                 </form>
-                <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book</Button></Link>
             </div>
         </div>
     );

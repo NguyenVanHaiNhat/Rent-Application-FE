@@ -26,7 +26,7 @@ export default function ChangePassword() {
                     formikBag.resetForm();
                 } else {
                     console.log(error);
-                    setErrorMessage('Lỗi không xác định');
+                    setErrorMessage('Mật khẩu hiện tại không đúng');
                 }
             } else {
                 console.log(error);
