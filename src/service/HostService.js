@@ -36,10 +36,52 @@ export const findHostDetailById = async (id) => {
     }
 }
 
-export const findAllListHouse = async (id) => {
+export const findAllListHouse = async (id,name,status) => {
 
     try {
-        const res = await axios.get(`http://localhost:8080/api/house/owner/${id}`,{
+        const res = await axios.get(`http://localhost:8080/api/house/owner/${id}?name=${name}&status=${status}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching hosts:", error);
+        throw error;
+    }
+}
+export const findAllListHouseRented = async (id) => {
+
+    try {
+        const res = await axios.get(`http://localhost:8080/api/house/ownerRented/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching hosts:", error);
+        throw error;
+    }
+}
+export const findAllListHouseMaintenance = async (id) => {
+
+    try {
+        const res = await axios.get(`http://localhost:8080/api/house/ownerMaintenance/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching hosts:", error);
+        throw error;
+    }
+}
+export const findAllListHouseAvailable = async (id) => {
+
+    try {
+        const res = await axios.get(`http://localhost:8080/api/house/ownerAvailable/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
-import {findAllListHouse} from "../../service/HostService";
+import {useParams} from "react-router-dom";
+import {findAllListHouseRented} from "../../service/HostService";
+import Header from "../Home/Header";
 
-const ListHouse = () => {
+const ListHouseRented = () => {
     const [houses, setHouses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [housesPerPage] = useState(2); // Số lượng host hiển thị trên mỗi trang
-    const [searchName, setSearchName] = useState("");
-    const [searchStatus, setSearchStatus] = useState("");
+    const [housesPerPage] = useState(4); // Số lượng host hiển thị trên mỗi trang
     let {id} = useParams();
+
     useEffect(() => {
         getAllHouses();
     }, []);
+
     const getAllHouses = () => {
-        findAllListHouse(id, searchName, searchStatus).then((res) => {
+        findAllListHouseRented(id).then((res) => {
             setHouses(res);
         });
-        console.log(houses)
     };
 
     const indexOfLastHouse = currentPage * housesPerPage;
@@ -25,39 +25,13 @@ const ListHouse = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const handleSearch = () => {
-        getAllHouses();
-    };
-
-
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
-                <h2 className="text-center mb-4">Danh sách căn nhà</h2>
-                <div className="row">
-                    <div className="col-md-4 mb-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo tên nhà"
-                            value={searchName}
-                            onChange={(e) => setSearchName(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo trạng thái"
-                            value={searchStatus}
-                            onChange={(e) => setSearchStatus(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
-                    </div>
-                </div>
-                {/*<button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>*/}
+                <h2 className="text-center mb-4">Danh sách căn nhà đã cho thuê</h2>
                 <div className="row">
                     {currentHouses.map((house, index) => (
                         <div key={house.id} className="col-md-6 mb-4">
@@ -74,16 +48,6 @@ const ListHouse = () => {
                                     <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
                                     <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
                                     <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
-                                    <p className="card-text">Trạng thái: {house.status}</p>
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary ">Detail</Link>
-                                        </div>
-                                        <div className="col-6 float-left">
-                                            <Link to={`/house/update/${house.id}`} className="btn btn-primary">Cập
-                                                nhật</Link>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -125,4 +89,4 @@ const Pagination = ({housesPerPage, totalHouses, paginate}) => {
     );
 };
 
-export default ListHouse;
+export default ListHouseRented;

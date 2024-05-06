@@ -1,27 +1,26 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {findHostDetailById} from "../../service/HostService";
+import {findUserDetailById} from "../../service/AccountService";
 
 
-
-const HostDetail = () => {
-    const [hostDetail, setHostDetail] = useState();
+const UserDetail = () => {
+    const [userDetail, setUserDetail] = useState();
 
     let {id} = useParams();
 
 
     useEffect(() => {
-        getAllHostDetail();
+        getAllUserDetail();
     }, []);
 
-    const getAllHostDetail = () => {
-        findHostDetailById(id)
+    const getAllUserDetail = () => {
+        findUserDetailById(id)
             .then((res) => {
-                setHostDetail(res);
+                setUserDetail(res);
             })
             .catch((error) => {
                 console.error("Error fetching host details:", error);
-                setHostDetail([]);
+                setUserDetail([]);
             });
     };
 
@@ -36,7 +35,7 @@ const HostDetail = () => {
                             <div className="card-body">
                                 <div className="form-group">
                                     <img
-                                        src={hostDetail && hostDetail.avatar}
+                                        src={userDetail && userDetail.avatar}
                                         alt=""
                                         style={{width: "100%", height: "250px"}}
                                     />
@@ -44,24 +43,24 @@ const HostDetail = () => {
                                 <hr />
                                 <h2>Thông tin chi tiết</h2>
                                 <div className="form-group">
-                                    <p htmlFor="username"> Username: <span className="m-lg-2">{hostDetail && hostDetail.username}</span></p>
+                                    <p htmlFor="username"> Username: <span className="m-lg-2">{userDetail && userDetail.username}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="fullName">Họ và tên: <span className="m-lg-2">{hostDetail && hostDetail.fullName}</span></p>
+                                    <p htmlFor="fullName">Họ và tên: <span className="m-lg-2">{userDetail && userDetail.fullName}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="phone">Số điện thoại: <span className="m-lg-2">{hostDetail && hostDetail.phone}</span></p>
+                                    <p htmlFor="phoneNumber">Số điện thoại: <span className="m-lg-2">{userDetail && userDetail.phoneNumber}</span></p>
+                                </div>
+
+                                <div className="form-group">
+                                    <p htmlFor="status">Trạng thái: <span className="m-lg-2">{userDetail && userDetail.status}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="address">Địa chỉ: <span className="m-lg-2">{hostDetail && hostDetail.address}</span></p>
+                                    <p htmlFor="amountSpent">Tổng chi tiêu: <span className="m-lg-2">{userDetail && userDetail.amountSpent}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="status">Trạng thái: <span className="m-lg-2">{hostDetail && hostDetail.status}</span></p>
+                                    <p htmlFor="amountSpent"><Link className="btn btn-warning" to={`/history/${id}`}>History</Link></p>
                                 </div>
-                                <div className="form-group">
-                                    <p htmlFor="totalRevenue">Tổng Doanh thu: <span className="m-lg-2">{hostDetail && hostDetail.totalRevenue}</span></p>
-                                </div>
-                                        <button className="btn btn-dark"> <Link to={`/owner/${id}`} style={{ color: "white", textDecoration: "none" }}>List House</Link></button>
                             </div>
                         </div>
                     </div>
@@ -75,4 +74,4 @@ const HostDetail = () => {
 };
 
 
-export default HostDetail;
+export default UserDetail;

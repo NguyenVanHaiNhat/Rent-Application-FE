@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
-import {findAllHost, updateAccountStatus} from "../../service/HostService";
-import {BsFillLockFill, BsHouse, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
-import {FaDollarSign} from "react-icons/fa";
+import {updateAccountStatus} from "../../service/HostService";
+import {BsFillLockFill, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
+import {useEffect, useState} from "react";
+import {findAllListUser} from "../../service/AccountService";
 
 
 
-const Host = () => {
-    const [host, setHost] = useState([]);
+const UserList = () => {
+    const [users, setUser] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [hostsPerPage] = useState(2); // Số lượng host hiển thị trên mỗi trang
+    const [userPerPage] = useState(2); // Số lượng host hiển thị trên mỗi trang
 
     useEffect(() => {
-        getAllHost();
+        getAllListUser();
     }, []);
 
-    const getAllHost = () => {
-        findAllHost().then((res) => {
-            setHost(res);
+    const getAllListUser = () => {
+        findAllListUser().then((res) => {
+            setUser(res);
         });
     };
 
     const handleLockAccount = (id, newStatus) => {
         updateAccountStatus(id, newStatus)
             .then(() => {
-                getAllHost();
+                getAllListUser();
             })
             .catch((error) => {
                 console.error("Error locking account:", error);
@@ -32,15 +32,15 @@ const Host = () => {
             });
     };
 
-    const indexOfLastHost = currentPage * hostsPerPage;
-    const indexOfFirstHost = indexOfLastHost - hostsPerPage;
-    const currentHosts = host.slice(indexOfFirstHost, indexOfLastHost);
+    const indexOfLastUser = currentPage * userPerPage;
+    const indexOfFirstUser = indexOfLastUser - userPerPage;
+    const currentUser = users.slice(indexOfFirstUser, indexOfLastUser);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     return (
         <>
             <div className="container mt-4">
-                <h2>List host</h2>
+                <h2>List user</h2>
                 <table className="table table-bordered">
                     <thead className="thead-dark">
                     <tr>
@@ -48,21 +48,17 @@ const Host = () => {
                         <th scope="col"> <BsPersonFill className="mr-2" /> Họ và tên</th>
                         <th scope="col"> <BsPhone className="mr-2" /> Số điện thoại</th>
                         <th scope="col"><BsInfoCircleFill className="mr-2" /> Trạng thái</th>
-                        <th scope="col"> <FaDollarSign className="mr-2"/> Doanh thu</th>
-                        <th scope="col"> Số nhà</th>
                         <th scope="col"> <BsFillLockFill /> Hành động</th>
                         <th scope="col">Detail</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {currentHosts.map((item, index) => (
+                    {currentUser.map((item, index) => (
                         <tr key={item.id}>
                             <td className="text-right">{index + 1}</td>
-                            <td>{item.fullName}</td>
+                            <td>{item.full_name}</td>
                             <td className="text-right">{item.phone}</td>
                             <td>{item.status}</td>
-                            <td className="text-right">{item.totalRevenue}</td>
-                            <td className="text-right">{item.numberOfHouses}</td>
                             <td className="text-center">
                                 <button
                                     className="btn btn-primary"
@@ -71,14 +67,14 @@ const Host = () => {
                                     {item.status === "Đang hoạt động" ? "Khóa" : "Mở khóa"}
                                 </button>
                             </td>
-                            <td className="text-center"><Link className="btn btn-warning" to={`/detail/${item.id}`}>Detail</Link></td>
+                            <td className="text-center"><Link className="btn btn-warning" to={`/user/${item.id}`}>Detail</Link></td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
                 <Pagination
-                    hostsPerPage={hostsPerPage}
-                    totalHosts={host.length}
+                    userPerPage={userPerPage}
+                    totalUsers={users.length}
                     paginate={paginate}
                 />
             </div>
@@ -86,10 +82,10 @@ const Host = () => {
     );
 };
 
-const Pagination = ({ hostsPerPage, totalHosts, paginate }) => {
+const Pagination = ({ userPerPage, totalUsers, paginate }) => {
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(totalHosts / hostsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalUsers / userPerPage); i++) {
         pageNumbers.push(i);
     }
 
@@ -112,5 +108,5 @@ const Pagination = ({ hostsPerPage, totalHosts, paginate }) => {
     );
 };
 
-export default Host;
+export default UserList;
 

@@ -2,28 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 import "./BookingForm.css"
-import { bookHouse, calculateTotalPrice } from "../../service/BookHouse";
+import { bookHouse, calculateTotalPrice, checkDate } from "../../service/BookHouse";
 import BookingModal from "./BookingModal";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { ToastContainer, toast } from 'react-toastify';
 
 const validate = Yup.object().shape({
     startDate: Yup.date()
         .required('Start Date is required')
-        .max(Yup.ref('endDate'), 'Start Date must be before End Date'),
+        .min(new Date(), 'StartDate must be after today')
+        .max(Yup.ref('endDate'), 'StartDate must be before or equal to End Date')
+        .test('startBeforeEnd', 'StartDate must be before or equal to End Date', function(value) {
+            const endDate = this.parent.endDate;
+            return moment(value).isSameOrBefore(endDate);
+        }),
     endDate: Yup.date()
-        .min(Yup.ref('startDate'), 'End Date must be after Start Date')
-        .required('End Date is required'),
+        .required('End Date is required')
+        .min(Yup.ref('startDate'), 'End Date must be after or equal to Start Date')
+        .test('endAfterStart', 'End Date must be after or equal to Start Date', function(value) {
+            const startDate = this.parent.startDate;
+            return moment(value).isSameOrAfter(startDate);
+        }),
 });
+
+
 
 const BookingForm = () => {
     const { id: houseId, price: housePrice } = useParams();
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [totalDays, setTotalDays] = useState(0);
+    const [totalDays, setTotalDays] = useState(1);
     const [totalPrice, setTotalPrice] = useState(housePrice);
 
     useEffect(() => {
@@ -43,11 +54,12 @@ const BookingForm = () => {
                 onSubmit={async (values, { setSubmitting }) => {
                     const { startDate, endDate } = values;
                     try {
-                        const { success, message } = await bookHouse(startDate, endDate, houseId);
-                        if (success) {
-                            setShowSuccessModal(true);
+                        const checkDates = await checkDate(startDate, endDate, houseId)
+                        if (checkDates.length !== 0) {
+                            toast.error("This date has been booked")
                         } else {
-                            toast.error(message);
+                            await bookHouse(startDate, endDate, houseId);
+                            setShowSuccessModal(true);
                         }
                     } catch (error) {
                         toast.error('Booking failed. Please try again.');
@@ -65,9 +77,10 @@ const BookingForm = () => {
                                 onChange={(date) => {
                                     setFieldValue('startDate', date);
                                     const days = moment(values.endDate).diff(moment(date), 'days') + 1;
-                                    setTotalDays(days);
+                                    setTotalDays(Math.max(days, 0)); // Kiểm tra và đặt số ngày là không âm
                                 }}
-                                maxDate={values.endDate}
+                                maxDate={null}
+                                minDate={null}
                             />
                             <ErrorMessage name="startDate" component="div" className="error" />
                         </div>

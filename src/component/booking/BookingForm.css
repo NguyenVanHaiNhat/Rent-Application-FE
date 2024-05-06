@@ -4,24 +4,48 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
 }
 
 .booking-form-container h2 {
     margin-bottom: 20px;
+    text-align: center;
+    color: #333;
 }
 
 .booking-form-container label {
-    display: block;
-    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.booking-form-container input[type="text"],
+.booking-form-container input[type="date"],
+.booking-form-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 .booking-form-container input[type="text"],
 .booking-form-container input[type="date"] {
-    width: calc(100% - 12px);
-    padding: 6px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.booking-form-container button {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.booking-form-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 .booking-form-container .error {
@@ -30,33 +54,36 @@
     margin-top: 5px;
 }
 
-.booking-form-container button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+.total-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.booking-form-container button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-.booking-form-container .total {
-    margin-top: 20px;
-}
-
-.booking-form-container .total label {
+.total-fields label {
     font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
 }
 
-.booking-form-container .total input[type="text"] {
-    width: calc(100% - 70px);
-    margin-top: 5px;
-    background-color: #f5f5f5;
+.total-fields span {
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 6px;
+    color: #333;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.date-fields div {
+    width: 48%;
+}
+
+@media (max-width: 576px) {
+    .date-fields div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

@@ -24,3 +24,24 @@ export const editHouse = async (house) => {
     });
     return res.data;
 }
+export const findHouseImageById = async (id) => {
+
+    try {
+        const res = await axios.get(`http://localhost:8080/api/house/detail/image/${id}`
+        );
+
+        return res.data;
+
+    } catch (error) {
+        console.error("Error fetching host detail:", error);
+        throw error;
+    }
+}
+export const postHouse = async (house) => {
+    const res = await axios.post(`http://localhost:8080/api/house/post-house`, house, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return res.data;
+}
