@@ -1,8 +1,0 @@
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group p span{
-    margin-left: 200px;
-}

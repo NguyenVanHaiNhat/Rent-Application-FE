@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export async function loginAccount(credentials) {  // Thay đổi tham số thành credentials
     try {
         return (await axios.post(`http://localhost:8080/account/login`, credentials)).data;
@@ -6,6 +7,7 @@ export async function loginAccount(credentials) {  // Thay đổi tham số thà
         throw error.response;
     }
 }
+
 export async function register(user) {
     const token = localStorage.getItem("authToken")
     try {
@@ -18,6 +20,7 @@ export async function register(user) {
         console.log(e);
     }
 }
+
 export async function register1(host) {
     const token = localStorage.getItem("authToken")
     try {
@@ -30,6 +33,7 @@ export async function register1(host) {
         console.log(e);
     }
 }
+
 export async function checkUserNameAccount(userName) {
     try {
         const token = localStorage.getItem("authToken")
@@ -49,7 +53,7 @@ export const findAllListUser = async () => {
     try {
         const token = localStorage.getItem("authToken")
 
-        const res = await axios.get("http://localhost:8080/account-dto/user",{
+        const res = await axios.get("http://localhost:8080/account-dto/user", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -58,6 +62,22 @@ export const findAllListUser = async () => {
         return res.data;
     } catch (error) {
         console.error("Error fetching users:", error);
+        throw error;
+    }
+}
+
+export const findUserDetailById = async (id) => {
+    try {
+        const token = localStorage.getItem("authToken")
+
+        const res = await axios.get(`http://localhost:8080/account-dto/user/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching user detail:", error);
         throw error;
     }
 }
