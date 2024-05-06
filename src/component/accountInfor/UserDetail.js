@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {findUserDetailById} from "../../service/AccountService";
 
 
@@ -57,6 +57,9 @@ const UserDetail = () => {
                                 </div>
                                 <div className="form-group">
                                     <p htmlFor="amountSpent">Tổng chi tiêu: <span className="m-lg-2">{userDetail && userDetail.amountSpent}</span></p>
+                                </div>
+                                <div className="form-group">
+                                    <p htmlFor="amountSpent"><Link className="btn btn-warning" to={`/history/${userDetail.id}`}>Detail</Link></p>
                                 </div>
                             </div>
                         </div>

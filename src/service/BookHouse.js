@@ -48,3 +48,28 @@ export const checkDate = async (startDate, endDate, houseId) => {
         console.log(e);
     }
 };
+export const getAllHistory = async (id) => {
+    const token = localStorage.getItem('authToken');
+    try {
+        const res = await axios.get(`http://localhost:8080/history-booking/${id}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            },
+        );
+        return res.data;
+    } catch (error) {
+        console.error("Error not found:", error);
+        throw error;
+    }
+}
+
+export const updateBookingStatus = async (id) => {
+    try {
+        const res = await axios.put(`http://localhost:8080/editStatus/${id}`);
+        return res.data;
+    } catch (error) {
+        console.error("Error updating bookings status:", error);
+        throw error;
+    }
+};
