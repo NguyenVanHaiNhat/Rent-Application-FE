@@ -11,7 +11,6 @@ const ListHouse = () => {
     const [searchName, setSearchName] = useState("");
     const [searchStatus, setSearchStatus] = useState("");
     let { id } = useParams();
-
     useEffect(() => {
         getAllHouses();
     }, []);
@@ -42,7 +41,7 @@ const ListHouse = () => {
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
                 <div className="row">
-                    <div className="col-md-6 mb-2">
+                    <div className="col-md-4 mb-2">
                         <input
                             type="text"
                             className="form-control"
@@ -51,7 +50,7 @@ const ListHouse = () => {
                             onChange={(e) => setSearchName(e.target.value)}
                         />
                     </div>
-                    <div className="col-md-6 mb-2">
+                    <div className="col-md-4 mb-2">
                         <input
                             type="text"
                             className="form-control"
@@ -60,8 +59,11 @@ const ListHouse = () => {
                             onChange={(e) => setSearchStatus(e.target.value)}
                         />
                     </div>
+                    <div className="col-md-4 mb-2">
+                        <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
+                    </div>
                 </div>
-                <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
+                {/*<button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>*/}
                 <div className="row">
                     {currentHouses.map((house, index) => (
                         <div key={house.id} className="col-md-6 mb-4">
