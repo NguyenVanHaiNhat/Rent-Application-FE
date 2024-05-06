@@ -67,7 +67,7 @@ const UserList = () => {
                                     {item.status === "Đang hoạt động" ? "Khóa" : "Mở khóa"}
                                 </button>
                             </td>
-                            <td className="text-center"><Link className="btn btn-warning" to={`/account/profile2/${item.id}`}>Detail</Link></td>
+                            <td className="text-center"><Link className="btn btn-warning" to={`/user/${item.id}`}>Detail</Link></td>
                         </tr>
                     ))}
                     </tbody>

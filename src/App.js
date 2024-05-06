@@ -20,12 +20,13 @@ import UpdateHouse from "./component/house/UpdateHouse";
 import {ToastContainer} from "react-toastify";
 import PostHouse from "./component/house/PostHouse";
 import UserList from "./component/accountInfor/UserList";
+import UserDetail from "./component/accountInfor/UserDetail";
 
 function App() {
     return (
         <div>
-        <Routes>
-            <Route path={'/'} element={<Home/>}>
+            <Routes>
+                <Route path={'/'} element={<Home/>}>
                     <Route path={"/host"} element={<Host/>}></Route>
                     <Route path="/detail/:id" element={<HostDetail/>}></Route>
                     <Route path="/owner/:id" element={<ListHouse/>}></Route>
@@ -35,20 +36,21 @@ function App() {
                     <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
                     <Route path="/postHouse" element={<PostHouse/>}></Route>
                     <Route path="/user" element={<UserList/>}></Route>
-            </Route>
-            <Route path={'/login'} element={<Login/>}></Route>
-            <Route path={'/register/user'} element={<SignUp/>}></Route>
-            <Route path={'/register/host'} element={<RegisterHost/>}></Route>
-            <Route path={"/host"} element={<Host/>}></Route>
-            <Route path="/detail/:id" element={<HostDetail/>}></Route>
-            <Route path="/owner/:id" element={<ListHouse/>}></Route>
-            <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
-            <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
-            <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
-            <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
-            <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
-        </Routes>
-    <ToastContainer />
+                    <Route path="/user/:id" element={<UserDetail/>}></Route>
+                </Route>
+                <Route path={'/login'} element={<Login/>}></Route>
+                <Route path={'/register/user'} element={<SignUp/>}></Route>
+                <Route path={'/register/host'} element={<RegisterHost/>}></Route>
+                <Route path={"/host"} element={<Host/>}></Route>
+                <Route path="/detail/:id" element={<HostDetail/>}></Route>
+                <Route path="/owner/:id" element={<ListHouse/>}></Route>
+                <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
+                <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>
+                <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
+                <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
+                <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
+            </Routes>
+            <ToastContainer/>
         </div>
 
     );
