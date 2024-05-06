@@ -21,9 +21,6 @@ import {ToastContainer} from "react-toastify";
 import PostHouse from "./component/house/PostHouse";
 import UserList from "./component/accountInfor/UserList";
 
-
-
-
 function App() {
     return (
         <div>

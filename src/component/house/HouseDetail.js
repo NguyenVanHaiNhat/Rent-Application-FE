@@ -114,10 +114,11 @@ const HouseDetail = () => {
                                     <div className="mb-3">
                                         <p className="form-label">Giá tiền theo ngày : {houseInfo.price_of_day} (VNĐ)</p>
                                     </div>
+                                    <div className="mb-3">
+                                        <p className="form-label"> <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book Now</Button></Link></p>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <p className="form-label"> <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book Now</Button></Link></p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
