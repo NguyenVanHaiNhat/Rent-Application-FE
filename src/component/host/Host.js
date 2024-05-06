@@ -5,6 +5,7 @@ import {BsFillLockFill, BsHouse, BsInfoCircleFill, BsPersonFill, BsPhone} from "
 import {FaDollarSign} from "react-icons/fa";
 
 
+
 const Host = () => {
     const [host, setHost] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

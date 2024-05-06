@@ -9,7 +9,8 @@ function Header() {
     const idAccount = localStorage.getItem("idAccount");
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [open, setOpen] = useState(false);
+    let menuRef
     const logout = () => {
         localStorage.setItem("isLogin", false);
         localStorage.clear();
@@ -63,6 +64,8 @@ function Header() {
                                 <div className="dropdown">
                                     <button className="dropbtn">{nameAccount}</button>
                                     <div className="dropdown-content">
+                                        <a href="#">Link 1</a>
+                                        <Link to={`/account/profile2/${idAccount}`}>Profile</Link>
                                         <Link to={`/account/profile/${idAccount}`}>Profile</Link>
                                         <Link to={`/detail/${idAccount}`}>Detail profile </Link>
                                         <a onClick={logout}>Logout</a>
