@@ -46,7 +46,9 @@ const HouseDetail = () => {
     };
     return (
         <div className="container">
-            <div className="row">
+            <div className="card border border-5 rounded">
+                <div className="card-body">
+                    <div className="row">
                         <h2>Thông tin chi tiết căn nhà</h2>
                         <div className="col-6">
                             <Carousel
@@ -107,7 +109,10 @@ const HouseDetail = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };

@@ -87,7 +87,7 @@ const UpdateHouse = () => {
     const handleSubmit = async (houseInfo) => {
         try {
             await editHouse(houseInfo);
-            navigate(`/owner/${houseInfo.id}`);
+            navigate(`/owner/${localStorage.getItem(`idAccount`)}`);
             alert('Thông tin căn nhà đã được cập nhật thành công!');
         } catch (error) {
             console.error('Error updating house information:', error);
