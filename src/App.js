@@ -21,6 +21,7 @@ import {ToastContainer} from "react-toastify";
 import PostHouse from "./component/house/PostHouse";
 import UserList from "./component/accountInfor/UserList";
 import UserDetail from "./component/accountInfor/UserDetail";
+import HistoryBooking from "./component/historyBooking/HistoryBooking";
 
 function App() {
     return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/postHouse" element={<PostHouse/>}></Route>
                     <Route path="/user" element={<UserList/>}></Route>
                     <Route path="/user/:id" element={<UserDetail/>}></Route>
+                    <Route path="/history/:id" element={<HistoryBooking/>}></Route>
                 </Route>
                 <Route path={'/login'} element={<Login/>}></Route>
                 <Route path={'/register/user'} element={<SignUp/>}></Route>
