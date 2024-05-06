@@ -61,6 +61,7 @@ const HostDetail = () => {
                                     <p htmlFor="totalRevenue">Tổng Doanh thu: <span className="m-lg-2">{hostDetail && hostDetail.totalRevenue}</span></p>
                                 </div>
                                 <button className="btn btn-dark"> <Link to={`/owner/${id}`} style={{ color: "white", textDecoration: "none" }}>List House</Link></button>
+                                <button className="btn btn-dark"> <Link to={`/change-password`} style={{ color: "white", textDecoration: "none" }}>Change Password</Link></button>
                             </div>
                         </div>
                     </div>

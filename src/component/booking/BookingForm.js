@@ -7,10 +7,9 @@ import "./BookingForm.css"
 import { bookHouse, calculateTotalPrice, checkDate } from "../../service/BookHouse";
 import BookingModal from "./BookingModal";
 import 'react-toastify/dist/ReactToastify.css';
-import toast from "bootstrap/js/src/toast";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 
 const validate = Yup.object().shape({
     startDate: Yup.date()
