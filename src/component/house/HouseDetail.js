@@ -7,6 +7,8 @@ import {Carousel} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {findHouseImageById} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
+import "./houseDetail.css"
+
 
 
 const HouseDetail = () => {
@@ -42,6 +44,8 @@ const HouseDetail = () => {
         }
     }, [id]);
 
+
+
     const handleImageMouseEnter = (imageUrl) => {
         setHoveredImageUrl(imageUrl);
     };
@@ -72,23 +76,25 @@ const HouseDetail = () => {
                                                 </Carousel.Item>
                                             ))}
                                         </Carousel>
-                                        <ol className="d-flex p-2">
-                                            {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
-                                                <li
-                                                    style={{listStyleType: "none"}}
-                                                    key={i}
-                                                    onClick={() => handleSelectImage(i)}
-                                                    className={i === imgIndex ? "active" : ""}
-                                                >
-                                                    <img
-                                                        className="mx-3 shadow rounded-1"
-                                                        src={imagePath}
-                                                        style={{width: "100px", height: "100px"}}
-                                                        alt={`Ảnh ${i}`}
-                                                    />
-                                                </li>
-                                            ))}
-                                        </ol>
+
+                                            <ol className="d-flex p-2">
+                                                {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
+                                                    <li
+                                                        style={{listStyleType: "none"}}
+                                                        key={i}
+                                                        onClick={() => handleSelectImage(i)}
+                                                        className={i === imgIndex ? "active" : ""}
+                                                    >
+                                                        <img
+                                                            className="mx-3 shadow rounded-1"
+                                                            src={imagePath}
+                                                            style={{width: "100px", height: "100px"}}
+                                                            alt={`Ảnh ${i}`}
+                                                        />
+                                                    </li>
+                                                ))}
+                                            </ol>
+
                                     </div>
                                 </div>
 
