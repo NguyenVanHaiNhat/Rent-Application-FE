@@ -45,3 +45,7 @@ export const postHouse = async (house) => {
     });
     return res.data;
 }
+export const postImageHouse = async (id ,image) => {
+    const res = await axios.post("http://localhost:8080/api/image/" + id, image)
+    return res.data;
+}
