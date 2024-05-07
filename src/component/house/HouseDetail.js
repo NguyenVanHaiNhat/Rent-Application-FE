@@ -103,19 +103,28 @@ const HouseDetail = () => {
                                         <p className="form-label">Địa chỉ : {houseInfo.address}</p>
                                     </div>
                                     <div className="mb-3">
-                                        <p className="form-label">Số lượng phòng ngủ : {houseInfo.num_of_bedrooms} phòng</p>
+                                        <p className="form-label">Số lượng phòng ngủ
+                                            : {houseInfo.num_of_bedrooms} phòng</p>
                                     </div>
                                     <div>
-                                        <p className="form-label">Số lượng phòng tắm : {houseInfo.num_of_bathrooms} phòng</p>
+                                        <p className="form-label">Số lượng phòng tắm
+                                            : {houseInfo.num_of_bathrooms} phòng</p>
                                     </div>
                                     <div className="mb-3">
                                         <p className="form-label">Mô tả : {houseInfo.description} phòng</p>
                                     </div>
                                     <div className="mb-3">
-                                        <p className="form-label">Giá tiền theo ngày : {houseInfo.price_of_day} (VNĐ)</p>
+                                        <p className="form-label">Giá tiền theo ngày
+                                            : {houseInfo.price_of_day} (VNĐ)</p>
                                     </div>
                                     <div className="mb-3">
-                                        <p className="form-label"> <Link to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book Now</Button></Link></p>
+                                        <p className="form-label"><Link
+                                            to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book
+                                            Now</Button></Link></p>
+                                    </div>
+                                    <div className="mb-3">
+                                        <p className="form-label"><Link
+                                            to={`/api/image/${houseInfo.id}`}><Button>Up Image</Button></Link></p>
                                     </div>
                                 </div>
 

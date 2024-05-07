@@ -22,6 +22,7 @@ import PostHouse from "./component/house/PostHouse";
 import UserList from "./component/accountInfor/UserList";
 import UserDetail from "./component/accountInfor/UserDetail";
 import HistoryBooking from "./component/historyBooking/HistoryBooking";
+import PostImage from "./component/house/PostImage";
 
 function App() {
     return (
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/ownerAvailable/:id" element={<ListHouseAvailable/>}></Route>
                 <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
                 <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
+                <Route path="/api/image/:id" element={<PostImage/>}></Route>
             </Routes>
             <ToastContainer/>
         </div>
