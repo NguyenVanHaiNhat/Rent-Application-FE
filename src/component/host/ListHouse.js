@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import {findAllListHouse} from "../../service/HostService";
 
 const ListHouse = () => {
+    debugger
     const [houses, setHouses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [housesPerPage] = useState(2); // Số lượng host hiển thị trên mỗi trang
@@ -32,6 +33,7 @@ const ListHouse = () => {
 
     return (
         <>
+
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
                 <div className="row">
@@ -45,13 +47,17 @@ const ListHouse = () => {
                         />
                     </div>
                     <div className="col-md-4 mb-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo trạng thái"
+                        <select
+                            className="form-select"
+                            aria-label="Default select example"
                             value={searchStatus}
                             onChange={(e) => setSearchStatus(e.target.value)}
-                        />
+                        >
+                            <option value="">Trạn thái của nhà</option>
+                            <option value="đang cho thuê">Phòng đang cho thuê</option>
+                            <option value="bảo trì"> Phòng đang được bảo trì</option>
+                            <option value="đang trống">Phòng đang trống</option>
+                        </select>
                     </div>
                     <div className="col-md-4 mb-2">
                         <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
@@ -75,13 +81,14 @@ const ListHouse = () => {
                                     <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
                                     <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
                                     <p className="card-text">Trạng thái: {house.status}</p>
+                                </div>
+                                <div className="card-footer">
                                     <div className="row">
                                         <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary ">Detail</Link>
+                                            <Link to={`/house/${house.id}`} className="btn btn-primary ">Chi tiết</Link>
                                         </div>
-                                        <div className="col-6 float-left">
-                                            <Link to={`/house/update/${house.id}`} className="btn btn-primary">Cập
-                                                nhật</Link>
+                                        <div className="col-6">
+                                            <Link to={`/house/update/${house.id}`} className="btn btn-primary">Cập nhật</Link>
                                         </div>
                                     </div>
                                 </div>

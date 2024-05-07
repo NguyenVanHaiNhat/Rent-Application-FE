@@ -31,7 +31,7 @@ function App() {
                 <Route path={'/'} element={<Home/>}>
                     <Route path={"/host"} element={<Host/>}></Route>
                     <Route path="/detail/:id" element={<HostDetail/>}></Route>
-                    <Route path="/owner/:id" element={<ListHouse/>}></Route>
+                    {/*<Route path="/owner/:id" element={<ListHouse/>}></Route>*/}
                     <Route path="/house/update/:id" element={<UpdateHouse/>}></Route>
                     <Route path="/house/:id" element={<HouseDetail/>}></Route>
                     <Route path="/change-password" element={<ChangePassword/>}></Route>
