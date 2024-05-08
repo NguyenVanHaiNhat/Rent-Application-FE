@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { postHouse } from "../../service/HouseService";
 import * as Yup from "yup";
 import PostHouseModal from "./PostHouseModal";
+import Header from "../Home/Header";
 
 const validate = Yup.object().shape({
     name_house: Yup.string().required("Please enter the house name"),
@@ -49,6 +50,11 @@ export default function PostHouse() {
     };
 
     return (
+        <>
+            <div>
+                <Header/>
+            </div>
+
         <div className="container mt-4">
             <h1 align={"center"}>Post House</h1>
             <div className="form-container">
@@ -130,5 +136,6 @@ export default function PostHouse() {
                 />
             </div>
         </div>
+            </>
     );
 }

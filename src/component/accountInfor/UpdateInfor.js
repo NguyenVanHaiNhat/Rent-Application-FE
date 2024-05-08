@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import { editAccount, findAccountDetailById } from "../../service/AccountInfor";
 import { toast, ToastContainer } from "react-toastify";
 import ProfileModal from "./ProfileModal";
+import Header from "../Home/Header";
 
 const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSuccess}) => {
     const [accountInfo, setAccountInfo] = useState({
@@ -118,6 +119,9 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSucces
 
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <div className="justify-content-center col-md-6">
                     <ToastContainer />

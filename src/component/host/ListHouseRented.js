@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {findAllListHouseRented} from "../../service/HostService";
 import Header from "../Home/Header";
 
@@ -34,13 +34,18 @@ const ListHouseRented = () => {
                 <h2 className="text-center mb-4">Danh sách căn nhà đã cho thuê</h2>
                 <div className="row">
                     {currentHouses.map((house, index) => (
-                        <div key={house.id} className="col-md-6 mb-4">
-                            <div className="card">
+                        <div key={house.id} className="col-md-4 mb-4">
+                            <div className="card rounded">
                                 <img
                                     src={house.image}
                                     className="card-img-top"
                                     alt={house.name_house}
-                                    style={{height: "200px", objectFit: "cover"}}
+                                    style={{
+                                        height: "150px",
+                                        objectFit: "cover",
+                                        borderTopLeftRadius: "10px",
+                                        borderTopRightRadius: "10px",
+                                    }}
                                 />
                                 <div className="card-body">
                                     <h5 className="card-title">{house.name_house}</h5>
@@ -48,6 +53,16 @@ const ListHouseRented = () => {
                                     <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
                                     <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
                                     <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                    <p className="card-text">Trạng thái: {house.status}</p>
+                                </div>
+                                <div className="card-footer">
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <Link to={`/house/${house.id}`} className="btn btn-primary">
+                                                Chi tiết
+                                            </Link>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

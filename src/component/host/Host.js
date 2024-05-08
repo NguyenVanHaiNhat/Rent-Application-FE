@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {findAllHost, updateAccountStatus} from "../../service/HostService";
 import {BsFillLockFill, BsHouse, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
 import {FaDollarSign} from "react-icons/fa";
+import Header from "../Home/Header";
 
 
 
@@ -39,6 +40,9 @@ const Host = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <h2>List host</h2>
                 <table className="table table-bordered">

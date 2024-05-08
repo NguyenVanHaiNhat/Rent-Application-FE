@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findUserDetailById} from "../../service/AccountService";
+import Header from "../Home/Header";
 
 
 const UserDetail = () => {
@@ -28,6 +29,9 @@ const UserDetail = () => {
 
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <div className="row justify-content-center">
                     <div className="col-md-6">

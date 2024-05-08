@@ -1,8 +1,9 @@
 import {Link} from "react-router-dom";
 import {updateAccountStatus} from "../../service/HostService";
 import {BsFillLockFill, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {findAllListUser} from "../../service/AccountService";
+import Header from "../Home/Header";
 
 
 
@@ -39,6 +40,9 @@ const UserList = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <h2>List user</h2>
                 <table className="table table-bordered">

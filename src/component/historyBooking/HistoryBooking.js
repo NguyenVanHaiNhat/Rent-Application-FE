@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getAllHistory, updateBookingStatus } from "../../service/BookHouse";
 import './HistoryBooking.css';
 import { Table, Button } from "react-bootstrap";
+import Header from "../Home/Header";
 
 export default function HistoryBooking() {
     const [historyBookings, setHistoryBookings] = useState([]);
@@ -33,6 +34,11 @@ export default function HistoryBooking() {
     };
 
     return (
+        <>
+
+        <div>
+            <Header/>
+        </div>
         <div className="history-container">
             <h2 className="history-title">History Bookings</h2>
             <Table striped bordered hover className="history-table">
@@ -68,5 +74,6 @@ export default function HistoryBooking() {
                 </tbody>
             </Table>
         </div>
+            </>
     );
 }

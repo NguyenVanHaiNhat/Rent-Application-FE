@@ -15,7 +15,6 @@ import UserProfile from "./component/accountInfor/UserProfile";
 import ListHouseRented from "./component/host/ListHouseRented";
 import ListHouseMaintenance from "./component/host/ListHouseMaintenance";
 import ListHouseAvailable from "./component/host/ListHouseAvailable";
-import HouseDetail from "./component/house/HouseDetail";
 import UpdateHouse from "./component/house/UpdateHouse";
 import {ToastContainer} from "react-toastify";
 import PostHouse from "./component/house/PostHouse";
@@ -23,29 +22,26 @@ import UserList from "./component/accountInfor/UserList";
 import UserDetail from "./component/accountInfor/UserDetail";
 import HistoryBooking from "./component/historyBooking/HistoryBooking";
 import PostImage from "./component/house/PostImage";
+import HouseDetail from "./component/house/HouseDetail";
 
 function App() {
     return (
         <div>
             <Routes>
-                <Route path={'/'} element={<Home/>}>
-                    <Route path={"/host"} element={<Host/>}></Route>
-                    <Route path="/detail/:id" element={<HostDetail/>}></Route>
-                    {/*<Route path="/owner/:id" element={<ListHouse/>}></Route>*/}
-                    <Route path="/house/update/:id" element={<UpdateHouse/>}></Route>
-                    <Route path="/house/:id" element={<HouseDetail/>}></Route>
-                    <Route path="/change-password" element={<ChangePassword/>}></Route>
-                    <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
-                    <Route path="/postHouse" element={<PostHouse/>}></Route>
-                    <Route path="/user" element={<UserList/>}></Route>
-                    <Route path="/user/:id" element={<UserDetail/>}></Route>
-                    <Route path="/history/:id" element={<HistoryBooking/>}></Route>
-                </Route>
+                <Route path={'/'} index element={<Home/>}></Route>
+                <Route path={"/host"} element={<Host/>}></Route>
+                <Route path="/detail/:id" element={<HostDetail/>}></Route>
+                <Route path="/house/update/:id" element={<UpdateHouse/>}></Route>
+                <Route path="/house/:id" element={<HouseDetail/>}></Route>
+                <Route path="/change-password" element={<ChangePassword/>}></Route>
+                <Route path="/book/:id/:price" element={<BookingForm/>}></Route>
+                <Route path="/postHouse" element={<PostHouse/>}></Route>
+                <Route path="/user" element={<UserList/>}></Route>
+                <Route path="/user/:id" element={<UserDetail/>}></Route>
+                <Route path="/history/:id" element={<HistoryBooking/>}></Route>
                 <Route path={'/login'} element={<Login/>}></Route>
                 <Route path={'/register/user'} element={<SignUp/>}></Route>
                 <Route path={'/register/host'} element={<RegisterHost/>}></Route>
-                <Route path={"/host"} element={<Host/>}></Route>
-                <Route path="/detail/:id" element={<HostDetail/>}></Route>
                 <Route path="/owner/:id" element={<ListHouse/>}></Route>
                 <Route path="/ownerRented/:id" element={<ListHouseRented/>}></Route>
                 <Route path="/ownerMaintenance/:id" element={<ListHouseMaintenance/>}></Route>

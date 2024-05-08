@@ -11,6 +11,7 @@ export default function ChangePasswordModal(props) {
     }
 
     return (
+
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Success</Modal.Title>

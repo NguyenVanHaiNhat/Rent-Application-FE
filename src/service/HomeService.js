@@ -16,3 +16,12 @@ export const searchAll = async (bedrooms, bathrooms, address, price,checkInDate,
         throw error;
     }
 }
+export const getTop5MostBookedHouses = async () => {
+    try {
+        const res = await axios.get("http://localhost:8080/top5");
+        return res.data;
+    } catch (error) {
+        console.error("Error fetching top 5 most booked houses:", error);
+        throw error;
+    }
+};

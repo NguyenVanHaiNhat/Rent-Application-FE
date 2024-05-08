@@ -28,9 +28,12 @@ const HouseDetail = () => {
         setImgIndex(selectedIndex);
     };
     useEffect(() => {
+        console.log({id})
         const fetchHouseInfo = async () => {
             try {
+
                 const fetchedHouseInfo = await findHouseImageById(id);
+                console.log(fetchedHouseInfo)
                 setHouseInfo(fetchedHouseInfo);
             } catch (error) {
                 console.error('Error fetching house information:', error);
