@@ -22,13 +22,8 @@ import UserList from "./component/accountInfor/UserList";
 import UserDetail from "./component/accountInfor/UserDetail";
 import HistoryBooking from "./component/historyBooking/HistoryBooking";
 import PostImage from "./component/house/PostImage";
-<<<<<<< HEAD
 import HouseDetail from "./component/house/HouseDetail";
 
-=======
-import UserList from "./component/accountInfor/UserList";
-import ListSchedule from "./component/host/ListSchedule";
->>>>>>> 0e41eef (#43-update-list-schedule)
 function App() {
     return (
         <div>
@@ -54,7 +49,6 @@ function App() {
                 <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
                 <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
                 <Route path="/api/image/:id" element={<PostImage/>}></Route>
-                <Route path="/api/host/:id" element={<ListSchedule/>}></Route>
             </Routes>
             <ToastContainer/>
         </div>
