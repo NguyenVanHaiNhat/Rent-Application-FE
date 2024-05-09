@@ -4,6 +4,7 @@ import {findAllListHouse} from "../../service/HostService";
 import Header from "../Home/Header";
 import Footer from "../Home/Footer";
 
+
 const ListHouse = () => {
     debugger
     const [houses, setHouses] = useState([]);
@@ -40,33 +41,34 @@ const ListHouse = () => {
             </div>
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
-                <div className="row">
-                    <div className="col-md-4 mb-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo tên nhà"
-                            value={searchName}
-                            onChange={(e) => setSearchName(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={searchStatus}
-                            onChange={(e) => setSearchStatus(e.target.value)}
-                        >
-                            <option value="">Trạn thái của nhà</option>
-                            <option value="đang cho thuê">Phòng đang cho thuê</option>
-                            <option value="bảo trì"> Phòng đang được bảo trì</option>
-                            <option value="đang trống">Phòng đang trống</option>
-                        </select>
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
-                    </div>
+            <div className="row">
+                <div className="col-md-4">
+                    <input
+                        style={{height: '37px'}}
+                        type="text"
+                        className="form-control mb-2"
+                        placeholder="Tìm kiếm theo tên nhà"
+                        value={searchName}
+                        onChange={(e) => setSearchName(e.target.value)}
+                    />
                 </div>
+                <div className="col-md-4">
+                    <select
+                        className="form-select mb-2"
+                        aria-label="Default select example"
+                        value={searchStatus}
+                        onChange={(e) => setSearchStatus(e.target.value)}
+                    >
+                        <option value="">Trạng thái của nhà</option>
+                        <option value="đang cho thuê">Phòng đang cho thuê</option>
+                        <option value="bảo trì">Phòng đang được bảo trì</option>
+                        <option value="đang trống">Phòng đang trống</option>
+                    </select>
+                </div>
+                <div className="col-md-2" style={{marginTop: "-6px"}}>
+                    <button className="btn btn-primary btn-block mt-2" onClick={handleSearch}>Tìm kiếm</button>
+                </div>
+            </div>
                 {/*<button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>*/}
                 <div className="row">
                     {currentHouses.map((house, index) => (
