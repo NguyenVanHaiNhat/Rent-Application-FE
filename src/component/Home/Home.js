@@ -189,7 +189,6 @@ const Home = () => {
                         <div key={house.id} className="col-md-4 mb-4">
                             <div className="card rounded">
                                 <Link to={`/house/${house.id}`} className="card-link" style={{ color: "black", textDecoration: "none" }}>
-
                                     <img
                                         src={house.image}
                                         className="card-img-top"
