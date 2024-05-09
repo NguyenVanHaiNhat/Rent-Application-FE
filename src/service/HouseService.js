@@ -45,8 +45,8 @@ export const postHouse = async (house) =>
         }
     });
 }
-export const postMultipleImage = async (house, image) => {
-    const res = await axios.post("http://localhost:8080/api/image/" + house.id, image);
+export const postMultipleImage = async (image) => {
+    const res = await axios.post("http://localhost:8080/api/image/" + image.id_house, image);
     return res.data;
 }
 export const postImageHouse = async (id ,image) => {
