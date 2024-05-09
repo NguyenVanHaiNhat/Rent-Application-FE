@@ -4,6 +4,7 @@ import {findAllHost, updateAccountStatus} from "../../service/HostService";
 import {BsFillLockFill, BsHouse, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-icons/bs";
 import {FaDollarSign} from "react-icons/fa";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 
 
@@ -85,6 +86,9 @@ const Host = () => {
                     totalHosts={host.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

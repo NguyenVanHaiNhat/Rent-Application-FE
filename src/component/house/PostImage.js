@@ -7,6 +7,7 @@ import {postImageHouse} from "../../service/HouseService";
 import {toast} from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 export default function PostImage() {
     const [imagePreview, setImagePreview] = useState(null);
@@ -84,6 +85,9 @@ export default function PostImage() {
                         )}
                     </Formik>
                 </div>
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

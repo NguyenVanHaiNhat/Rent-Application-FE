@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findAllListHouseAvailable} from "../../service/HostService";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const ListHouseAvailable = () => {
     const [houses, setHouses] = useState([]);
@@ -67,12 +68,16 @@ const ListHouseAvailable = () => {
                             </div>
                         </div>
                     ))}
+
                 </div>
                 <Pagination
                     housesPerPage={housesPerPage}
                     totalHouses={houses.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

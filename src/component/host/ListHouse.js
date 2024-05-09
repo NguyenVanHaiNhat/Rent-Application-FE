@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findAllListHouse} from "../../service/HostService";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const ListHouse = () => {
     debugger
@@ -108,6 +109,9 @@ const ListHouse = () => {
                     totalHouses={houses.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

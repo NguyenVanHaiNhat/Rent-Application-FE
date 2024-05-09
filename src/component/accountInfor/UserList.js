@@ -4,6 +4,7 @@ import {BsFillLockFill, BsInfoCircleFill, BsPersonFill, BsPhone} from "react-ico
 import React, {useEffect, useState} from "react";
 import {findAllListUser} from "../../service/AccountService";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 
 
@@ -81,6 +82,9 @@ const UserList = () => {
                     totalUsers={users.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

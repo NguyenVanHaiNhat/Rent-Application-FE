@@ -6,6 +6,7 @@ import { editAccount, findAccountDetailById } from "../../service/AccountInfor";
 import { toast, ToastContainer } from "react-toastify";
 import ProfileModal from "./ProfileModal";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSuccess}) => {
     const [accountInfo, setAccountInfo] = useState({
@@ -181,6 +182,9 @@ const UpdateAccount = ({ id, showUpdateModal, setShowUpdateModal, onUpdateSucces
                     show={showSuccessModal}
                     onClose={() =>handleCloseModal()}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

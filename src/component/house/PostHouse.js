@@ -6,6 +6,7 @@ import { postHouse } from "../../service/HouseService";
 import * as Yup from "yup";
 import PostHouseModal from "./PostHouseModal";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const validate = Yup.object().shape({
     name_house: Yup.string().required("Please enter the house name"),
@@ -136,6 +137,9 @@ export default function PostHouse() {
                 />
             </div>
         </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
             </>
     );
 }

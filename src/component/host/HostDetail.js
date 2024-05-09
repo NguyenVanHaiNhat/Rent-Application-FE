@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findHostDetailById} from "../../service/HostService";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 
 
@@ -70,6 +71,9 @@ const HostDetail = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
 
 

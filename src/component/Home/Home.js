@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { searchAll, getTop5MostBookedHouses } from "../../service/HomeService";
+import { getTop5MostBookedHouses, searchAll } from "../../service/HomeService";
 import Header from "./Header";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Footer from "./Footer";
+import "./Home.css"; // Import file CSS mới
 
 const Home = () => {
     const [houses1, setHouses1] = useState([]);
@@ -17,6 +19,8 @@ const Home = () => {
     const [checkInDate, setCheckInDate] = useState("");
     const [checkOutDate, setCheckOutDate] = useState("");
     const [searchError, setSearchError] = useState("");
+
+    const [hoveredCardId, setHoveredCardId] = useState(null); // State để lưu id của thẻ card khi di chuột vào
 
     let { id } = useParams();
 
@@ -93,33 +97,39 @@ const Home = () => {
                 <div className="row">
                     {top5Houses.map((house, index) => (
                         <div key={house.id} className="col-md-4 mb-4">
-                            <div className="card rounded">
-                                <img
-                                    src={house.image}
-                                    className="card-img-top"
-                                    alt={house.name_house}
-                                    style={{
-                                        height: "150px",
-                                        objectFit: "cover",
-                                        borderTopLeftRadius: "10px",
-                                        borderTopRightRadius: "10px",
-                                    }}
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{house.name_house}</h5>
-                                    <p className="card-text">Địa chỉ: {house.address}</p>
-                                    <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
-                                    <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
-                                    <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
-                                    <p className="card-text">Trạng thái: {house.status}</p>
-                                </div>
+                            <div
+                                className={`card rounded ${hoveredCardId === house.id ? "hovered" : ""}`}
+                                onMouseEnter={() => setHoveredCardId(house.id)} // Cập nhật id khi di chuột vào
+                                onMouseLeave={() => setHoveredCardId(null)} // Đặt lại id khi di chuột ra
+                            >
+                                <Link to={`/house/${house.id}`} className="card-link" style={{ color: "black", textDecoration: "none" }}>
+                                    <img
+                                        src={house.image}
+                                        className="card-img-top"
+                                        alt={house.name_house}
+                                        style={{
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            borderTopLeftRadius: "10px",
+                                            borderTopRightRadius: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{house.name_house}</h5>
+                                        <p className="card-text">Địa chỉ: {house.address}</p>
+                                        <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
+                                        <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
+                                        <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                        <p className="card-text">Trạng thái: {house.status}</p>
+                                    </div>
+                                </Link>
                                 <div className="card-footer">
                                     <div className="row">
-                                        <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary">
-                                                Chi tiết
-                                            </Link>
-                                        </div>
+                                        {/*<div className="col-6">*/}
+                                        {/*    /!*<Link to={`/house/${house.id}`} className="btn btn-primary">*!/*/}
+                                        {/*    /!*    Chi tiết*!/*/}
+                                        {/*    /!*</Link>*!/*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
@@ -178,39 +188,45 @@ const Home = () => {
                     {currentHouses.map((house, index) => (
                         <div key={house.id} className="col-md-4 mb-4">
                             <div className="card rounded">
-                                <img
-                                    src={house.image}
-                                    className="card-img-top"
-                                    alt={house.name_house}
-                                    style={{
-                                        height: "150px",
-                                        objectFit: "cover",
-                                        borderTopLeftRadius: "10px",
-                                        borderTopRightRadius: "10px",
-                                    }}
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{house.name_house}</h5>
-                                    <p className="card-text">Địa chỉ: {house.address}</p>
-                                    <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
-                                    <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
-                                    <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
-                                    <p className="card-text">Trạng thái: {house.status}</p>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary">
-                                                Chi tiết
-                                            </Link>
-                                        </div>
+                                <Link to={`/house/${house.id}`} className="card-link" style={{ color: "black", textDecoration: "none" }}>
+
+                                    <img
+                                        src={house.image}
+                                        className="card-img-top"
+                                        alt={house.name_house}
+                                        style={{
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            borderTopLeftRadius: "10px",
+                                            borderTopRightRadius: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{house.name_house}</h5>
+                                        <p className="card-text">Địa chỉ: {house.address}</p>
+                                        <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
+                                        <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
+                                        <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                        <p className="card-text">Trạng thái: {house.status}</p>
                                     </div>
+                                </Link>
+                                <div className="card-footer">
+                                    {/*<div className="row">*/}
+                                    {/*    /!*<div className="col-6">*!/*/}
+                                    {/*    /!*    <Link to={`/house/${house.id}`} className="btn btn-primary">*!/*/}
+                                    {/*    /!*        Chi tiết*!/*/}
+                                    {/*    /!*    </Link>*!/*/}
+                                    {/*    /!*</div>*!/*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
                 <Pagination housesPerPage={housesPerPage} totalHouses={houses1.length} paginate={paginate} />
+            </div>
+            <div style={{ marginTop: "5%" }}>
+                <Footer />
             </div>
         </>
     );
