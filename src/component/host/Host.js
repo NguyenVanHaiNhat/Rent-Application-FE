@@ -121,4 +121,3 @@ const Pagination = ({ hostsPerPage, totalHosts, paginate }) => {
 };
 
 export default Host;
-

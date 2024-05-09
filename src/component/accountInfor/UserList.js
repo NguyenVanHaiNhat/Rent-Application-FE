@@ -117,4 +117,3 @@ const Pagination = ({ userPerPage, totalUsers, paginate }) => {
 };
 
 export default UserList;
-

@@ -43,53 +43,53 @@ export default function ChangePassword() {
                 <Header/>
             </div>
 
-        <div className="form-container">
-            <h2>Change Password</h2>
-            <Formik initialValues={{
-                currentPassword: "",
-                newPassword: "",
-                checkNewPassword: ""
-            }} onSubmit={handleSubmit}
-                    validationSchema={validation}>
-                {({errors, touched}) => (
-                    <Form>
-                        {errorMessage && <div className="error">{errorMessage}</div>}
-                        <div>
-                            <label>Current Password:</label>
-                            <Field
-                                type="password"
-                                name="currentPassword"
-                            />
-                            <ErrorMessage name="currentPassword"/>
-                        </div>
-                        <div>
-                            <label>New Password</label>
-                            <Field
-                                type="password"
-                                name="newPassword"
-                            />
-                            <ErrorMessage name="newPassword"/>
-                        </div>
-                        <div>
-                            <label>Confirm New Password</label>
-                            <Field
-                                type="password"
-                                name="checkNewPassword"
-                            />
-                            <ErrorMessage name="checkNewPassword"/>
-                        </div>
-                        <button type="submit">Thay đổi mật khẩu</button>
-                    </Form>
-                )}
-            </Formik>
-            <ChangePasswordModal
-                show={showSuccessModal}
-                onClose={() => setShowSuccessModal(false)}
-            />
-        </div>
+            <div className="form-container">
+                <h2>Change Password</h2>
+                <Formik initialValues={{
+                    currentPassword: "",
+                    newPassword: "",
+                    checkNewPassword: ""
+                }} onSubmit={handleSubmit}
+                        validationSchema={validation}>
+                    {({errors, touched}) => (
+                        <Form>
+                            {errorMessage && <div className="error">{errorMessage}</div>}
+                            <div>
+                                <label>Current Password:</label>
+                                <Field
+                                    type="password"
+                                    name="currentPassword"
+                                />
+                                <ErrorMessage name="currentPassword"/>
+                            </div>
+                            <div>
+                                <label>New Password</label>
+                                <Field
+                                    type="password"
+                                    name="newPassword"
+                                />
+                                <ErrorMessage name="newPassword"/>
+                            </div>
+                            <div>
+                                <label>Confirm New Password</label>
+                                <Field
+                                    type="password"
+                                    name="checkNewPassword"
+                                />
+                                <ErrorMessage name="checkNewPassword"/>
+                            </div>
+                            <button type="submit">Thay đổi mật khẩu</button>
+                        </Form>
+                    )}
+                </Formik>
+                <ChangePasswordModal
+                    show={showSuccessModal}
+                    onClose={() => setShowSuccessModal(false)}
+                />
+            </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>
             </div>
-            </>
+        </>
     );
 }
