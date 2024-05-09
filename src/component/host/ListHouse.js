@@ -4,6 +4,7 @@ import {findAllListHouse} from "../../service/HostService";
 import Header from "../Home/Header";
 import Footer from "../Home/Footer";
 
+
 const ListHouse = () => {
     debugger
     const [houses, setHouses] = useState([]);
@@ -40,66 +41,65 @@ const ListHouse = () => {
             </div>
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Danh sách căn nhà</h2>
-                <div className="row">
-                    <div className="col-md-4 mb-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Tìm kiếm theo tên nhà"
-                            value={searchName}
-                            onChange={(e) => setSearchName(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={searchStatus}
-                            onChange={(e) => setSearchStatus(e.target.value)}
-                        >
-                            <option value="">Trạn thái của nhà</option>
-                            <option value="đang cho thuê">Phòng đang cho thuê</option>
-                            <option value="bảo trì"> Phòng đang được bảo trì</option>
-                            <option value="đang trống">Phòng đang trống</option>
-                        </select>
-                    </div>
-                    <div className="col-md-4 mb-2">
-                        <button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>
-                    </div>
+            <div className="row">
+                <div className="col-md-4">
+                    <input
+                        style={{height: '37px'}}
+                        type="text"
+                        className="form-control mb-2"
+                        placeholder="Tìm kiếm theo tên nhà"
+                        value={searchName}
+                        onChange={(e) => setSearchName(e.target.value)}
+                    />
                 </div>
+                <div className="col-md-4">
+                    <select
+                        className="form-select mb-2"
+                        aria-label="Default select example"
+                        value={searchStatus}
+                        onChange={(e) => setSearchStatus(e.target.value)}
+                    >
+                        <option value="">Trạng thái của nhà</option>
+                        <option value="đang cho thuê">Phòng đang cho thuê</option>
+                        <option value="bảo trì">Phòng đang được bảo trì</option>
+                        <option value="đang trống">Phòng đang trống</option>
+                    </select>
+                </div>
+                <div className="col-md-2" style={{marginTop: "-6px"}}>
+                    <button className="btn btn-primary btn-block mt-2" onClick={handleSearch}>Tìm kiếm</button>
+                </div>
+            </div>
                 {/*<button className="btn btn-primary mt-2" onClick={handleSearch}>Tìm kiếm</button>*/}
                 <div className="row">
                     {currentHouses.map((house, index) => (
                         <div key={house.id} className="col-md-4 mb-4">
-                            <div className="card rounded">
-                                <img
-                                    src={house.image}
-                                    className="card-img-top"
-                                    alt={house.name_house}
-                                    style={{
-                                        height: "150px",
-                                        objectFit: "cover",
-                                        borderTopLeftRadius: "10px",
-                                        borderTopRightRadius: "10px",
-                                    }}
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{house.name_house}</h5>
-                                    <p className="card-text">Địa chỉ: {house.address}</p>
-                                    <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
-                                    <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
-                                    <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
-                                    <p className="card-text">Trạng thái: {house.status}</p>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary">
-                                                Chi tiết
-                                            </Link>
-                                        </div>
+                            <Link to={`/house/${house.id}`} className="card-link"
+                                  style={{color: "black", textDecoration: "none"}}>
+
+                                <div className="card rounded">
+                                    <img
+                                        src={house.image}
+                                        className="card-img-top"
+                                        alt={house.name_house}
+                                        style={{
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            borderTopLeftRadius: "10px",
+                                            borderTopRightRadius: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body">
+
+                                        <h5 className="card-title">{house.name_house}</h5>
+                                        <p className="card-text">Địa chỉ: {house.address}</p>
+                                        <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
+                                        <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
+                                        <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                        <p className="card-text">Trạng thái: {house.status}</p>
                                     </div>
                                 </div>
+                            </Link>
+                            <div className="card-footer">
                             </div>
                         </div>
                     ))}

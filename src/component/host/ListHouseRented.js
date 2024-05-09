@@ -37,32 +37,31 @@ const ListHouseRented = () => {
                     {currentHouses.map((house, index) => (
                         <div key={house.id} className="col-md-4 mb-4">
                             <div className="card rounded">
-                                <img
-                                    src={house.image}
-                                    className="card-img-top"
-                                    alt={house.name_house}
-                                    style={{
-                                        height: "150px",
-                                        objectFit: "cover",
-                                        borderTopLeftRadius: "10px",
-                                        borderTopRightRadius: "10px",
-                                    }}
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{house.name_house}</h5>
-                                    <p className="card-text">Địa chỉ: {house.address}</p>
-                                    <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
-                                    <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
-                                    <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
-                                    <p className="card-text">Trạng thái: {house.status}</p>
-                                </div>
+                                <Link to={`/house/${house.id}`} className="card-link"
+                                      style={{color: "black", textDecoration: "none"}}>
+
+                                    <img
+                                        src={house.image}
+                                        className="card-img-top"
+                                        alt={house.name_house}
+                                        style={{
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            borderTopLeftRadius: "10px",
+                                            borderTopRightRadius: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{house.name_house}</h5>
+                                        <p className="card-text">Địa chỉ: {house.address}</p>
+                                        <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
+                                        <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
+                                        <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                        <p className="card-text">Trạng thái: {house.status}</p>
+                                    </div>
+                                </Link>
                                 <div className="card-footer">
                                     <div className="row">
-                                        <div className="col-6">
-                                            <Link to={`/house/${house.id}`} className="btn btn-primary">
-                                                Chi tiết
-                                            </Link>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
