@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findHostDetailById} from "../../service/HostService";
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 
 
@@ -29,6 +31,9 @@ const HostDetail = () => {
 
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <div className="row justify-content-center">
                     <div className="col-md-6">
@@ -66,6 +71,9 @@ const HostDetail = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
 
 

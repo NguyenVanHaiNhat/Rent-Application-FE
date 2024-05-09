@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import { ToastContainer, toast } from 'react-toastify';
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const validate = Yup.object().shape({
     startDate: Yup.date()
@@ -42,6 +44,10 @@ const BookingForm = () => {
     }, [totalDays, housePrice]);
 
     return (
+        <>
+            <div>
+                <Header/>
+            </div>
         <div className="booking-form-container">
             <h2>Book House</h2>
             <Formik
@@ -118,6 +124,10 @@ const BookingForm = () => {
                 onClose={() => setShowSuccessModal(false)}
             />
         </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
+            </>
     );
 };
 

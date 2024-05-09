@@ -7,6 +7,7 @@ import {Carousel} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {findHouseImageById} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
+import Footer from "../Home/Footer";
 
 
 const HouseDetail = () => {
@@ -28,9 +29,12 @@ const HouseDetail = () => {
         setImgIndex(selectedIndex);
     };
     useEffect(() => {
+        console.log({id})
         const fetchHouseInfo = async () => {
             try {
+
                 const fetchedHouseInfo = await findHouseImageById(id);
+                console.log(fetchedHouseInfo)
                 setHouseInfo(fetchedHouseInfo);
             } catch (error) {
                 console.error('Error fetching house information:', error);
@@ -46,96 +50,102 @@ const HouseDetail = () => {
         setHoveredImageUrl(imageUrl);
     };
     return (
-        <div className="container">
-            <div className="card border-3">
-                <div className="card shadow">
-                    <div className="card-body">
-                        <div className="row">
-                            <h2>Thông tin chi tiết căn nhà</h2>
-                            <div className="col-6 ">
-                                <div className="card border-2">
-                                    <div className="card-body p-0">
-                                        <Carousel
-                                            interval={null}
-                                            indicators={false}
-                                            activeIndex={imgIndex}
-                                            onSelect={handleSelectImage}
-                                        >
-                                            {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
-                                                <Carousel.Item key={i}>
-                                                    <img
-                                                        className="d-block w-100"
-                                                        style={{width: "50px", height: "400px"}}
-                                                        src={imagePath}
-                                                        alt={`Ảnh ${i}`}
-                                                    />
-                                                </Carousel.Item>
-                                            ))}
-                                        </Carousel>
-                                        <ol className="d-flex p-2">
-                                            {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
-                                                <li
-                                                    style={{listStyleType: "none"}}
-                                                    key={i}
-                                                    onClick={() => handleSelectImage(i)}
-                                                    className={i === imgIndex ? "active" : ""}
-                                                >
-                                                    <img
-                                                        className="mx-3 shadow rounded-1"
-                                                        src={imagePath}
-                                                        style={{width: "100px", height: "100px"}}
-                                                        alt={`Ảnh ${i}`}
-                                                    />
-                                                </li>
-                                            ))}
-                                        </ol>
-                                    </div>
-                                </div>
+        <>
 
-                            </div>
-                            <div className="col-6 d-flex justify-content-center ">
-                                <div className="text-left">
-                                    <h3>Đặc điểm bất động sản</h3>
-                                    <div className="mb-3">
-                                        <p className="form-label">Tên căn nhà : {houseInfo.name_house}</p>
+            <div className="container">
+                <div className="card border-3">
+                    <div className="card shadow">
+                        <div className="card-body">
+                            <div className="row">
+                                <h2>Thông tin chi tiết căn nhà</h2>
+                                <div className="col-6 ">
+                                    <div className="card border-2">
+                                        <div className="card-body p-0">
+                                            <Carousel
+                                                interval={null}
+                                                indicators={false}
+                                                activeIndex={imgIndex}
+                                                onSelect={handleSelectImage}
+                                            >
+                                                {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
+                                                    <Carousel.Item key={i}>
+                                                        <img
+                                                            className="d-block w-100"
+                                                            style={{width: "50px", height: "400px"}}
+                                                            src={imagePath}
+                                                            alt={`Ảnh ${i}`}
+                                                        />
+                                                    </Carousel.Item>
+                                                ))}
+                                            </Carousel>
+                                            <ol className="d-flex p-2">
+                                                {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
+                                                    <li
+                                                        style={{listStyleType: "none"}}
+                                                        key={i}
+                                                        onClick={() => handleSelectImage(i)}
+                                                        className={i === imgIndex ? "active" : ""}
+                                                    >
+                                                        <img
+                                                            className="mx-3 shadow rounded-1"
+                                                            src={imagePath}
+                                                            style={{width: "100px", height: "100px"}}
+                                                            alt={`Ảnh ${i}`}
+                                                        />
+                                                    </li>
+                                                ))}
+                                            </ol>
+                                        </div>
                                     </div>
-                                    <div className="mb-3">
-                                        <p className="form-label">Địa chỉ : {houseInfo.address}</p>
-                                    </div>
-                                    <div className="mb-3">
-                                        <p className="form-label">Số lượng phòng ngủ
-                                            : {houseInfo.num_of_bedrooms} phòng</p>
-                                    </div>
-                                    <div>
-                                        <p className="form-label">Số lượng phòng tắm
-                                            : {houseInfo.num_of_bathrooms} phòng</p>
-                                    </div>
-                                    <div className="mb-3">
-                                        <p className="form-label">Mô tả : {houseInfo.description} phòng</p>
-                                    </div>
-                                    <div className="mb-3">
-                                        <p className="form-label">Giá tiền theo ngày
-                                            : {houseInfo.price_of_day} (VNĐ)</p>
-                                    </div>
-                                    <div className="mb-3">
-                                        <p className="form-label"><Link
-                                            to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book
-                                            Now</Button></Link></p>
-                                    </div>
-                                    <div className="mb-3">
-                                        <p className="form-label"><Link
-                                            to={`/api/image/${houseInfo.id}`}><Button>Up Image</Button></Link></p>
-                                    </div>
-                                </div>
 
+                                </div>
+                                <div className="col-6 d-flex justify-content-center ">
+                                    <div className="text-left">
+                                        <h3>Đặc điểm bất động sản</h3>
+                                        <div className="mb-3">
+                                            <p className="form-label">Tên căn nhà : {houseInfo.name_house}</p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label">Địa chỉ : {houseInfo.address}</p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label">Số lượng phòng ngủ
+                                                : {houseInfo.num_of_bedrooms} phòng</p>
+                                        </div>
+                                        <div>
+                                            <p className="form-label">Số lượng phòng tắm
+                                                : {houseInfo.num_of_bathrooms} phòng</p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label">Mô tả : {houseInfo.description} phòng</p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label">Giá tiền theo ngày
+                                                : {houseInfo.price_of_day} (VNĐ)</p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label"><Link
+                                                to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book
+                                                Now</Button></Link></p>
+                                        </div>
+                                        <div className="mb-3">
+                                            <p className="form-label"><Link
+                                                to={`/api/image/${houseInfo.id}`}><Button>Up Image</Button></Link></p>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
+        </>
     );
 };
 
