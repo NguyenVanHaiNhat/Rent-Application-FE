@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import "./ChangePassword.css"
 import ChangePasswordModal from "./ChangePasswordModal";
 import {changePassword} from "../../service/ChangePasswordService";
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const validation = Yup.object({
     currentPassword: Yup.string().required("Required").min(6, "Password has at least 6 characters").max(8, "Password has at most 8 characters"),
@@ -36,6 +38,11 @@ export default function ChangePassword() {
     };
 
     return (
+        <>
+            <div>
+                <Header/>
+            </div>
+
         <div className="form-container">
             <h2>Change Password</h2>
             <Formik initialValues={{
@@ -80,5 +87,9 @@ export default function ChangePassword() {
                 onClose={() => setShowSuccessModal(false)}
             />
         </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
+            </>
     );
 }

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-import { getAllHistory, updateBookingStatus } from "../../service/BookHouse";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
+import {getAllHistory, updateBookingStatus} from "../../service/BookHouse";
 import './HistoryBooking.css';
-import { Table, Button } from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 export default function HistoryBooking() {
     const [historyBookings, setHistoryBookings] = useState([]);
-    const { id } = useParams();
+    const {id} = useParams();
 
     useEffect(() => {
         getAllHistory(id).then((res) => {
@@ -33,6 +35,11 @@ export default function HistoryBooking() {
     };
 
     return (
+        <>
+
+        <div>
+            <Header/>
+        </div>
         <div className="history-container">
             <h2 className="history-title">History Bookings</h2>
             <Table striped bordered hover className="history-table">
@@ -60,7 +67,8 @@ export default function HistoryBooking() {
                         <td>{booking.status}</td>
                         <td>
                             {booking.status === 'RENTED' ? (
-                                <Button variant="danger" onClick={() => handleCancelBooking(booking.id)}>Hủy thuê</Button>
+                                <Button variant="danger" onClick={() => handleCancelBooking(booking.id)}>Hủy
+                                    thuê</Button>
                             ) : null}
                         </td>
                     </tr>
@@ -68,5 +76,9 @@ export default function HistoryBooking() {
                 </tbody>
             </Table>
         </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
+        </>
     );
 }
