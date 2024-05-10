@@ -53,3 +53,13 @@ export const postImageHouse = async (id ,image) => {
     const res = await axios.post("http://localhost:8080/api/image/" + id, image)
     return res.data;
 }
+export const updateHouseStatus = async (id, newStatus) => {
+    try {
+        const res = await axios.put(`http://localhost:8080/api/house/${id}/status/${newStatus}`);
+        return res.data;
+
+    } catch (error) {
+        console.error("Error updating account status:", error);
+        throw error;
+    }
+};

@@ -106,7 +106,6 @@ function Header() {
                                         <div className="dropdown-content">
                                             <a href="#">Link 1</a>
                                             <Link to={`/account/profile2/${idAccount}`}>Chỉnh Sửa Thông Tin</Link>
-                                            <Link to={`/account/profile/${idAccount}`}>Chỉnh sửa Thông Tin</Link>
                                             <Link to={`/detail/${idAccount}`}>Chi Tiết Thông Tin</Link>
                                             <a onClick={logout}>Logout</a>
                                         </div>

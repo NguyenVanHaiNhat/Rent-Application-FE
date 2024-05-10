@@ -1,14 +1,15 @@
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./houseDetail.css"
 import {Carousel} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {findHouseImageById} from "../../service/HouseService";
+import {findHouseImageById, updateHouseStatus} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 import Footer from "../Home/Footer";
+import {updateAccountStatus} from "../../service/HostService";
 
 
 const HouseDetail = () => {
@@ -19,6 +20,7 @@ const HouseDetail = () => {
         num_of_bathrooms: '',
         description: '',
         price_of_day: '',
+        status: '',
         image: null,
         all_images: null
     });
@@ -29,19 +31,27 @@ const HouseDetail = () => {
     const handleSelectImage = (selectedIndex) => {
         setImgIndex(selectedIndex);
     };
+    const handleUpdateStatus = (id, newStatus) => {
+        updateHouseStatus(id, newStatus)
+            .then(() => {
+                fetchHouseInfo();
+            })
+            .catch((error) => {
+                console.error("Error locking account:", error);
+
+            });
+    };
+    const fetchHouseInfo = async () => {
+        try {
+
+            const fetchedHouseInfo = await findHouseImageById(id);
+            console.log(fetchedHouseInfo)
+            setHouseInfo(fetchedHouseInfo);
+        } catch (error) {
+            console.error('Error fetching house information:', error);
+        }
+    };
     useEffect(() => {
-        console.log({id})
-        const fetchHouseInfo = async () => {
-            try {
-
-                const fetchedHouseInfo = await findHouseImageById(id);
-                console.log(fetchedHouseInfo)
-                setHouseInfo(fetchedHouseInfo);
-            } catch (error) {
-                console.error('Error fetching house information:', error);
-            }
-        };
-
         if (id) {
             fetchHouseInfo();
         }
@@ -100,7 +110,7 @@ const HouseDetail = () => {
                                     </div>
 
                                 </div>
-                                <div className="col-6 d-flex justify-content-center ">
+                                <div className="col-4 d-flex justify-content-center">
                                     <div className="text-left">
                                         <h3>Đặc điểm bất động sản</h3>
                                         <div className="mb-3">
@@ -125,13 +135,24 @@ const HouseDetail = () => {
                                                 : {houseInfo.price_of_day} (VNĐ)</p>
                                         </div>
                                         <div className="mb-3">
-                                            <p className="form-label"><Link
-                                                to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book
-                                                Now</Button></Link></p>
-                                        </div>
-                                        <div className="mb-3">
-                                            <p className="form-label"><Link
-                                                to={`/api/image/${houseInfo.id}`}><Button>Up Image</Button></Link></p>
+                                            <div className="row">
+                                                <div className="col-6"><Link
+                                                    to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Đặt
+                                                    ngay</Button></Link></div>
+                                                <div className="col-6"><Link
+                                                    to={`/api/image/${houseInfo.id}`}><Button>Đăng ảnh</Button></Link>
+                                                </div>
+                                                <td className="text-center">
+                                                    <select
+                                                        className="form-select"
+                                                        value={houseInfo.status}
+                                                        onChange={(e) => handleUpdateStatus(houseInfo.id, e.target.value)}
+                                                    >
+                                                        <option value="Đang trống">Đang trống</option>
+                                                        <option value="Bảo trì">Bảo trì</option>
+                                                    </select>
+                                                </td>
+                                            </div>
                                         </div>
                                     </div>
 
