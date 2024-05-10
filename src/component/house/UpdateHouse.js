@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import "./UpdateHouse.css"
 import Footer from "../Home/Footer";
 import Header from "../Home/Header";
+import {toast} from "react-toastify";
 
 const validationSchema = Yup.object().shape({
     name_house: Yup.string().required('Vui lòng nhập tên căn nhà.'),
@@ -32,6 +33,7 @@ const UpdateHouse = () => {
     const [houseInfo, setHouseInfo] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const navigate = useNavigate();
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         const fetchHouseInfo = async () => {
@@ -80,7 +82,7 @@ const UpdateHouse = () => {
                 image: imageUrl
             });
             setUploading(false);
-            alert('Image uploaded successfully!');
+            toast.success("Đã thêm ảnh thành công", { autoClose: 1000 })
         } catch (error) {
             console.error('Error uploading image:', error);
             setUploading(false);
