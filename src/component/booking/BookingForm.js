@@ -48,86 +48,86 @@ const BookingForm = () => {
             <div>
                 <Header/>
             </div>
-        <div className="booking-form-container">
-            <h2>Book House</h2>
-            <Formik
-                initialValues={{
-                    startDate: new Date(),
-                    endDate: new Date(),
-                    houseId: houseId
-                }}
-                validationSchema={validate}
-                onSubmit={async (values, { setSubmitting }) => {
-                    const { startDate, endDate } = values;
-                    try {
-                        const checkDates = await checkDate(startDate, endDate, houseId)
-                        if (checkDates.length !== 0) {
-                            toast.error("This date has been booked")
-                        } else {
-                            await bookHouse(startDate, endDate, houseId);
-                            setShowSuccessModal(true);
+            <div className="booking-form-container">
+                <h2>Book House</h2>
+                <Formik
+                    initialValues={{
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        houseId: houseId
+                    }}
+                    validationSchema={validate}
+                    onSubmit={async (values, { setSubmitting }) => {
+                        const { startDate, endDate } = values;
+                        try {
+                            const checkDates = await checkDate(startDate, endDate, houseId)
+                            if (checkDates.length !== 0) {
+                                toast.error("This date has been booked")
+                            } else {
+                                await bookHouse(startDate, endDate, houseId);
+                                setShowSuccessModal(true);
+                            }
+                        } catch (error) {
+                            toast.error('Booking failed. Please try again.');
                         }
-                    } catch (error) {
-                        toast.error('Booking failed. Please try again.');
-                    }
-                    setSubmitting(false);
-                }}
-            >
-                {({ isSubmitting, values, setFieldValue }) => (
-                    <Form>
-                        <div>
-                            <label>Start Date:</label>
-                            <DatePicker
-                                name="startDate"
-                                selected={values.startDate}
-                                onChange={(date) => {
-                                    setFieldValue('startDate', date);
-                                    const days = moment(values.endDate).diff(moment(date), 'days') + 1;
-                                    setTotalDays(Math.max(days, 0)); // Kiểm tra và đặt số ngày là không âm
-                                }}
-                                maxDate={null}
-                                minDate={null}
-                            />
-                            <ErrorMessage name="startDate" component="div" className="error" />
-                        </div>
-                        <div>
-                            <label>End Date:</label>
-                            <DatePicker
-                                name="endDate"
-                                selected={values.endDate}
-                                onChange={(date) => {
-                                    setFieldValue('endDate', date);
-                                    const days = moment(date).diff(moment(values.startDate), 'days') + 1;
-                                    setTotalDays(days);
-                                }}
-                                minDate={values.startDate}
-                            />
-                            <ErrorMessage name="endDate" component="div" className="error" />
-                        </div>
-                        <div>
-                            <label>Total Days:</label>
-                            <input type="text" value={totalDays} readOnly />
-                        </div>
-                        <div>
-                            <label>Total Price:</label>
-                            <input type="text" value={totalPrice} readOnly />
-                        </div>
-                        <button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? 'Booking...' : 'Book Now'}
-                        </button>
-                    </Form>
-                )}
-            </Formik>
-            <ToastContainer />
-            <BookingModal
-                show={showSuccessModal}
-                onClose={() => setShowSuccessModal(false)}
-            />
-        </div>
+                        setSubmitting(false);
+                    }}
+                >
+                    {({ isSubmitting, values, setFieldValue }) => (
+                        <Form>
+                            <div>
+                                <label>Start Date:</label>
+                                <DatePicker
+                                    name="startDate"
+                                    selected={values.startDate}
+                                    onChange={(date) => {
+                                        setFieldValue('startDate', date);
+                                        const days = moment(values.endDate).diff(moment(date), 'days') + 1;
+                                        setTotalDays(Math.max(days, 0)); // Kiểm tra và đặt số ngày là không âm
+                                    }}
+                                    maxDate={null}
+                                    minDate={null}
+                                />
+                                <ErrorMessage name="startDate" component="div" className="error" />
+                            </div>
+                            <div>
+                                <label>End Date:</label>
+                                <DatePicker
+                                    name="endDate"
+                                    selected={values.endDate}
+                                    onChange={(date) => {
+                                        setFieldValue('endDate', date);
+                                        const days = moment(date).diff(moment(values.startDate), 'days') + 1;
+                                        setTotalDays(days);
+                                    }}
+                                    minDate={values.startDate}
+                                />
+                                <ErrorMessage name="endDate" component="div" className="error" />
+                            </div>
+                            <div>
+                                <label>Total Days:</label>
+                                <input type="text" value={totalDays} readOnly />
+                            </div>
+                            <div>
+                                <label>Total Price:</label>
+                                <input type="text" value={totalPrice} readOnly />
+                            </div>
+                            <button type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? 'Booking...' : 'Book Now'}
+                            </button>
+                        </Form>
+                    )}
+                </Formik>
+                <ToastContainer />
+                <BookingModal
+                    show={showSuccessModal}
+                    onClose={() => setShowSuccessModal(false)}
+                />
+            </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>
             </div>
-            </>
+        </>
     );
 };
 

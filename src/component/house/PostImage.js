@@ -1,32 +1,42 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import storage from "../../firebase/FirebaseConfig";
-import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
-import {Form, Formik} from 'formik';
-import {Link, useParams} from "react-router-dom";
-import {postImageHouse} from "../../service/HouseService";
-import {toast} from "react-toastify";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useParams } from "react-router-dom";
+import { postImageHouse } from "../../service/HouseService";
+import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
-import Header from "../Home/Header";
-import Footer from "../Home/Footer";
+import Modal from "react-bootstrap/Modal";
 
-export default function PostImage() {
+export default function PostImage({ toggleModal, onUpdateSuccess }) {
     const [imagePreview, setImagePreview] = useState(null);
-    const {id} = useParams();
+    const [selectedImage, setSelectedImage] = useState(null); // Thêm biến trạng thái mới
+    const { id } = useParams();
+    const [show, setShow] = useState(true);
 
-    const handleImageChange = (e, setFieldValue) => {
+    const handleClose = () => {
+        setShow(false);
+        toggleModal(); // Call the function from props to toggle modal in parent component
+    };
+    const handleShow = () => setShow(true);
+
+    useEffect(() => {
+        handleShow();
+    }, []);
+
+    const handleImageChange = (e) => {
         const imageFile = e.target.files[0];
-        setFieldValue("image_url", imageFile);
+        setSelectedImage(imageFile); // Lưu tệp hình ảnh vào biến trạng thái
         setImagePreview(URL.createObjectURL(imageFile));
     };
 
-    const handleUpload = async (values) => {
+    const handleUpload = async () => {
         try {
-            if (!values.image_url) {
+            if (!selectedImage) {
                 console.error('Please select an image.');
                 return;
             }
-            const imageRef = ref(storage, `house_images/${values.name_house}`);
-            await uploadBytes(imageRef, values.image_url);
+            const imageRef = ref(storage, `house_images`);
+            await uploadBytes(imageRef, selectedImage);
             const imageUrl = await getDownloadURL(imageRef);
             return imageUrl;
         } catch (error) {
@@ -34,61 +44,45 @@ export default function PostImage() {
         }
     };
 
-
     return (
         <>
-            <div>
-                <Header/>
-            </div>
-
-            <div className="container mt-4">
-                <h1 align={"center"}>Post Image</h1>
-                <div className="form-container">
-                    <Formik
-                        initialValues={{image_url: null}}
-                        onSubmit={async (values, {setSubmitting, resetForm}) => {
-                            try {
-                                const imageUrl = await handleUpload(values);
-                                if (imageUrl) {
-                                    console.log(imageUrl);
-                                    console.log(values)
-                                    await postImageHouse(id, { ...values, image_url: imageUrl });
-                                    toast.success("post image for house successfully");
-                                    console.log('House information added successfully!');
-                                    resetForm();
-                                }
-                            } catch (error) {
-                                console.error('Error adding house information:', error);
-                            } finally {
-                                setSubmitting(false);
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Đăng ảnh cho nhà của mình</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(e.target);
+                        const values = Object.fromEntries(formData.entries());
+                        try {
+                            const imageUrl = await handleUpload();
+                            if (imageUrl) {
+                                console.log(imageUrl);
+                                console.log(values)
+                                await postImageHouse(id, { ...values, image_url: imageUrl });
+                                toast.success("đăng ảnh cho nhà thành công !");
+                                console.log('House information added successfully!');
+                                setImagePreview(null); // Reset image preview
+                                handleClose(); // Close the modal after successful submission
                             }
-                        }}
-                    >
-                        {({ isSubmitting, setFieldValue }) => (
-                            <Form>
-                                <div className="mb-3">
-                                    <label className="form-label">Image</label>
-                                    <input type="file" accept="image/jpeg, image/png" className="file-input"
-                                           onChange={(e) => handleImageChange(e, setFieldValue)}/>
-                                    {imagePreview && (
-                                        <img src={imagePreview} alt="Preview" className="file-preview"
-                                             style={{width: '450px', height: '250px'}}/>
-                                    )}
-                                </div>
-                                <button type="submit" disabled={isSubmitting} className="btn-submit">Post
-                                </button>
-                                <div className="mb-3">
-                                    <p className="form-label"><Link
-                                        to={`/house/${id}`}><Button>Back to house detail</Button></Link></p>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                </div>
-            </div>
-            <div style={{marginTop: "5%"}}>
-                <Footer/>
-            </div>
+                        } catch (error) {
+                            console.error('Error adding house information:', error);
+                        }
+                    }}>
+                        <div className="mb-3">
+                            <label className="form-label">Ảnh</label>
+                            <input type="file" name="image" accept="image/jpeg, image/png" className="form-control"
+                                   onChange={handleImageChange} />
+                            {imagePreview && (
+                                <img src={imagePreview} alt="Preview" className="file-preview"
+                                     style={{ width: '450px', height: '250px' }} />
+                            )}
+                        </div>
+                        <Button variant="primary" type="submit">Đăng</Button>
+                    </form>
+                </Modal.Body>
+            </Modal>
         </>
     );
 }
