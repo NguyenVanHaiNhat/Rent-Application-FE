@@ -10,6 +10,7 @@ import "./UpdateHouse.css"
 import Footer from "../Home/Footer";
 import Header from "../Home/Header";
 import {toast} from "react-toastify";
+import UpdateModal from "./UpdateModal";
 
 const validationSchema = Yup.object().shape({
     name_house: Yup.string().required('Vui lòng nhập tên căn nhà.'),
@@ -77,10 +78,7 @@ const UpdateHouse = () => {
             const imageRef = ref(storage, `house_images/${id}`);
             await uploadBytes(imageRef, houseInfo.image);
             const imageUrl = await getDownloadURL(imageRef);
-            setHouseInfo({
-                ...houseInfo,
-                image: imageUrl
-            });
+            setImagePreview(imageUrl)
             setUploading(false);
             toast.success("Đã thêm ảnh thành công", { autoClose: 1000 })
         } catch (error) {
@@ -88,11 +86,14 @@ const UpdateHouse = () => {
             setUploading(false);
         }
     };
-    const handleSubmit = async (houseInfo) => {
+    const handleSubmit = async (value) => {
+        value = {
+            ...value,
+            image : imagePreview
+        }
         try {
-            await editHouse(houseInfo);
-            navigate(`/owner/${localStorage.getItem(`idAccount`)}`);
-            alert('Thông tin căn nhà đã được cập nhật thành công!');
+            await editHouse(value);
+            setShowSuccessModal(true)
         } catch (error) {
             console.error('Error updating house information:', error);
         }
@@ -175,6 +176,10 @@ const UpdateHouse = () => {
                             </Form>
 
                         </Formik>
+                        <UpdateModal
+                            show={showSuccessModal}
+                            onClose={() => setShowSuccessModal(false)}
+                        />
                     </div>
                     <div className="col-3"></div>
                 </div>

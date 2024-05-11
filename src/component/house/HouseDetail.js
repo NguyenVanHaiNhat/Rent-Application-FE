@@ -8,16 +8,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {findHouseImageById} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 import Footer from "../Home/Footer";
-import {addNewRate, findAllRate} from "../../service/RateService";
+import {addNewRate, checkRate, findAllRate} from "../../service/RateService";
 import "./CreateRate.css"
+import {toast} from "react-toastify";
 
 
 const HouseDetail = () => {
     const [stars, setStars] = useState("");
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
     const [houseInfo, setHouseInfo] = useState({
         name_house: '',
         address: '',
@@ -31,6 +30,8 @@ const HouseDetail = () => {
 
     const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
     const {id} = useParams();
+    const id_account = localStorage.getItem('idAccount');
+
     const [imgIndex, setImgIndex] = useState(0);
 
     const [rate, setRate] = useState([]);
@@ -69,20 +70,27 @@ const HouseDetail = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
-        try {
-            const rate = {
-                stars: stars,
-                content: content
-            };
+        const check = await checkRate(id,id_account);
+        if (check === 0) {
+            toast.error("Bạn vui lòng đặt phòng")
+        } else {
+            try {
+                const rate = {
+                    stars: stars,
+                    content: content
+                };
 
-            await addNewRate(id, rate);
-            setSuccessMessage('Rate created successfully!');
-            setStars("");
-            setContent('');
-            getAllRateDetail();
-        } catch (error) {
-            setErrorMessage('Error creating rate');
+                await addNewRate(id, rate, id_account);
+                toast.success("Đã thêm đánh giá thành công", {autoClose: 1000})
+                setStars("");
+                setContent('');
+                getAllRateDetail();
+            } catch (error) {
+                toast.error('Error creating rate', {autoClose: 1000})
+            }
         }
+
+
         setIsLoading(false);
     };
 // phần hiển thị tương tác
@@ -100,16 +108,8 @@ const HouseDetail = () => {
             });
     };
 
-    // phần edit
-    const [expandedItems, setExpandedItems] = useState([]);
-
-    const toggleExpand = (id) => {
-        if (expandedItems.includes(id)) {
-            setExpandedItems(expandedItems.filter(item => item !== id));
-        } else {
-            setExpandedItems([...expandedItems, id]);
-        }
-    };
+// Sắp xếp mảng rate theo id từ lớn đến nhỏ
+    const sortedRate = rate.slice().sort((a, b) => new Date(b.time_rate) - new Date(a.time_rate));
 
     // Thêm state cho phân trang
     const [currentPage, setCurrentPage] = useState(1);
@@ -118,7 +118,7 @@ const HouseDetail = () => {
     // Tính toán chỉ mục của các mục hiện tại trên trang
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = rate.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = sortedRate.slice(indexOfFirstItem, indexOfLastItem);
 
     // Hàm thay đổi trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -247,10 +247,9 @@ const HouseDetail = () => {
                             {isLoading ? 'Creating...' : 'Bình Luận'}
                         </button>
                     </form>
-                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                    {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+
                 </div>
-                <div className="row">
+                <div className="row mt-2">
                     {currentItems.map((item, index) => (
                         <div key={item.id} className="col-md-6 mb-4">
                             <div className="row">
@@ -289,7 +288,6 @@ const HouseDetail = () => {
                         </li>
                     ))}
                 </ul>
-
 
 
             </div>
