@@ -37,45 +37,45 @@ export default function HistoryBooking() {
     return (
         <>
 
-        <div>
-            <Header/>
-        </div>
-        <div className="history-container">
-            <h2 className="history-title">History Bookings</h2>
-            <Table striped bordered hover className="history-table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>House Name</th>
-                    <th>Total Order</th>
-                    <th>Address</th>
-                    <th>Status</th>
-                    <th>Cancel Rent</th>
-                </tr>
-                </thead>
-                <tbody>
-                {historyBookings.map((booking,index) => (
-                    <tr key={booking.id}>
-                        <td>{index + 1}</td>
-                        <td>{booking.start_date}</td>
-                        <td>{booking.end_date}</td>
-                        <td>{booking.name_house}</td>
-                        <td>{booking.total_order}</td>
-                        <td>{booking.address}</td>
-                        <td>{booking.status}</td>
-                        <td>
-                            {booking.status === 'RENTED' ? (
-                                <Button variant="danger" onClick={() => handleCancelBooking(booking.id)}>Hủy
-                                    thuê</Button>
-                            ) : null}
-                        </td>
+            <div>
+                <Header/>
+            </div>
+            <div className="history-container">
+                <h2 className="history-title">History Bookings</h2>
+                <Table striped bordered hover className="history-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>House Name</th>
+                        <th>Total Order</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Cancel Rent</th>
                     </tr>
-                ))}
-                </tbody>
-            </Table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {historyBookings.map((booking,index) => (
+                        <tr key={booking.id}>
+                            <td>{index + 1}</td>
+                            <td>{booking.start_date}</td>
+                            <td>{booking.end_date}</td>
+                            <td>{booking.name_house}</td>
+                            <td>{booking.total_order}</td>
+                            <td>{booking.address}</td>
+                            <td>{booking.status}</td>
+                            <td>
+                                {booking.status === 'RENTED' ? (
+                                    <Button variant="danger" onClick={() => handleCancelBooking(booking.id)}>Hủy
+                                        thuê</Button>
+                                ) : null}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
+            </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>
             </div>

@@ -56,90 +56,90 @@ export default function PostHouse() {
                 <Header/>
             </div>
 
-        <div className="container mt-4">
-            <h1 align={"center"}>Post House</h1>
-            <div className="form-container">
-                <Formik
-                    initialValues={{
-                        name_house: '',
-                        address: '',
-                        num_of_bedrooms: '',
-                        num_of_bathrooms: '',
-                        description: '',
-                        price_of_day: '',
-                        status: 'đang trống',
-                        image: null
-                    }}
-                    validationSchema={validate}
-                    onSubmit={async (values, { setSubmitting, resetForm }) => {
-                        try {
-                            const imageUrl = await handleUpload(values);
-                            if (imageUrl) {
-                                await postHouse({ ...values, image: imageUrl });
-                                console.log('House information added successfully!');
-                                resetForm();
-                                setImagePreview(null);
-                                setShowSuccessModal(true)
+            <div className="container mt-4">
+                <h1 align={"center"}>Post House</h1>
+                <div className="form-container">
+                    <Formik
+                        initialValues={{
+                            name_house: '',
+                            address: '',
+                            num_of_bedrooms: '',
+                            num_of_bathrooms: '',
+                            description: '',
+                            price_of_day: '',
+                            status: 'đang trống',
+                            image: null
+                        }}
+                        validationSchema={validate}
+                        onSubmit={async (values, { setSubmitting, resetForm }) => {
+                            try {
+                                const imageUrl = await handleUpload(values);
+                                if (imageUrl) {
+                                    await postHouse({ ...values, image: imageUrl });
+                                    console.log('House information added successfully!');
+                                    resetForm();
+                                    setImagePreview(null);
+                                    setShowSuccessModal(true)
+                                }
+                            } catch (error) {
+                                console.error('Error adding house information:', error);
+                            } finally {
+                                setSubmitting(false);
                             }
-                        } catch (error) {
-                            console.error('Error adding house information:', error);
-                        } finally {
-                            setSubmitting(false);
-                        }
-                    }}
-                >
-                    {({ isSubmitting, setFieldValue }) => (
-                        <Form>
-                            <div className="mb-3">
-                                <label className="form-label">Name House</label>
-                                <Field type="text" className="form-control" name="name_house" />
-                                <ErrorMessage name="name_house" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Address</label>
-                                <Field type="text" className="form-control" name="address" />
-                                <ErrorMessage name="address" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Number of Bedroom</label>
-                                <Field type="number" className="form-control" name="num_of_bedrooms" />
-                                <ErrorMessage name="num_of_bedrooms" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Number of Bathroom</label>
-                                <Field type="number" className="form-control" name="num_of_bathrooms" />
-                                <ErrorMessage name="num_of_bathrooms" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Description</label>
-                                <Field type="text" className="form-control" name="description" />
-                                <ErrorMessage name="description" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Price (VNĐ)</label>
-                                <Field type="number" className="form-control" name="price_of_day" />
-                                <ErrorMessage name="price_of_day" component="div" className="error" />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Image</label>
-                                <input type="file" accept="image/jpeg, image/png" className="file-input" onChange={(e) => handleImageChange(e, setFieldValue)} />
-                                {imagePreview && (
-                                    <img src={imagePreview} alt="Preview" className="file-preview" style={{ width: '450px', height: '250px' }} />
-                                )}
-                            </div>
-                            <button type="submit" disabled={isSubmitting} className="btn-submit">Post</button>
-                        </Form>
-                    )}
-                </Formik>
-                <PostHouseModal
-                    show={showSuccessModal}
-                    onClose={() => setShowSuccessModal(false)}
-                />
+                        }}
+                    >
+                        {({ isSubmitting, setFieldValue }) => (
+                            <Form>
+                                <div className="mb-3">
+                                    <label className="form-label">Name House</label>
+                                    <Field type="text" className="form-control" name="name_house" />
+                                    <ErrorMessage name="name_house" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Address</label>
+                                    <Field type="text" className="form-control" name="address" />
+                                    <ErrorMessage name="address" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Number of Bedroom</label>
+                                    <Field type="number" className="form-control" name="num_of_bedrooms" />
+                                    <ErrorMessage name="num_of_bedrooms" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Number of Bathroom</label>
+                                    <Field type="number" className="form-control" name="num_of_bathrooms" />
+                                    <ErrorMessage name="num_of_bathrooms" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Description</label>
+                                    <Field type="text" className="form-control" name="description" />
+                                    <ErrorMessage name="description" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Price (VNĐ)</label>
+                                    <Field type="number" className="form-control" name="price_of_day" />
+                                    <ErrorMessage name="price_of_day" component="div" className="error" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Image</label>
+                                    <input type="file" accept="image/jpeg, image/png" className="file-input" onChange={(e) => handleImageChange(e, setFieldValue)} />
+                                    {imagePreview && (
+                                        <img src={imagePreview} alt="Preview" className="file-preview" style={{ width: '450px', height: '250px' }} />
+                                    )}
+                                </div>
+                                <button type="submit" disabled={isSubmitting} className="btn-submit">Post</button>
+                            </Form>
+                        )}
+                    </Formik>
+                    <PostHouseModal
+                        show={showSuccessModal}
+                        onClose={() => setShowSuccessModal(false)}
+                    />
+                </div>
             </div>
-        </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>
             </div>
-            </>
+        </>
     );
 }

@@ -1,44 +1,60 @@
-import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./houseDetail.css"
-import {Carousel} from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {findHouseImageById} from "../../service/HouseService";
+import "./houseDetail.css";
+import { Carousel } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { findHouseImageById, updateHouseStatus } from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 import Footer from "../Home/Footer";
 import {addNewRate, checkRate, findAllRate} from "../../service/RateService";
 import "./CreateRate.css"
 import {toast} from "react-toastify";
 
+import PostImage from "./PostImage";
+import Modal from "react-bootstrap/Modal";
 
 const HouseDetail = () => {
     const [stars, setStars] = useState("");
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [houseInfo, setHouseInfo] = useState({
-        name_house: '',
-        address: '',
-        num_of_bedrooms: '',
-        num_of_bathrooms: '',
-        description: '',
-        price_of_day: '',
+        name_house: "",
+        address: "",
+        num_of_bedrooms: "",
+        num_of_bathrooms: "",
+        description: "",
+        price_of_day: "",
+        status: "",
         image: null,
-        all_images: null
+        all_images: null,
     });
 
-    const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
-    const {id} = useParams();
     const id_account = localStorage.getItem('idAccount');
 
-    const [imgIndex, setImgIndex] = useState(0);
 
     const [rate, setRate] = useState([]);
+    const { id } = useParams();
+    const [imgIndex, setImgIndex] = useState(0);
+    const [showPostImageModal, setShowPostImageModal] = useState(false);
+    const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
 
     const handleSelectImage = (selectedIndex) => {
         setImgIndex(selectedIndex);
     };
+
+    const fetchHouseInfo = async () => {
+        try {
+            const fetchedHouseInfo = await findHouseImageById(id);
+            setHouseInfo(fetchedHouseInfo);
+        } catch (error) {
+            console.error("Error fetching house information:", error);
+        }
+    };
+
     useEffect(() => {
         const fetchHouseInfo = async () => {
             try {
@@ -56,6 +72,30 @@ const HouseDetail = () => {
 
 
     // phần đánh giá
+    const togglePostImageModal = () => {
+        setShowPostImageModal(!showPostImageModal);
+    };
+
+    const toggleUpdateStatusModal = () => {
+        setShowUpdateStatusModal(!showUpdateStatusModal);
+    };
+
+    const handleCloseUpdateStatusModal = () => {
+        setShowUpdateStatusModal(false);
+    };
+
+    const handleUpdateStatus = (id, newStatus) => {
+        updateHouseStatus(houseInfo.id, selectedStatus)
+            .then(() => {
+                fetchHouseInfo();
+                toast.success("sửa trạng thái nhà thành công")
+                handleCloseUpdateStatusModal(); // Đóng modal sau khi cập nhật thành công
+            })
+            .catch((error) => {
+                console.error("Error updating status:", error);
+            });
+    };
+
     const handleImageMouseEnter = (imageUrl) => {
         setHoveredImageUrl(imageUrl);
     };
@@ -178,7 +218,7 @@ const HouseDetail = () => {
                                     </div>
 
                                 </div>
-                                <div className="col-6 d-flex justify-content-center ">
+                                <div className="col-4 d-flex justify-content-center">
                                     <div className="text-left">
                                         <h3>Đặc điểm bất động sản</h3>
                                         <div className="mb-3">
@@ -203,13 +243,43 @@ const HouseDetail = () => {
                                                 : {houseInfo.price_of_day} (VNĐ)</p>
                                         </div>
                                         <div className="mb-3">
-                                            <p className="form-label"><Link
-                                                to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Book
-                                                Now</Button></Link></p>
-                                        </div>
-                                        <div className="mb-3">
-                                            <p className="form-label"><Link
-                                                to={`/api/image/${houseInfo.id}`}><Button>Up Image</Button></Link></p>
+                                            <div className="row">
+                                                <div className="col-6"><Link
+                                                    to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Đặt
+                                                    ngay</Button></Link></div>
+                                                <div className="col-6">
+                                                    <button onClick={togglePostImageModal}>Đăng ảnh</button>
+                                                    {showPostImageModal && <PostImage toggleModal={() => setShowPostImageModal(false)}
+                                                                             onUpdateSuccess={fetchHouseInfo()}/>}
+                                                </div>
+                                                <div className="col-6">
+                                                    <div className="text-center">
+                                                        <button onClick={toggleUpdateStatusModal}>Cập nhật trạng thái
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <Modal show={showUpdateStatusModal} onHide={handleCloseUpdateStatusModal}>
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title>Cập nhật trạng thái</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        <p className="form-label">Trạng thái :</p>
+                                                        <select
+                                                            className="form-select"
+                                                            value={selectedStatus}
+                                                            onChange={(e) => setSelectedStatus(e.target.value)}
+                                                        >
+                                                            <option value="Đang trống">Đang trống</option>
+                                                            <option value="Bảo trì">Bảo trì</option>
+                                                        </select>
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                    <Button variant="primary" onClick={handleUpdateStatus}>
+                                                            Xác nhận
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                            </div>
                                         </div>
                                     </div>
 
