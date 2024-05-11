@@ -95,7 +95,7 @@ const Home = () => {
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Top 5 nhà được thuê nhiều nhất</h2>
                 <div className="row">
-                    {top5Houses.map((house, index) => (
+                    {top5Houses&&top5Houses.map((house, index) => (
                         <div key={house.id} className="col-md-4 mb-4">
                             <div
                                 className={`card rounded ${hoveredCardId === house.id ? "hovered" : ""}`}

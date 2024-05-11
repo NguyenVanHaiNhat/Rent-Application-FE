@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Formik, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import 'react-datepicker/dist/react-datepicker.css';
-import "./BookingForm.css"
+import Modal from "react-bootstrap/Modal";
+import { ErrorMessage, Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
 import { bookHouse, calculateTotalPrice, checkDate } from "../../service/BookHouse";
-import BookingModal from "./BookingModal";
-import 'react-toastify/dist/ReactToastify.css';
-import moment from "moment";
 import DatePicker from "react-datepicker";
-import { ToastContainer, toast } from 'react-toastify';
-import Header from "../Home/Header";
-import Footer from "../Home/Footer";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import * as Yup from "yup";
+import "./ModalBooking.css";
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ModalBookingSuccess from "./ModalBookingSuccess";
 
+// Validation schema
 const validate = Yup.object().shape({
     startDate: Yup.date()
         .required('Start Date is required')
-        .min(new Date(), 'StartDate must be after today')
-        .max(Yup.ref('endDate'), 'StartDate must be before or equal to End Date')
-        .test('startBeforeEnd', 'StartDate must be before or equal to End Date', function(value) {
+        .min(new Date(), 'Start Date must be after today')
+        .max(Yup.ref('endDate'), 'Start Date must be before or equal to End Date')
+        .test('startBeforeEnd', 'Start Date must be before or equal to End Date', function(value) {
             const endDate = this.parent.endDate;
             return moment(value).isSameOrBefore(endDate);
         }),
@@ -31,10 +30,8 @@ const validate = Yup.object().shape({
         }),
 });
 
-
-
-const BookingForm = () => {
-    const { id: houseId, price: housePrice } = useParams();
+export default function ModalBooking(props) {
+    const { show, onClose, price: housePrice, id: houseId } = props;
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [totalDays, setTotalDays] = useState(1);
     const [totalPrice, setTotalPrice] = useState(housePrice);
@@ -43,13 +40,17 @@ const BookingForm = () => {
         setTotalPrice(calculateTotalPrice(totalDays, housePrice));
     }, [totalDays, housePrice]);
 
+    const handleCloseSuccessModal = () => {
+        setShowSuccessModal(false);
+        onClose();
+    }
+
     return (
-        <>
-            <div>
-                <Header/>
-            </div>
-            <div className="booking-form-container">
-                <h2>Book House</h2>
+        <Modal show={show} onHide={onClose} centered className="custom-modal">
+            <Modal.Header closeButton className="custom-header">
+                <Modal.Title className="custom-title1">Đặt Phòng</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="custom-content">
                 <Formik
                     initialValues={{
                         startDate: new Date(),
@@ -62,73 +63,73 @@ const BookingForm = () => {
                         try {
                             const checkDates = await checkDate(startDate, endDate, houseId)
                             if (checkDates.length !== 0) {
-                                toast.error("This date has been booked")
+                                toast.error("Ngy này đã được đặt")
                             } else {
                                 await bookHouse(startDate, endDate, houseId);
                                 setShowSuccessModal(true);
                             }
                         } catch (error) {
-                            toast.error('Booking failed. Please try again.');
+                            // Differentiate between network errors and booking conflicts
+                            if (error.response && error.response.status === 409) {
+                                toast.error('This date has been booked. Please choose another date.');
+                            } else {
+                                toast.error('Booking failed. Please try again.');
+                            }
                         }
                         setSubmitting(false);
                     }}
                 >
                     {({ isSubmitting, values, setFieldValue }) => (
                         <Form>
-                            <div>
-                                <label>Start Date:</label>
+                            <div className="date-picker">
+                                <label htmlFor="startDate" className="date-label">Ngày bắt đầu:</label>
                                 <DatePicker
                                     name="startDate"
                                     selected={values.startDate}
                                     onChange={(date) => {
                                         setFieldValue('startDate', date);
-                                        const days = moment(values.endDate).diff(moment(date), 'days') + 1;
-                                        setTotalDays(Math.max(days, 0)); // Kiểm tra và đặt số ngày là không âm
+                                        const days = moment(date).diff(moment(values.endDate), 'days') + 1;
+                                        setTotalDays(Math.max(days, 0)); // Ensure days is not negative
                                     }}
                                     maxDate={null}
                                     minDate={null}
                                 />
                                 <ErrorMessage name="startDate" component="div" className="error" />
                             </div>
-                            <div>
-                                <label>End Date:</label>
+                            <div className="date-picker">
+                                <label htmlFor="endDate" className="date-label">Ngày kết thúc:</label>
                                 <DatePicker
                                     name="endDate"
                                     selected={values.endDate}
                                     onChange={(date) => {
                                         setFieldValue('endDate', date);
                                         const days = moment(date).diff(moment(values.startDate), 'days') + 1;
-                                        setTotalDays(days);
+                                        setTotalDays(Math.max(days, 0)); // Ensure days is not negative
                                     }}
                                     minDate={values.startDate}
                                 />
                                 <ErrorMessage name="endDate" component="div" className="error" />
                             </div>
-                            <div>
-                                <label>Total Days:</label>
+                            <div className="date-picker">
+                                <label>Tổng số ngày:</label>
                                 <input type="text" value={totalDays} readOnly />
                             </div>
-                            <div>
-                                <label>Total Price:</label>
+                            <div className="date-picker">
+                                <label>Tổng tiền (VNĐ):</label>
                                 <input type="text" value={totalPrice} readOnly />
                             </div>
-                            <button type="submit" disabled={isSubmitting}>
-                                {isSubmitting ? 'Booking...' : 'Book Now'}
+                            <button type="submit" disabled={isSubmitting} className="book-now-button">
+                                {isSubmitting ? 'Đang Đặt...' : 'Đặt Ngay'}
                             </button>
                         </Form>
                     )}
                 </Formik>
-                <ToastContainer />
-                <BookingModal
-                    show={showSuccessModal}
-                    onClose={() => setShowSuccessModal(false)}
-                />
-            </div>
-            <div style={{marginTop: "5%"}}>
-                <Footer/>
-            </div>
-        </>
-    );
-};
-
-export default BookingForm;
+            </Modal.Body>
+            <ModalBookingSuccess
+            show={showSuccessModal}
+            onClose={handleCloseSuccessModal}
+            />
+            <ToastContainer />
+        </Modal>
+    )
+}
