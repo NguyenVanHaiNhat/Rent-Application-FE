@@ -1,0 +1,114 @@
+/* Các style cho nút */
+/* Các style cho nhãn ngày */
+/* Các style cho nhãn ngày */
+.date-label {
+    display: block; /* Hiển thị dạng block */
+    margin-bottom: 5px !important; /* Khoảng cách dưới */
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 16px; /* Kích thước phông chữ */
+}
+
+/* Các style cho ô chọn ngày */
+.date-picker {
+    margin-bottom: 1px; /* Khoảng cách dưới */
+
+}
+
+/* Các style cho ô chọn ngày */
+.date-picker input {
+    width: 95%; /* Chiều rộng 100% */
+    padding: 8px; /* Kích thước padding */
+    border: 1px solid #ccc; /* Viền */
+    border-radius: 5px; /* Bo góc */
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 16px; /* Kích thước phông chữ */
+    margin-bottom: 10px; /* Khoảng cách dưới */
+}
+
+/* Các style cho DatePicker */
+.react-datepicker-wrapper {
+    width: 100%; /* Chiều rộng 100% */
+}
+
+/* Style cho ô chọn tổng số ngày */
+.total-days-input {
+    margin-top: 10px; /* Khoảng cách trên */
+    width: 100%; /* Chiều rộng 100% */
+    padding: 8px; /* Kích thước padding */
+    border: 1px solid #ccc; /* Viền */
+    border-radius: 5px; /* Bo góc */
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 16px; /* Kích thước phông chữ */
+    margin-bottom: 15px; /* Khoảng cách dưới */
+}
+
+
+
+
+/* Các style cho header của modal */
+.custom-title1 {
+    background-color: #ffffff; /* Màu nền */
+    color: #252323; /* Màu chữ */
+    border-radius: 10px;
+    padding: 10px 110px 10px 105px !important;
+    align-content: center;
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 25px !important; /* Kích thước phông chữ */
+    text-align: center; /* Căn giữa */
+}
+
+/* Các style cho phần body của modal */
+.modal-body {
+    padding: 20px; /* Kích thước padding */
+}
+
+
+.book-now-button {
+    background-color: #ffffff !important; /* Màu nền trắng */
+    color: #000000 !important; /* Màu chữ đen */
+    border: 2px solid #000000 !important; /* Viền đen 1px */
+    padding: 10px 20px ; /* Kích thước padding */
+    border-radius: 5px; /* Bo góc */
+    cursor: pointer; /* Con trỏ khi hover */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+/* Hiệu ứng hover */
+.book-now-button:hover {
+    background-color: #252323 !important; /* Màu nền mờ khi hover */
+    color: #ffffff !important; /* Giữ màu chữ */
+    border-color: #000000 !important; /* Giữ viền đen */
+}
+
+
+.button-group button {
+    transition: all 0.3s; /* Thêm hiệu ứng transition */
+    font-family: 'Roboto', sans-serif; /* Sử dụng font Roboto */
+    font-weight: 500; /* Độ đậm của font */
+}
+
+
+/* Các style cho modal */
+.custom-modal {
+}
+
+/* Các style cho header của modal */
+.custom-header {
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+/* Các style cho tiêu đề của modal */
+.custom-title {
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 24px; /* Kích thước phông chữ */
+}
+
+/* Các style cho nội dung của modal */
+.custom-content {
+    font-family: Arial, sans-serif; /* Phông chữ */
+    font-size: 16px; /* Kích thước phông chữ */
+}
+
+
+
+

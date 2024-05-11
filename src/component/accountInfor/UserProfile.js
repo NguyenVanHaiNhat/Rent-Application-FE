@@ -4,12 +4,14 @@ import UpdateAccount from "./UpdateInfor";
 import {Link, useParams} from "react-router-dom";
 import './style.css';
 import Header from "../Home/Header";
-import Footer from "../Home/Footer"; // Import CSS file
+import Footer from "../Home/Footer";
+import ModalChangePassword from "../changepassword/ModalChangePassword"; // Import CSS file
 
 export default function UserProfile() {
     const [accountInfo, setAccountInfo] = useState({});
     const {id} = useParams();
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [showModalChangePassword,setShowModalChangePassword] = useState(false);
 
     useEffect(() => {
         const fetchAccountInfo = async () => {
@@ -38,6 +40,12 @@ export default function UserProfile() {
     const handleOpenUpdateModal = () => {
         setShowUpdateModal(true);
     };
+    const handleShowModalChangePassword = () => {
+        setShowModalChangePassword(true);
+    }
+    const onCloseModal = () => {
+        setShowModalChangePassword(false)
+    }
 
     return (
         <>
@@ -70,9 +78,13 @@ export default function UserProfile() {
                 {showUpdateModal &&
                     <UpdateAccount id={id} showUpdateModal={showUpdateModal} setShowUpdateModal={setShowUpdateModal}
                                    onUpdateSuccess={onUpdateSuccess}/>}
-                <Link to={`/change-password`}>
-                    <button className="update-button">Change Password</button>
-                </Link>
+                <button className="update-button"
+                        onClick={handleShowModalChangePassword}
+                >Change Password</button>
+                <ModalChangePassword
+                    show= {showModalChangePassword}
+                    onClose={onCloseModal}
+                />
             </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>

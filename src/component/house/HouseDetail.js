@@ -11,6 +11,7 @@ import Footer from "../Home/Footer";
 import PostImage from "./PostImage";
 import Modal from "react-bootstrap/Modal";
 import {toast} from "react-toastify";
+import ModalBooking from "../booking/ModalBooking";
 
 const HouseDetail = () => {
     const [houseInfo, setHouseInfo] = useState({
@@ -31,6 +32,7 @@ const HouseDetail = () => {
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("");
     const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
+    const [showModalBooking,setShowModalBooking] = useState(false)
 
     const handleSelectImage = (selectedIndex) => {
         setImgIndex(selectedIndex);
@@ -62,6 +64,12 @@ const HouseDetail = () => {
     const handleCloseUpdateStatusModal = () => {
         setShowUpdateStatusModal(false);
     };
+    const handleCloseModalBooking = () => {
+        setShowModalBooking(false);
+    }
+    const handleShowModalBooking = () => {
+        setShowModalBooking(true);
+    }
 
     const handleUpdateStatus = (id, newStatus) => {
         updateHouseStatus(houseInfo.id, selectedStatus)
@@ -154,9 +162,9 @@ const HouseDetail = () => {
                                         </div>
                                         <div className="mb-3">
                                             <div className="row">
-                                                <div className="col-6"><Link
-                                                    to={`/book/${houseInfo.id}/${houseInfo.price_of_day}`}><Button>Đặt
-                                                    ngay</Button></Link></div>
+                                                <div className="mb-3">
+                                                    <p className="form-label"> <Button onClick={handleShowModalBooking}>Book Now</Button></p>
+                                                </div>
                                                 <div className="col-6">
                                                     <button onClick={togglePostImageModal}>Đăng ảnh</button>
                                                     {showPostImageModal && <PostImage toggleModal={() => setShowPostImageModal(false)}
@@ -199,7 +207,12 @@ const HouseDetail = () => {
                     </div>
 
                 </div>
-
+                <ModalBooking
+                    id={houseInfo.id}
+                    price={houseInfo.price_of_day}
+                    show={showModalBooking}
+                    onClose={handleCloseModalBooking}
+                />
             </div>
             <div style={{marginTop: "5%"}}>
                 <Footer/>
