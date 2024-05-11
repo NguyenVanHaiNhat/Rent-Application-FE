@@ -25,7 +25,7 @@ export default function HistoryBooking() {
             await updateBookingStatus(bookingId);
             setHistoryBookings(prevBookings => prevBookings.map(booking => {
                 if (booking.id === bookingId) {
-                    return {...booking, status: 'AVAILABLE'};
+                    return {...booking, status: 'Đã hủy'};
                 }
                 return booking;
             }));
@@ -66,7 +66,7 @@ export default function HistoryBooking() {
                             <td>{booking.address}</td>
                             <td>{booking.status}</td>
                             <td>
-                                {booking.status === 'RENTED' ? (
+                                {booking.status === 'Đang cho thuê' ? (
                                     <Button variant="danger" onClick={() => handleCancelBooking(booking.id)}>Hủy
                                         thuê</Button>
                                 ) : null}
