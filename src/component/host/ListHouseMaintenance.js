@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {findAllListHouseMaintenance} from "../../service/HostService";
 import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 const ListHouseMaintenance = () => {
     const [houses, setHouses] = useState([]);
@@ -34,20 +35,34 @@ const ListHouseMaintenance = () => {
                 <h2 className="text-center mb-4">Danh sách căn nhà đang bảo trì</h2>
                 <div className="row">
                     {currentHouses.map((house, index) => (
-                        <div key={house.id} className="col-md-6 mb-4">
-                            <div className="card">
-                                <img
-                                    src={house.image}
-                                    className="card-img-top"
-                                    alt={house.name_house}
-                                    style={{height: "200px", objectFit: "cover"}}
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{house.name_house}</h5>
-                                    <p className="card-text">Địa chỉ: {house.address}</p>
-                                    <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
-                                    <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
-                                    <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                        <div key={house.id} className="col-md-4 mb-4">
+                            <div className="card rounded">
+                                <Link to={`/house/${house.id}`} className="card-link"
+                                      style={{color: "black", textDecoration: "none"}}>
+
+                                    <img
+                                        src={house.image}
+                                        className="card-img-top"
+                                        alt={house.name_house}
+                                        style={{
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            borderTopLeftRadius: "10px",
+                                            borderTopRightRadius: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{house.name_house}</h5>
+                                        <p className="card-text">Địa chỉ: {house.address}</p>
+                                        <p className="card-text">Số phòng ngủ: {house.num_of_bedrooms}</p>
+                                        <p className="card-text">Số phòng tắm: {house.num_of_bathrooms}</p>
+                                        <p className="card-text">Giá phòng mỗi ngày: {house.price_of_day}</p>
+                                        <p className="card-text">Trạng thái: {house.status}</p>
+                                    </div>
+                                </Link>
+                                <div className="card-footer">
+                                    <div className="row">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -58,6 +73,9 @@ const ListHouseMaintenance = () => {
                     totalHouses={houses.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );

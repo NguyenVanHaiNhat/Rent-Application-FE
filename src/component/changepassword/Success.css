@@ -1,0 +1,17 @@
+/* Success.css */
+.success-button {
+    background-color: white !important;
+    color: #252323 !important;
+    border: 2px solid #252323 !important;
+    padding: 10px 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Hiệu ứng hover */
+.success-button:hover {
+    background-color: #252323 !important;
+    color: #ffffff !important;
+    border-color: #252323 !important;
+}

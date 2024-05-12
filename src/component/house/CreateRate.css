@@ -1,0 +1,9 @@
+.star {
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+    display: inline-block;
+}
+.star.checked {
+    color: yellow;
+}

@@ -102,3 +102,11 @@ export const updateAccountStatus = async (id, newStatus) => {
         throw error;
     }
 };
+export const getListSchedule = async (id) => {
+    try {
+        const res = await axios.get("http://localhost:8080/api/host/" + id);
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}

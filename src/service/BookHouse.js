@@ -73,3 +73,48 @@ export const updateBookingStatus = async (id) => {
         throw error;
     }
 };
+export const getTotalIncome = async  (id) => {
+    const token = localStorage.getItem('authToken');
+    try {
+        const  res = await axios.get(`http://localhost:8080/totalIncome`,{
+            params : {
+                id : id
+            }
+        },{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    }catch (error) {
+        console.error("Error not found:", error);
+        throw error;
+    }
+}
+export const getTotalIncomeRange = async  (id,startYear,startMonth,endYear,endMonth) => {
+    const token = localStorage.getItem('authToken');
+    try {
+        const  res = await axios.get(`http://localhost:8080/totalIncomeRange`,{
+            params: {
+                id: id,
+                startYear: startYear,
+                startMonth: startMonth,
+                endYear: endYear,
+                endMonth: endMonth
+            }
+        },{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return res.data;
+    }catch (error) {
+        console.error("Error not found:", error);
+        throw error;
+    }
+}
+
+
+
+
+

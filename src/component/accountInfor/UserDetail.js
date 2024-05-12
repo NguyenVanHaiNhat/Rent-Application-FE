@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {findUserDetailById} from "../../service/AccountService";
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 
 const UserDetail = () => {
@@ -28,6 +30,9 @@ const UserDetail = () => {
 
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
                 <div className="row justify-content-center">
                     <div className="col-md-6">
@@ -59,7 +64,8 @@ const UserDetail = () => {
                                     <p htmlFor="amountSpent">Tổng chi tiêu: <span className="m-lg-2">{userDetail && userDetail.amountSpent}</span></p>
                                 </div>
                                 <div className="form-group">
-                                    <p htmlFor="amountSpent"><Link className="btn btn-warning" to={`/history/${id}`}>History</Link></p>
+                                    <p htmlFor="amountSpent"><Link className="btn btn-warning"
+                                                                   to={`/history/${id}`}>Lịch sử thuê nhà</Link></p>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +73,9 @@ const UserDetail = () => {
                 </div>
             </div>
 
-
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
+            </div>
 
         </>
     );
