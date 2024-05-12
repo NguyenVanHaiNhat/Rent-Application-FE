@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import storage from "../../firebase/FirebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useParams } from "react-router-dom";
-import { postImageHouse } from "../../service/HouseService";
+import {findHouseImageById, postImageHouse} from "../../service/HouseService";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,12 +12,23 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
     const [selectedImage, setSelectedImage] = useState(null); // Thêm biến trạng thái mới
     const { id } = useParams();
     const [show, setShow] = useState(true);
-
+    const [houseInfo, setHouseInfo] = useState();
+    const role = localStorage.getItem('role');
+    const idAccount = parseInt(localStorage.getItem('idAccount'));
     const handleClose = () => {
         setShow(false);
         toggleModal(); // Call the function from props to toggle modal in parent component
     };
     const handleShow = () => setShow(true);
+    const fetchHouseInfo = async () => {
+        try {
+            const fetchedHouseInfo = await findHouseImageById(id);
+            setHouseInfo(fetchedHouseInfo);
+        } catch (error) {
+            console.error("Error fetching house information:", error);
+        }
+    };
+    fetchHouseInfo()
 
     useEffect(() => {
         handleShow();
@@ -30,7 +41,8 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
     };
 
     const handleUpload = async () => {
-        try {
+        if (role === 'ROLE_HOST' && houseInfo.id_account === idAccount) {
+            try {
             if (!selectedImage) {
                 console.error('Please select an image.');
                 return;
@@ -41,6 +53,9 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
             return imageUrl;
         } catch (error) {
             console.error('Error uploading image:', error);
+        }
+        } else {
+            toast.error('Bạn không có quyền đăng ảnh cho nhà người khác');
         }
     };
 

@@ -11,8 +11,6 @@ function Header() {
     const role = localStorage.getItem('role')
     const navigate = useNavigate();
     const location = useLocation();
-    const [open, setOpen] = useState(false);
-    let menuRef
     const logout = () => {
         localStorage.setItem("isLogin", false);
         localStorage.clear();
@@ -112,6 +110,10 @@ function Header() {
                                             )}
                                             {(role === "ROLE_HOST" ||  role === "ROLE_USER")&& (
                                                 <Link to={`/history/${idAccount}`}>Lịch sử thuê nhà</Link>
+                                            )}
+                                            <Link to={`/account/profile2/${idAccount}`}>Thông Tin</Link>
+                                            {(role == 'ROLE_ADMIN' || role == 'ROLE_HOST') && (
+                                                <Link to={`/api/host/${idAccount}`}>Lịch đặt thuê nhà</Link>
                                             )}
                                             <a onClick={logout}>Logout</a>
                                         </div>

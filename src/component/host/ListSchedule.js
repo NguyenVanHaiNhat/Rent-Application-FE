@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getListSchedule} from "../../service/HostService";
+import Header from "../Home/Header";
+import Footer from "../Home/Footer";
 
 export default function ListSchedule(){
     const [schedule, setSchedule] = useState([]);
@@ -26,15 +28,19 @@ export default function ListSchedule(){
 
     return (
         <>
+            <div>
+                <Header/>
+            </div>
             <div className="container mt-4">
-                <h2 className="text-center mb-4">Lịch đặt thuê</h2>
+                <h2 className="text-center mb-4">Lịch đặt thuê nhà của mình</h2>
                 <div className="row">
                     {currentSchedule.map((schedule, index) => (
                         <div key={schedule.id} className="col-md-6 mb-4">
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{schedule.name_house}</h5>
-                                    <p className="card-text">Thời gian thuê : Từ ngày {schedule.start_date} đến ngày {schedule.end_date}</p>
+                                    <p className="card-text">Thời gian thuê : Từ ngày {schedule.start_date} đến
+                                        ngày {schedule.end_date}</p>
                                     <p className="card-text">Tên khách hàng: {schedule.full_name}</p>
                                     <p className="card-text">Trạng thái đơn: {schedule.status}</p>
                                 </div>
@@ -47,6 +53,9 @@ export default function ListSchedule(){
                     totalHouses={schedule.length}
                     paginate={paginate}
                 />
+            </div>
+            <div style={{marginTop: "5%"}}>
+                <Footer/>
             </div>
         </>
     );
