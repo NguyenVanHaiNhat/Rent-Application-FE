@@ -8,12 +8,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { findHouseImageById, updateHouseStatus } from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 import Footer from "../Home/Footer";
-import PostImage from "./PostImage";
-import Modal from "react-bootstrap/Modal";
+import {addNewRate, checkRate, findAllRate} from "../../service/RateService";
+import "./CreateRate.css"
 import {toast} from "react-toastify";
 import ModalBooking from "../booking/ModalBooking";
 
+import PostImage from "./PostImage";
+import Modal from "react-bootstrap/Modal";
+
 const HouseDetail = () => {
+    const [stars, setStars] = useState("");
+    const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [houseInfo, setHouseInfo] = useState({
         name_house: "",
         address: "",
@@ -26,6 +32,10 @@ const HouseDetail = () => {
         all_images: null,
     });
 
+    const id_account = localStorage.getItem('idAccount');
+
+
+    const [rate, setRate] = useState([]);
     const { id } = useParams();
     const [imgIndex, setImgIndex] = useState(0);
     const [showPostImageModal, setShowPostImageModal] = useState(false);
@@ -48,11 +58,22 @@ const HouseDetail = () => {
     };
 
     useEffect(() => {
+        const fetchHouseInfo = async () => {
+            try {
+                const fetchedHouseInfo = await findHouseImageById(id);
+                setHouseInfo(fetchedHouseInfo);
+            } catch (error) {
+                console.error('Error fetching house information:', error);
+            }
+        };
+
         if (id) {
             fetchHouseInfo();
         }
     }, [id]);
 
+
+    // phần đánh giá
     const togglePostImageModal = () => {
         setShowPostImageModal(!showPostImageModal);
     };
@@ -86,6 +107,75 @@ const HouseDetail = () => {
     const handleImageMouseEnter = (imageUrl) => {
         setHoveredImageUrl(imageUrl);
     };
+    const handleStarClick = (starIndex) => {
+        setStars(starIndex);
+    };
+
+    const handleContentChange = (event) => {
+        setContent(event.target.value);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        const check = await checkRate(id,id_account);
+        if (check === 0) {
+            toast.error("Bạn vui lòng đặt phòng")
+        } else {
+            try {
+                const rate = {
+                    stars: stars,
+                    content: content
+                };
+
+                await addNewRate(id, rate, id_account);
+                toast.success("Đã thêm đánh giá thành công", {autoClose: 1000})
+                setStars("");
+                setContent('');
+                getAllRateDetail();
+            } catch (error) {
+                toast.error('Error creating rate', {autoClose: 1000})
+            }
+        }
+
+
+        setIsLoading(false);
+    };
+// phần hiển thị tương tác
+    useEffect(() => {
+        getAllRateDetail();
+    }, []);
+    const getAllRateDetail = () => {
+        findAllRate(id)
+            .then((res) => {
+                setRate(res);
+            })
+            .catch((error) => {
+                console.error("Error fetching rate details:", error);
+                setRate([]);
+            });
+    };
+
+// Sắp xếp mảng rate theo id từ lớn đến nhỏ
+    const sortedRate = rate.slice().sort((a, b) => new Date(b.time_rate) - new Date(a.time_rate));
+
+    // Thêm state cho phân trang
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(4);
+
+    // Tính toán chỉ mục của các mục hiện tại trên trang
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sortedRate.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Hàm thay đổi trang
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // Thêm logic hiển thị phân trang cho danh sách đánh giá
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(rate.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
     return (
         <>
 
@@ -163,7 +253,7 @@ const HouseDetail = () => {
                                         <div className="mb-3">
                                             <div className="row">
                                                 <div className="mb-3">
-                                                    <p className="form-label"> <Button onClick={handleShowModalBooking}>Book Now</Button></p>
+                                                    <p className="form-label"> <Button onClick={handleShowModalBooking}>Thuê ngay</Button></p>
                                                 </div>
                                                 <div className="col-6">
                                                     <button onClick={togglePostImageModal}>Đăng ảnh</button>
@@ -207,6 +297,77 @@ const HouseDetail = () => {
                     </div>
 
                 </div>
+                <div>
+                    <h2 className="mt-3">Đánh giá ngôi nhà</h2>
+                    <div className="">
+                        {[1, 2, 3, 4, 5].map((starIndex) => (
+                            <div
+                                key={starIndex}
+                                className={`star ${starIndex <= stars ? 'checked' : ''}`}
+                                onClick={() => handleStarClick(starIndex)}
+
+                            >
+                                &#9733; {/* Unicode character for star */}
+                            </div>
+                        ))}
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="content">Nhận xét:</label>
+                            <textarea
+                                className="form-control"
+                                id="content"
+                                value={content}
+                                onChange={handleContentChange}
+                            />
+                        </div>
+                        <button className="btn btn-primary col-2 mt-2" type="submit" disabled={isLoading}>
+                            {isLoading ? 'Creating...' : 'Bình Luận'}
+                        </button>
+                    </form>
+
+                </div>
+                <div className="row mt-2">
+                    {currentItems.map((item, index) => (
+                        <div key={item.id} className="col-md-6 mb-4">
+                            <div className="row">
+                                <div className="col-1 mb-2">
+                                    <img
+                                        src={item.avatar}
+                                        className="card-img-top rounded-circle"
+                                        alt=""
+                                        style={{height: "50px", width: "50px"}}
+                                    />
+                                </div>
+                                <div className="col-4 mt-2 m-lg-2 " style={{fontWeight: "bold", fontSize: "larger"}}>
+                                    {item.username}
+                                </div>
+                            </div>
+                            <div>
+                                {[...Array(item.stars)].map((star, index) => (
+                                    <img key={index}
+                                         src="https://cdn.pixabay.com/photo/2015/01/17/11/45/star-602148_960_720.png"
+                                         alt="star" style={{width: "15px", height: "20px"}}/>
+                                ))}
+                            </div>
+                            <div>Thời gian: {item.time_rate} </div>
+                            <div>Nội dung đánh giá: {item.content}</div>
+                            <hr/>
+                        </div>
+                    ))}
+
+                </div>
+                <ul className="pagination">
+                    {pageNumbers.map(number => (
+                        <li key={number} className="page-item">
+                            <a onClick={() => paginate(number)} href="#" className="page-link">
+                                {number}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+
+
                 <ModalBooking
                     id={houseInfo.id}
                     price={houseInfo.price_of_day}
