@@ -16,6 +16,7 @@ import ModalBooking from "../booking/ModalBooking";
 import PostImage from "./PostImage";
 import Modal from "react-bootstrap/Modal";
 import Header from "../Home/Header";
+import {logDOM} from "@testing-library/react";
 
 const HouseDetail = () => {
     const [stars, setStars] = useState("");
@@ -65,6 +66,7 @@ const HouseDetail = () => {
             try {
                 const fetchedHouseInfo = await findHouseImageById(id);
                 setHouseInfo(fetchedHouseInfo);
+                console.log(houseInfo.all_images)
             } catch (error) {
                 console.error('Error fetching house information:', error);
             }
@@ -280,6 +282,14 @@ const HouseDetail = () => {
                                                             <button onClick={toggleUpdateStatusModal}>Cập nhật trạng
                                                                 thái
                                                             </button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {role === 'ROLE_HOST' && (
+                                                    <div className="col-3">
+                                                        <div className="text-center">
+                                                            <Link to={`/house/update/${houseInfo.id}`}><button>Sửa thông tin nhà
+                                                            </button></Link>
                                                         </div>
                                                     </div>
                                                 )}

@@ -102,20 +102,17 @@ function Header() {
                                     </div>
                                     {navList && (
                                         <div className="dropdown-content">
-                                            <a href="#">Link 1</a>
-                                            <Link to={`/account/profile2/${idAccount}`}>Chỉnh Sửa Thông Tin</Link>
-                                            <Link to={`/detail/${idAccount}`}>Chi Tiết Thông Tin</Link>
-                                            {role === "ROLE_HOST" && (
-                                                <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
-                                            )}
+                                            <Link to={`/account/profile2/${idAccount}`}>Thông Tin</Link>
                                             {(role === "ROLE_HOST" ||  role === "ROLE_USER")&& (
                                                 <Link to={`/history/${idAccount}`}>Lịch sử thuê nhà</Link>
                                             )}
-                                            <Link to={`/account/profile2/${idAccount}`}>Thông Tin</Link>
                                             {(role == 'ROLE_ADMIN' || role == 'ROLE_HOST') && (
                                                 <Link to={`/api/host/${idAccount}`}>Lịch đặt thuê nhà</Link>
                                             )}
-                                            <a onClick={logout}>Logout</a>
+                                            {role === "ROLE_HOST" && (
+                                                <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
+                                            )}
+                                            <a onClick={logout}>Đăng xuất</a>
                                         </div>
                                     )}
                                 </div>

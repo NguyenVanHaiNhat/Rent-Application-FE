@@ -1,24 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {getListSchedule} from "../../service/HostService";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getListSchedule } from "../../service/HostService";
 import Header from "../Home/Header";
 import Footer from "../Home/Footer";
 
-export default function ListSchedule(){
+export default function ListSchedule() {
     const [schedule, setSchedule] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [schedulePerPage] = useState(3);
-    let {id} = useParams();
+    let { id } = useParams();
 
     useEffect(() => {
-        getSchedule()
+        getSchedule();
     }, []);
 
     const getSchedule = () => {
         getListSchedule(id).then((res) => {
-            setSchedule(res)
+            setSchedule(res);
         });
-    }
+    };
 
     const indexOfLastHouse = currentPage * schedulePerPage;
     const indexOfFirstHouse = indexOfLastHouse - schedulePerPage;
@@ -29,39 +29,44 @@ export default function ListSchedule(){
     return (
         <>
             <div>
-                <Header/>
+                <Header />
             </div>
             <div className="container mt-4">
                 <h2 className="text-center mb-4">Lịch đặt thuê nhà của mình</h2>
-                <div className="row">
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên Nhà</th>
+                        <th scope="col">Thời Gian Thuê</th>
+                        <th scope="col">Tên Khách Hàng</th>
+                        <th scope="col">Trạng Thái Đơn</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {currentSchedule.map((schedule, index) => (
-                        <div key={schedule.id} className="col-md-6 mb-4">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">{schedule.name_house}</h5>
-                                    <p className="card-text">Thời gian thuê : Từ ngày {schedule.start_date} đến
-                                        ngày {schedule.end_date}</p>
-                                    <p className="card-text">Tên khách hàng: {schedule.full_name}</p>
-                                    <p className="card-text">Trạng thái đơn: {schedule.status}</p>
-                                </div>
-                            </div>
-                        </div>
+                        <tr key={schedule.id}>
+                            <td>{index + 1}</td>
+                            <td>{schedule.name_house}</td>
+                            <td>
+                                Từ ngày {schedule.start_date} đến ngày {schedule.end_date}
+                            </td>
+                            <td>{schedule.full_name}</td>
+                            <td>{schedule.status}</td>
+                        </tr>
                     ))}
-                </div>
-                <Pagination
-                    housesPerPage={schedulePerPage}
-                    totalHouses={schedule.length}
-                    paginate={paginate}
-                />
+                    </tbody>
+                </table>
+                <Pagination housesPerPage={schedulePerPage} totalHouses={schedule.length} paginate={paginate} />
             </div>
-            <div style={{marginTop: "5%"}}>
-                <Footer/>
+            <div style={{ marginTop: "5%" }}>
+                <Footer />
             </div>
         </>
     );
-};
+}
 
-const Pagination = ({housesPerPage, totalHouses, paginate}) => {
+const Pagination = ({ housesPerPage, totalHouses, paginate }) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalHouses / housesPerPage); i++) {
@@ -73,12 +78,9 @@ const Pagination = ({housesPerPage, totalHouses, paginate}) => {
             <ul className="pagination justify-content-center">
                 {pageNumbers.map((number) => (
                     <li key={number} className="page-item">
-                        <a
-                            onClick={() => paginate(number)}
-                            className="page-link"
-                        >
+                        <button onClick={() => paginate(number)} className="page-link">
                             {number}
-                        </a>
+                        </button>
                     </li>
                 ))}
             </ul>

@@ -47,7 +47,8 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
                 console.error('Please select an image.');
                 return;
             }
-            const imageRef = ref(storage, `house_images`);
+            const randomNumber = Math.floor(Math.random() * 1000) + 1;
+            const imageRef = ref(storage, `house_images/${randomNumber}`);
             await uploadBytes(imageRef, selectedImage);
             const imageUrl = await getDownloadURL(imageRef);
             return imageUrl;
