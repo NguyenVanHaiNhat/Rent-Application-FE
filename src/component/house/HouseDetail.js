@@ -100,15 +100,15 @@ const HouseDetail = () => {
     const handleUpdateStatus = (id, newStatus) => {
         if (role === 'ROLE_HOST' && houseInfo.id_account === idAccount) {
             updateHouseStatus(houseInfo.id, selectedStatus)
-                .then(() => {
-                    fetchHouseInfo();
-                    toast.success("sửa trạng thái nhà thành công")
-                    handleCloseUpdateStatusModal(); // Đóng modal sau khi cập nhật thành công
-                })
-                .catch((error) => {
-                    console.error("Error updating status:", error);
-                    toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
-                });
+            .then(() => {
+                fetchHouseInfo();
+                toast.success("sửa trạng thái nhà thành công")
+                handleCloseUpdateStatusModal(); // Đóng modal sau khi cập nhật thành công
+            })
+            .catch((error) => {
+                console.error("Error updating status:", error);
+                toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
+            });
         } else {
             toast.error('Bạn không có quyền cập nhật trạng thái cho nhà này');
         }
