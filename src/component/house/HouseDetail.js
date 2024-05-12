@@ -15,6 +15,7 @@ import ModalBooking from "../booking/ModalBooking";
 
 import PostImage from "./PostImage";
 import Modal from "react-bootstrap/Modal";
+import Header from "../Home/Header";
 
 const HouseDetail = () => {
     const [stars, setStars] = useState("");
@@ -43,6 +44,8 @@ const HouseDetail = () => {
     const [selectedStatus, setSelectedStatus] = useState("");
     const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
     const [showModalBooking,setShowModalBooking] = useState(false)
+    const role = localStorage.getItem('role');
+    const idAccount = parseInt(localStorage.getItem('idAccount'));
 
     const handleSelectImage = (selectedIndex) => {
         setImgIndex(selectedIndex);
@@ -93,7 +96,8 @@ const HouseDetail = () => {
     }
 
     const handleUpdateStatus = (id, newStatus) => {
-        updateHouseStatus(houseInfo.id, selectedStatus)
+        if (role === 'ROLE_HOST' && houseInfo.id_account === idAccount) {
+            updateHouseStatus(houseInfo.id, selectedStatus)
             .then(() => {
                 fetchHouseInfo();
                 toast.success("sửa trạng thái nhà thành công")
@@ -103,6 +107,9 @@ const HouseDetail = () => {
                 console.error("Error updating status:", error);
                 toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
             });
+        } else {
+            toast.error('Bạn không có quyền cập nhật trạng thái cho nhà này');
+        }
     };
 
     const handleImageMouseEnter = (imageUrl) => {
@@ -179,7 +186,9 @@ const HouseDetail = () => {
     }
     return (
         <>
-
+            <div>
+                <Header/>
+            </div>
             <div className="container">
                 <div className="card border-3">
                     <div className="card shadow">
@@ -254,20 +263,28 @@ const HouseDetail = () => {
                                         <div className="mb-3">
                                             <div className="row">
                                                 <div className="mb-3">
-                                                    <p className="form-label"> <Button onClick={handleShowModalBooking}>Thuê ngay</Button></p>
+                                                    <p className="form-label"><Button onClick={handleShowModalBooking}>Thuê
+                                                        ngay</Button></p>
                                                 </div>
-                                                <div className="col-6">
-                                                    <button onClick={togglePostImageModal}>Đăng ảnh</button>
-                                                    {showPostImageModal && <PostImage toggleModal={() => setShowPostImageModal(false)}
-                                                                             onUpdateSuccess={fetchHouseInfo()}/>}
-                                                </div>
-                                                <div className="col-6">
-                                                    <div className="text-center">
-                                                        <button onClick={toggleUpdateStatusModal}>Cập nhật trạng thái
-                                                        </button>
+                                                {role === 'ROLE_HOST' && (
+                                                    <div className="col-6">
+                                                        <button onClick={togglePostImageModal}>Đăng ảnh</button>
+                                                        {showPostImageModal &&
+                                                            <PostImage toggleModal={() => setShowPostImageModal(false)}
+                                                                       onUpdateSuccess={fetchHouseInfo()}/>}
                                                     </div>
-                                                </div>
-                                                <Modal show={showUpdateStatusModal} onHide={handleCloseUpdateStatusModal}>
+                                                )}
+                                                {role === 'ROLE_HOST' && (
+                                                    <div className="col-6">
+                                                        <div className="text-center">
+                                                            <button onClick={toggleUpdateStatusModal}>Cập nhật trạng
+                                                                thái
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                <Modal show={showUpdateStatusModal}
+                                                       onHide={handleCloseUpdateStatusModal}>
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Cập nhật trạng thái</Modal.Title>
                                                     </Modal.Header>
@@ -283,7 +300,7 @@ const HouseDetail = () => {
                                                         </select>
                                                     </Modal.Body>
                                                     <Modal.Footer>
-                                                    <Button variant="primary" onClick={handleUpdateStatus}>
+                                                        <Button variant="primary" onClick={handleUpdateStatus}>
                                                             Xác nhận
                                                         </Button>
                                                     </Modal.Footer>
