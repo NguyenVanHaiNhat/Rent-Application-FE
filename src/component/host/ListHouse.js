@@ -6,7 +6,6 @@ import Footer from "../Home/Footer";
 
 
 const ListHouse = () => {
-    debugger
     const [houses, setHouses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [housesPerPage] = useState(3); // Số lượng host hiển thị trên mỗi trang
