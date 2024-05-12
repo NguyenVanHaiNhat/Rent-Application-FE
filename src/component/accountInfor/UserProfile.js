@@ -80,7 +80,7 @@ export default function UserProfile() {
                                    onUpdateSuccess={onUpdateSuccess}/>}
                 <button className="update-button"
                         onClick={handleShowModalChangePassword}
-                >Change Password</button>
+                >Thay đổi mật khẩu</button>
                 <ModalChangePassword
                     show= {showModalChangePassword}
                     onClose={onCloseModal}
