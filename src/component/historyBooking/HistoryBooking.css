@@ -1,19 +1,22 @@
-/* HistoryBooking.css */
 
+
+/* Container */
 .history-container {
     margin: 20px auto;
-    max-width: 800px;
+    max-width: 1200px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
 
+/* Title */
 .history-title {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Table */
 .history-table {
     width: 100%;
     border-collapse: collapse;
@@ -30,6 +33,92 @@
     background-color: #f2f2f2;
 }
 
+/* Hover effect */
 .history-table tr:hover {
     background-color: #f2f2f2;
 }
+
+/* Button styles */
+.btn-history {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #333030;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+/* Secondary button styles */
+.btn-secondary {
+    background-color: #008CBA;
+}
+
+/* Secondary button hover effect */
+.btn-secondary:hover {
+    background-color: #0077A3;
+}
+/* Pagination button styles */
+.pagination-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: #ddd;
+}
+
+/* Active pagination button */
+.pagination-btn.active {
+    background-color: #252323;
+    color: white;
+    border-color: #333030;
+}.pagination {
+     display: flex;
+     list-style: none;
+     padding: 0;
+     justify-content: center;
+ }
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    color: #252323;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #333030;
+    border-radius: 5px;
+}
+
+.pagination li a:hover {
+    background-color: #333030;
+    color: #fff;
+}
+
+.pagination .active a {
+    background-color: #333030;
+    color: #fff;
+    cursor: default;
+}
+
+.pagination .disabled a {
+    pointer-events: none;
+    color: #6c757d;
+    border-color: #6c757d;
+}
+

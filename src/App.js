@@ -23,6 +23,8 @@ import HistoryBooking from "./component/historyBooking/HistoryBooking";
 import PostImage from "./component/house/PostImage";
 import HouseDetail from "./component/house/HouseDetail";
 import ListSchedule from "./component/host/ListSchedule";
+import TotalIncome from "./component/totalIncome/TotalIncome";
+
 
 function App() {
     return (
@@ -47,6 +49,7 @@ function App() {
                 <Route path="/account/profile/:id" element={<UpdateAccount/>}></Route>
                 <Route path="/account/profile2/:id" element={<UserProfile/>}></Route>
                 <Route path="/api/image/:id" element={<PostImage/>}></Route>
+                <Route path="/totalIncome" element={<TotalIncome/>}></Route>
                 <Route path="/api/host/:id" element={<ListSchedule/>}></Route>
             </Routes>
             <ToastContainer/>

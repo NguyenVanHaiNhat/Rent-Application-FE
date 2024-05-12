@@ -65,7 +65,7 @@ const UserDetail = () => {
                                 </div>
                                 <div className="form-group">
                                     <p htmlFor="amountSpent"><Link className="btn btn-warning"
-                                                                   to={`/history/${id}`}>History</Link></p>
+                                                                   to={`/history/${id}`}>Lịch sử thuê nhà</Link></p>
                                 </div>
                             </div>
                         </div>
