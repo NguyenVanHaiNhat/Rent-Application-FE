@@ -101,6 +101,7 @@ const HouseDetail = () => {
             })
             .catch((error) => {
                 console.error("Error updating status:", error);
+                toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
             });
     };
 
