@@ -77,23 +77,23 @@ const HouseDetail = () => {
                                             ))}
                                         </Carousel>
 
-                                            <ol className="d-flex p-2">
-                                                {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
-                                                    <li
-                                                        style={{listStyleType: "none"}}
-                                                        key={i}
-                                                        onClick={() => handleSelectImage(i)}
-                                                        className={i === imgIndex ? "active" : ""}
-                                                    >
-                                                        <img
-                                                            className="mx-3 shadow rounded-1"
-                                                            src={imagePath}
-                                                            style={{width: "100px", height: "100px"}}
-                                                            alt={`Ảnh ${i}`}
-                                                        />
-                                                    </li>
-                                                ))}
-                                            </ol>
+                                        <ol className="d-flex p-2">
+                                            {houseInfo.all_images && houseInfo.all_images.split(',').map((imagePath, i) => (
+                                                <li
+                                                    style={{listStyleType: "none"}}
+                                                    key={i}
+                                                    onClick={() => handleSelectImage(i)}
+                                                    className={i === imgIndex ? "active" : ""}
+                                                >
+                                                    <img
+                                                        className="mx-3 shadow rounded-1"
+                                                        src={imagePath}
+                                                        style={{width: "100px", height: "100px"}}
+                                                        alt={`Ảnh ${i}`}
+                                                    />
+                                                </li>
+                                            ))}
+                                        </ol>
 
                                     </div>
                                 </div>
