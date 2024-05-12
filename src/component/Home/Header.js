@@ -107,6 +107,12 @@ function Header() {
                                             <a href="#">Link 1</a>
                                             <Link to={`/account/profile2/${idAccount}`}>Chỉnh Sửa Thông Tin</Link>
                                             <Link to={`/detail/${idAccount}`}>Chi Tiết Thông Tin</Link>
+                                            {role === "ROLE_HOST" && (
+                                                <Link to={`/totalIncome`}>Thống kê thu nhập</Link>
+                                            )}
+                                            {(role === "ROLE_HOST" ||  role === "ROLE_USER")&& (
+                                                <Link to={`/history/${idAccount}`}>Lịch sử thuê nhà</Link>
+                                            )}
                                             <a onClick={logout}>Logout</a>
                                         </div>
                                     )}

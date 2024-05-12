@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import { getAllHistory, updateBookingStatus } from "../../service/BookHouse";
 import './HistoryBooking.css';
 import { Table, Button } from "react-bootstrap";
@@ -12,6 +12,7 @@ export default function HistoryBooking() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const { id } = useParams();
+    const role = localStorage.getItem("role");
 
     const bookingsPerPage = 5;
 
@@ -59,7 +60,7 @@ export default function HistoryBooking() {
                 <td>{booking.address}</td>
                 <td>{booking.status}</td>
                 <td className="center-cell">
-                    {booking.status === 'Đang chờ nhận phòng' && (
+                    {(role === 'ROLE_HOST' || role === 'ROLE_USER') && booking.status === 'Đang chờ nhận phòng' && (
                         <Button variant="outline-danger" onClick={() => handleCancelBooking(booking.id)}>Hủy thuê</Button>
                     )}
                 </td>
@@ -84,7 +85,9 @@ export default function HistoryBooking() {
                     <th>Tổng số tiền</th>
                     <th>Địa chỉ</th>
                     <th>Trạng thái</th>
-                    <th>Hủy thuê</th>
+                    {(role === "ROLE_HOST" ||  role === "ROLE_USER")&& (
+                        <th>Hủy thuê</th>
+                    )}
                 </tr>
                 </thead>
                 <tbody>
