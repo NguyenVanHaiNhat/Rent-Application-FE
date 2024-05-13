@@ -3,6 +3,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {checkUserNameAccount, register} from "../../service/AccountService";
 import {useNavigate} from "react-router-dom";
 import Header from "../Home/Header";
+import {toast} from "react-toastify";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -18,10 +19,10 @@ const Register = () => {
         console.log(values)
         const checkNameAccount = await checkUserNameAccount(values.username);
         if (checkNameAccount.length !== 0) {
-            setNotification("Tên người dùng đã tồn tại!");
+            toast.error("Tên người dùng đã tồn tại!");
         } else {
             await register(values);
-            setNotification("Đăng ký thành công!");
+            toast.success("Đăng ký thành công!");
             setTimeout(() => {
                 navigate("/login");
             }, 3000);
@@ -47,7 +48,7 @@ const Register = () => {
                         }}
                         onSubmit={(values) => {
                             if (values.password !== values.confirmPassword) {
-                                alert("Mật khẩu và mật khẩu xác nhận không khớp");
+                                toast.error("Mật khẩu và mật khẩu xác nhận không khớp");
                                 return;
                             }
                             registerUser(values).then(); // Gọi hàm kiểm tra và đăng ký

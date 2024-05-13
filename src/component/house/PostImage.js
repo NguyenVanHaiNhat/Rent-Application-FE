@@ -28,7 +28,7 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
             console.error("Error fetching house information:", error);
         }
     };
-    fetchHouseInfo()
+    fetchHouseInfo();
 
     useEffect(() => {
         handleShow();
@@ -81,6 +81,7 @@ export default function PostImage({ toggleModal, onUpdateSuccess }) {
                                 console.log('House information added successfully!');
                                 setImagePreview(null); // Reset image preview
                                 handleClose(); // Close the modal after successful submission
+                                onUpdateSuccess();
                             }
                         } catch (error) {
                             console.error('Error adding house information:', error);

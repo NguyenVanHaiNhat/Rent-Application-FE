@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./houseDetail.css";
-import { Carousel } from "react-bootstrap";
+import {Carousel} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { findHouseImageById, updateHouseStatus } from "../../service/HouseService";
+import {findHouseImageById, updateHouseStatus} from "../../service/HouseService";
 import Button from "react-bootstrap/Button";
 import Footer from "../Home/Footer";
 import {addNewRate, checkRate, findAllRate} from "../../service/RateService";
@@ -22,6 +22,7 @@ const HouseDetail = () => {
     const [stars, setStars] = useState("");
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const isLogin = localStorage.getItem("isLogin");
     const [houseInfo, setHouseInfo] = useState({
         name_house: "",
         address: "",
@@ -38,15 +39,16 @@ const HouseDetail = () => {
 
 
     const [rate, setRate] = useState([]);
-    const { id } = useParams();
+    const {id} = useParams();
     const [imgIndex, setImgIndex] = useState(0);
     const [showPostImageModal, setShowPostImageModal] = useState(false);
     const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("");
     const [hoveredImageUrl, setHoveredImageUrl] = useState(null);
-    const [showModalBooking,setShowModalBooking] = useState(false)
+    const [showModalBooking, setShowModalBooking] = useState(false)
     const role = localStorage.getItem('role');
     const idAccount = parseInt(localStorage.getItem('idAccount'));
+
 
     const handleSelectImage = (selectedIndex) => {
         setImgIndex(selectedIndex);
@@ -100,15 +102,15 @@ const HouseDetail = () => {
     const handleUpdateStatus = (id, newStatus) => {
         if (role === 'ROLE_HOST' && houseInfo.id_account === idAccount) {
             updateHouseStatus(houseInfo.id, selectedStatus)
-            .then(() => {
-                fetchHouseInfo();
-                toast.success("sửa trạng thái nhà thành công")
-                handleCloseUpdateStatusModal(); // Đóng modal sau khi cập nhật thành công
-            })
-            .catch((error) => {
-                console.error("Error updating status:", error);
-                toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
-            });
+                .then(() => {
+                    fetchHouseInfo();
+                    toast.success("sửa trạng thái nhà thành công")
+                    handleCloseUpdateStatusModal(); // Đóng modal sau khi cập nhật thành công
+                })
+                .catch((error) => {
+                    console.error("Error updating status:", error);
+                    toast.error("Không thể cập nhật trạng thái nhà đang cho thuê")
+                });
         } else {
             toast.error('Bạn không có quyền cập nhật trạng thái cho nhà này');
         }
@@ -128,7 +130,7 @@ const HouseDetail = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
-        const check = await checkRate(id,id_account);
+        const check = await checkRate(id, id_account);
         if (check === 0) {
             toast.error("Bạn vui lòng đặt phòng")
         } else {
@@ -264,15 +266,23 @@ const HouseDetail = () => {
                                         </div>
                                         <div className="mb-3">
                                             <div className="row">
-                                                <div className="mb-3">
-                                                    <p className="form-label"><Button onClick={handleShowModalBooking}>Thuê
-                                                        ngay</Button></p>
-                                                </div>
+                                                {isLogin ? (
+                                                    <div className="mb-3">
+                                                        <p className="form-label"><Button
+                                                            onClick={handleShowModalBooking}>Thuê
+                                                            ngay</Button></p>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                    </>
+                                                )}
                                                 {role === 'ROLE_HOST' && (
                                                     <div className="mb-3">
                                                         <div className="row">
                                                             <div className=" col-3">
-                                                                <button className="btn-primary" onClick={togglePostImageModal}>Đăng ảnh</button>
+                                                                <button className="btn-primary"
+                                                                        onClick={togglePostImageModal}>Đăng ảnh
+                                                                </button>
                                                                 {showPostImageModal &&
                                                                     <PostImage
                                                                         toggleModal={() => setShowPostImageModal(false)}
@@ -282,13 +292,18 @@ const HouseDetail = () => {
                                                             </div>
                                                             <div className="col-4 ">
                                                                 <div className="text-center">
-                                                                    <button className="btn-primary" onClick={toggleUpdateStatusModal}>Cập nhật trạng thái</button>
+                                                                    <button className="btn-primary"
+                                                                            onClick={toggleUpdateStatusModal}>Cập nhật
+                                                                        trạng thái
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                             <div className="col-4">
                                                                 <div className="text-center">
                                                                     <Link to={`/house/update/${houseInfo.id}`}>
-                                                                        <button className="btn-primary ">Sửa thông tin nhà</button>
+                                                                        <button className="btn-primary ">Sửa thông tin
+                                                                            nhà
+                                                                        </button>
                                                                     </Link>
                                                                 </div>
                                                             </div>
@@ -305,7 +320,7 @@ const HouseDetail = () => {
                                                         <select
                                                             className="form-select"
                                                             value={selectedStatus}
-                                                             onChange={(e) => setSelectedStatus(e.target.value)}
+                                                            onChange={(e) => setSelectedStatus(e.target.value)}
                                                         >
                                                             <option value="Đang trống">Đang trống</option>
                                                             <option value="Bảo trì">Bảo trì</option>
@@ -329,36 +344,36 @@ const HouseDetail = () => {
                 </div>
                 {role === 'ROLE_HOST' || role === 'ROLE_USER' && (
                     <div>
-                    <h2 className="mt-3">Đánh giá ngôi nhà</h2>
-                    <div className="">
-                        {[1, 2, 3, 4, 5].map((starIndex) => (
-                            <div
-                                key={starIndex}
-                                className={`star ${starIndex <= stars ? 'checked' : ''}`}
-                                onClick={() => handleStarClick(starIndex)}
+                        <h2 className="mt-3">Đánh giá ngôi nhà</h2>
+                        <div className="">
+                            {[1, 2, 3, 4, 5].map((starIndex) => (
+                                <div
+                                    key={starIndex}
+                                    className={`star ${starIndex <= stars ? 'checked' : ''}`}
+                                    onClick={() => handleStarClick(starIndex)}
 
-                            >
-                                &#9733; {/* Unicode character for star */}
-                            </div>
-                        ))}
-                    </div>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="content">Nhận xét:</label>
-                            <textarea
-                                className="form-control"
-                                id="content"
-                                value={content}
-                                onChange={handleContentChange}
-                            />
+                                >
+                                    &#9733; {/* Unicode character for star */}
+                                </div>
+                            ))}
                         </div>
-                        <button className="btn btn-primary col-2 mt-2" type="submit" disabled={isLoading}>
-                            {isLoading ? 'Creating...' : 'Bình Luận'}
-                        </button>
-                    </form>
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label htmlFor="content">Nhận xét:</label>
+                                <textarea
+                                    className="form-control"
+                                    id="content"
+                                    value={content}
+                                    onChange={handleContentChange}
+                                />
+                            </div>
+                            <button className="btn btn-primary col-2 mt-2" type="submit" disabled={isLoading}>
+                                {isLoading ? 'Creating...' : 'Bình Luận'}
+                            </button>
+                        </form>
 
-                </div>
-                    )}
+                    </div>
+                )}
                 <div className="row mt-2">
                     {currentItems.map((item, index) => (
                         <div key={item.id} className="col-md-6 mb-4">
