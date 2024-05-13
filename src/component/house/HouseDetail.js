@@ -238,7 +238,7 @@ const HouseDetail = () => {
                                     </div>
 
                                 </div>
-                                <div className="col-4 d-flex justify-content-center">
+                                <div className="col-6 d-flex justify-content-center">
                                     <div className="text-left">
                                         <h3>Đặc điểm bất động sản</h3>
                                         <div className="mb-3">
@@ -269,27 +269,29 @@ const HouseDetail = () => {
                                                         ngay</Button></p>
                                                 </div>
                                                 {role === 'ROLE_HOST' && (
-                                                    <div className="col-6">
-                                                        <button onClick={togglePostImageModal}>Đăng ảnh</button>
-                                                        {showPostImageModal &&
-                                                            <PostImage toggleModal={() => setShowPostImageModal(false)}
-                                                                       onUpdateSuccess={fetchHouseInfo()}/>}
-                                                    </div>
-                                                )}
-                                                {role === 'ROLE_HOST' && (
-                                                    <div className="col-6">
-                                                        <div className="text-center">
-                                                            <button onClick={toggleUpdateStatusModal}>Cập nhật trạng
-                                                                thái
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                                {role === 'ROLE_HOST' && (
-                                                    <div className="col-3">
-                                                        <div className="text-center">
-                                                            <Link to={`/house/update/${houseInfo.id}`}><button>Sửa thông tin nhà
-                                                            </button></Link>
+                                                    <div className="mb-3">
+                                                        <div className="row">
+                                                            <div className=" col-3">
+                                                                <button className="btn-primary" onClick={togglePostImageModal}>Đăng ảnh</button>
+                                                                {showPostImageModal &&
+                                                                    <PostImage
+                                                                        toggleModal={() => setShowPostImageModal(false)}
+                                                                        onUpdateSuccess={fetchHouseInfo}
+                                                                    />
+                                                                }
+                                                            </div>
+                                                            <div className="col-4 ">
+                                                                <div className="text-center">
+                                                                    <button className="btn-primary" onClick={toggleUpdateStatusModal}>Cập nhật trạng thái</button>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-4">
+                                                                <div className="text-center">
+                                                                    <Link to={`/house/update/${houseInfo.id}`}>
+                                                                        <button className="btn-primary ">Sửa thông tin nhà</button>
+                                                                    </Link>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )}
@@ -303,7 +305,7 @@ const HouseDetail = () => {
                                                         <select
                                                             className="form-select"
                                                             value={selectedStatus}
-                                                            onChange={(e) => setSelectedStatus(e.target.value)}
+                                                             onChange={(e) => setSelectedStatus(e.target.value)}
                                                         >
                                                             <option value="Đang trống">Đang trống</option>
                                                             <option value="Bảo trì">Bảo trì</option>
@@ -325,7 +327,8 @@ const HouseDetail = () => {
                     </div>
 
                 </div>
-                <div>
+                {role === 'ROLE_HOST' || role === 'ROLE_USER' && (
+                    <div>
                     <h2 className="mt-3">Đánh giá ngôi nhà</h2>
                     <div className="">
                         {[1, 2, 3, 4, 5].map((starIndex) => (
@@ -355,6 +358,7 @@ const HouseDetail = () => {
                     </form>
 
                 </div>
+                    )}
                 <div className="row mt-2">
                     {currentItems.map((item, index) => (
                         <div key={item.id} className="col-md-6 mb-4">
