@@ -13,12 +13,12 @@ export default function PostHouseModal(props) {
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Success</Modal.Title>
+                <Modal.Title>Thành Công !</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Post successfully!</Modal.Body>
+            <Modal.Body>Đăng nhà thành công!</Modal.Body>
             <Modal.Footer>
                 <Button variant="success" onClick={redirectTo}>
-                    Success
+                    Đóng
                 </Button>
             </Modal.Footer>
         </Modal>

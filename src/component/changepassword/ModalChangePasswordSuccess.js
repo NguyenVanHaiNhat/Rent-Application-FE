@@ -17,7 +17,7 @@ export default function ModalChangePasswordSuccess(props) {
             <Modal.Footer>
                 <div>
                     <button type="button" className="success-button" onClick={redirectTo}>
-                        Success
+                        Đóng
                     </button>
                 </div>
             </Modal.Footer>

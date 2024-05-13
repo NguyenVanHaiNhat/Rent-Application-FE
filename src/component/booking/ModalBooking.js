@@ -14,17 +14,17 @@ import ModalBookingSuccess from "./ModalBookingSuccess";
 // Validation schema
 const validate = Yup.object().shape({
     startDate: Yup.date()
-        .required('Start Date is required')
-        .min(new Date(), 'Start Date must be after today')
-        .max(Yup.ref('endDate'), 'Start Date must be before or equal to End Date')
-        .test('startBeforeEnd', 'Start Date must be before or equal to End Date', function(value) {
+        .required('Phải chọn ngày bắt đầu')
+        .min(new Date(), 'Ngày bắt đầu phải lớn hơn ngày hôm nay')
+        .max(Yup.ref('endDate'), 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc')
+        .test('startBeforeEnd', 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc', function(value) {
             const endDate = this.parent.endDate;
             return moment(value).isSameOrBefore(endDate);
         }),
     endDate: Yup.date()
-        .required('End Date is required')
-        .min(Yup.ref('startDate'), 'End Date must be after or equal to Start Date')
-        .test('endAfterStart', 'End Date must be after or equal to Start Date', function(value) {
+        .required('Phải chọn ngày kết thúc')
+        .min(Yup.ref('startDate'), 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu')
+        .test('endAfterStart', 'Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu', function(value) {
             const startDate = this.parent.startDate;
             return moment(value).isSameOrAfter(startDate);
         }),
@@ -63,17 +63,16 @@ export default function ModalBooking(props) {
                         try {
                             const checkDates = await checkDate(startDate, endDate, houseId)
                             if (checkDates.length !== 0) {
-                                toast.error("Ngy này đã được đặt")
+                                toast.error("Ngày này đã được đặt, vui lòng chọn ngày khác")
                             } else {
                                 await bookHouse(startDate, endDate, houseId);
                                 setShowSuccessModal(true);
                             }
                         } catch (error) {
-                            // Differentiate between network errors and booking conflicts
                             if (error.response && error.response.status === 409) {
-                                toast.error('This date has been booked. Please choose another date.');
+                                toast.error('Ngày này đã được đặt');
                             } else {
-                                toast.error('Booking failed. Please try again.');
+                                toast.error('Ngày này đã được đặt');
                             }
                         }
                         setSubmitting(false);
@@ -126,8 +125,8 @@ export default function ModalBooking(props) {
                 </Formik>
             </Modal.Body>
             <ModalBookingSuccess
-            show={showSuccessModal}
-            onClose={handleCloseSuccessModal}
+                show={showSuccessModal}
+                onClose={handleCloseSuccessModal}
             />
             <ToastContainer />
         </Modal>

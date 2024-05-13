@@ -13,12 +13,12 @@ export default function UpdateModal(props) {
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Success</Modal.Title>
+                <Modal.Title>Thành công !</Modal.Title>
             </Modal.Header>
-            <Modal.Body> successfully!</Modal.Body>
+            <Modal.Body> Cập nhật thông tin nhà thành công!</Modal.Body>
             <Modal.Footer>
                 <Button variant="success" onClick={redirectTo}>
-                    Success
+                    Đóng
                 </Button>
             </Modal.Footer>
         </Modal>

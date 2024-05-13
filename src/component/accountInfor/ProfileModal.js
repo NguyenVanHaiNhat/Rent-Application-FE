@@ -13,12 +13,12 @@ export default function ProfileModal(props) {
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Success</Modal.Title>
+                <Modal.Title>Thành Công !</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Update profile successfully!</Modal.Body>
+            <Modal.Body>Cập nhật thông tin thành công!</Modal.Body>
             <Modal.Footer>
                 <Button variant="success" onClick={redirectTo}>
-                    Success
+                    Đóng
                 </Button>
             </Modal.Footer>
         </Modal>
