@@ -1,37 +1,70 @@
-# Getting Started with Create React App
 
-In the project directory, you can run:
+# Hi, I'm NhatNVH! 👋
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Rent a tourist house
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The demand for tourist outings of people increases, people with empty houses need to do business. To meet the needs of travelers who want to rent houses and people who have houses to rent. We offer a website that allows users to list their homes for people wishing to rent by the day.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Authors
 
-### `npm run build`
+- [@phap2311](https://github.com/phap2311)
+- [@NguyenVanHaiNhat](https://github.com/NguyenVanHaiNhat)
+- [@vandat3012](https://github.com/vandat3012)
+- [@toai2001](https://github.com/toai2001)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To install libraries run
 
-### `npm run eject`
+```bash
+  npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Clone the Api project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+  git clone https://github.com/NguyenVanHaiNhat/Rent-Application-BE
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+
+
+## Run Locally
+
+Install my-project with npm
+
+```bash
+  cd my-project
+```
+And run
+
+```bash
+  npm start
+```
+    
+## Features
+
+- Login, register, change password
+- Rent house, post house, manager house
+- Manage your home's orders
+- Manage users and hosts
+
+
+## Tech Stack
+
+**Client:** ReactJs, Redux, HTML/CSS, JavaScript
+
+**Server:** Java, Spring boot, MySql
+
+
+## Lessons Learned
+
+- Need to read a lot and better understand the assigned backlog, need to spend more time to learn.
+- It is necessary to learn more and practice the functions in the BE section so that when encountered, it will avoid causing difficulties.
+- It is necessary to learn to listen and understand more about team members, it is necessary to agree on the team's working style clearly, avoiding the situation of not understanding, affecting the project progress.
 
